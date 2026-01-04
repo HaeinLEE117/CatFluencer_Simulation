@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Player : ObjectBase
+public class Player : Cat
 {
     public override void Init()
     {

@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class DevScene : MonoBehaviour
+public class DevScene : BaseScene
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Awake()
     {
-        
-    }
+        base.Awake();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneType = Define.EScene.DevScene;
+
+        ResourceManager.Instance.LoadAll();
+
+        DataManager.Instance.LoadData();
+
+        Player cat = ObjectManager.Instance.SpawnPlayer("Cat");
+        cat.State = Cat.ECatState.Idle;
+        cat.transform.position = Vector3.zero;
     }
 }
