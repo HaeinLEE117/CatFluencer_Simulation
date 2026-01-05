@@ -11,7 +11,7 @@ public class Player : Cat
     private Vector3 _moveEnd;
     private Vector2Int _targetCell;
     private float _moveElapsed = 0f;
-    private float _moveDuration = 0.3f;
+    private float _moveDuration = 1.3f;
 
     // AI 관련 변수
     public bool AIEnabled = true;
