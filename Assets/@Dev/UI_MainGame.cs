@@ -29,6 +29,7 @@ public class UI_MainGame : UI_UGUI, IUI_Scene
         _topPanel = Utils.FindChildComponent<UI_TopPanel>(gameObject, recursive: true);
         _leftPanel = Utils.FindChildComponent<UI_LeftPanel>(gameObject, recursive: true);
         _bottomPanel = Utils.FindChildComponent<UI_BottomPanel>(gameObject, recursive: true);
+
     }
 
     public override void RefreshUI()

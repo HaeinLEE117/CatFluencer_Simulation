@@ -14,6 +14,7 @@ public static class Define
         None,
         GoldChanged,
         LanguageChanged,
+        UI_MenuButtonClicked,
     }
 
     public enum ESound
