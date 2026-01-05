@@ -7546,6 +7546,7 @@ GameObject:
   - component: {fileID: 1874826823}
   - component: {fileID: 1874826822}
   - component: {fileID: 1874826821}
+  - component: {fileID: 1874826824}
   m_Layer: 5
   m_Name: TopPanel
   m_TagString: Untagged
@@ -7638,6 +7639,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874826819}
   m_CullTransparentMesh: 1
+--- !u!114 &1874826824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874826819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2a18a1dbb33ba54ba7a79a2b6a2f33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_TopPanel
 --- !u!1 &1879751104
 GameObject:
   m_ObjectHideFlags: 0
