@@ -1,6 +1,7 @@
 using UnityEngine;
 using static Define;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class UI_LeftPanel : UI_UGUI
 {
@@ -52,6 +53,18 @@ public class UI_LeftPanel : UI_UGUI
         PreVideosButtonText
     }
 
+    // Map second-level buttons to popup prefab names
+    private readonly Dictionary<Buttons, string> _secondaryPopupMap = new Dictionary<Buttons, string>
+    {
+        { Buttons.NewVideoButton, "UI_NewVideoPopup" },
+        { Buttons.LiveStreamButton, "UI_LiveStreamPopup" },
+        { Buttons.EducationButton, "UI_EducationPopup" },
+        { Buttons.HireButton, "UI_HirePopup" },
+        { Buttons.FireButton, "UI_FirePopup" },
+        { Buttons.GoalsButton, "UI_GoalsPopup" },
+        { Buttons.PreVideosButton, "UI_PreVideosPopup" },
+    };
+
     protected override void Awake()
     {
         base.Awake();
@@ -77,17 +90,13 @@ public class UI_LeftPanel : UI_UGUI
         GetButton((int)Buttons.StudioInfoButton).onClick.AddListener(() => ShowOnlyOptionPanel(GameObjects.StudioInfoOptionPanel));
         GetButton((int)Buttons.SettingButton).onClick.AddListener(HideAllOptionPanels);
 
-        // TODO: 2차 패널 토글 이벤트 등록
-        // 2차 패널 버튼 기본 동작 등록 (필요 시 이벤트 매니저로 확장 가능)
-        GetButton((int)Buttons.NewVideoButton).onClick.AddListener(() => OnClickSecondary("NewVideo"));
-        GetButton((int)Buttons.LiveStreamButton).onClick.AddListener(() => OnClickSecondary("LiveStream"));
-
-        GetButton((int)Buttons.EducationButton).onClick.AddListener(() => OnClickSecondary("Education"));
-        GetButton((int)Buttons.HireButton).onClick.AddListener(() => OnClickSecondary("Hire"));
-        GetButton((int)Buttons.FireButton).onClick.AddListener(() => OnClickSecondary("Fire"));
-
-        GetButton((int)Buttons.GoalsButton).onClick.AddListener(() => OnClickSecondary("Goals"));
-        GetButton((int)Buttons.PreVideosButton).onClick.AddListener(() => OnClickSecondary("PreVideos"));
+        // 2차 패널 버튼 팝업 매핑으로 처리
+        foreach (var kv in _secondaryPopupMap)
+        {
+            Buttons btn = kv.Key;
+            string popupName = kv.Value;
+            GetButton((int)btn).onClick.AddListener(() => UIManager.Instance.ShowPopupUI(popupName));
+        }
     }
     private void OnDestroy()
     {
@@ -103,14 +112,26 @@ public class UI_LeftPanel : UI_UGUI
     {
         bool wasActive = this.gameObject.activeSelf;
         gameObject.SetActive(!wasActive);
+
+        GetObject((int)GameObjects.EditingOptionPanel).SetActive(false);
+        GetObject((int)GameObjects.HumanResOptionPanel).SetActive(false);
+        GetObject((int)GameObjects.StudioInfoOptionPanel).SetActive(false);
     }
 
     private void ShowOnlyOptionPanel(GameObjects panel)
     {
-        // Hide all first
-        HideAllOptionPanels();
-        // Show selected
-        GetObject((int)panel).SetActive(true);
+        if(GetObject((int)panel).activeSelf)
+        {
+            // 이미 활성화된 패널이면 숨기기
+            GetObject((int)panel).SetActive(false);
+        }
+        else
+        {
+            // Hide all first
+            HideAllOptionPanels();
+            // Show selected
+            GetObject((int)panel).SetActive(true);
+        }
     }
 
     private void HideAllOptionPanels()
@@ -118,11 +139,5 @@ public class UI_LeftPanel : UI_UGUI
         GetObject((int)GameObjects.EditingOptionPanel).SetActive(false);
         GetObject((int)GameObjects.HumanResOptionPanel).SetActive(false);
         GetObject((int)GameObjects.StudioInfoOptionPanel).SetActive(false);
-    }
-
-    private void OnClickSecondary(string action)
-    {
-        Debug.Log($"[UI_LeftPanel] Secondary action clicked: {action}");
-        // 필요 시 EventManager로 별도 EEventType 정의 후 TriggerEvent 호출
     }
 }

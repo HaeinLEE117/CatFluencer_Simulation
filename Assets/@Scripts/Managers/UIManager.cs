@@ -99,6 +99,43 @@ public class UIManager : Singleton<UIManager>
         return popup as T;
     }
 
+    public UI_Base ShowPopupUI(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            return null;
+
+        if (_popups.TryGetValue(name, out UI_Base popup) == false)
+        {
+            GameObject go = ResourceManager.Instance.Instantiate(name);
+            popup = go.GetComponent<UI_Base>();
+            if (popup == null)
+            {
+                popup = Utils.GetOrAddComponent<UI_GenericPopup>(go);
+            }
+            _popups[name] = popup;
+        }
+
+        _popupStack.Push(popup);
+
+        popup.transform.SetParent(PopupRoot);
+        popup.gameObject.SetActive(true);
+        _popupOrder++;
+
+		if (popup is UI_Toolkit toolkitUI)
+        {
+            toolkitUI.GetComponent<UIDocument>().sortingOrder = _popupOrder;
+			toolkitUI.GetComponent<UIDocument>().rootVisualElement.visible = true;
+		}
+        else
+        {
+            var canvas = popup.GetComponent<Canvas>();
+            if (canvas != null)
+                canvas.sortingOrder = _popupOrder;
+        }
+
+        return popup;
+    }
+
     public T GetLastPopupUI<T>() where T : UI_Base
 	{
         if (_popupStack.Count == 0)

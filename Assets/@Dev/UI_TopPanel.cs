@@ -4,10 +4,6 @@ public class UI_TopPanel : UI_UGUI
 {
     enum Buttons
     {
-        StudioName,
-        Calandar,
-        Subscribers,
-        Gold,
     }
 
     enum Texts
