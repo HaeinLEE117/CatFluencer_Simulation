@@ -96,7 +96,11 @@ public class UI_LeftPanel : UI_UGUI
         {
             Buttons btn = kv.Key;
             string popupName = kv.Value;
-            GetButton((int)btn).onClick.AddListener(() => UIManager.Instance.ShowPopupUI(popupName));
+            GetButton((int)btn).onClick.AddListener(() => {
+                HideAllOptionPanels();
+                ToggleShowLeftPanel();
+                UIManager.Instance.ShowPopupUI(popupName);
+            });
         }
     }
     private void OnDestroy()
