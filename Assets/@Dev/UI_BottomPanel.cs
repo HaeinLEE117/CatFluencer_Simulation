@@ -44,8 +44,11 @@ public class UI_BottomPanel : UI_UGUI
         var lastPopup = UIManager.Instance.GetLastPopupUI<UI_Base>();
         if (lastPopup != null)
         {
+            UpdateMenuButtonLabel(true);
             UIManager.Instance.ClosePopupUI();
-            UpdateMenuButtonLabel(false);
+            lastPopup = UIManager.Instance.GetLastPopupUI<UI_Base>();
+            if (lastPopup ==null)
+                UpdateMenuButtonLabel(false);
             return;
         }
 

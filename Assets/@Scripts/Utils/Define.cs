@@ -15,6 +15,16 @@ public static class Define
         GoldChanged,
         LanguageChanged,
         UI_MenuButtonClicked,
+        // Left Panel secondary actions
+        UI_NewVideoClicked,
+        UI_LiveStreamClicked,
+        UI_EducationClicked,
+        UI_HireClicked,
+        UI_FireClicked,
+        UI_GoalsClicked,
+        UI_PreVideosClicked,
+        // Selection events
+        UI_LocationSelected,
     }
 
     public enum ESound
