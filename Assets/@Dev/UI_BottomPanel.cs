@@ -40,6 +40,36 @@ public class UI_BottomPanel : UI_UGUI
 
     private void OnClickMenuButton()
     {
-        EventManager.Instance.TriggerEvent(EEventType.UI_MenuButtonClicked);
+        // If any popup is open, close it first
+        var lastPopup = UIManager.Instance.GetLastPopupUI<UI_Base>();
+        if (lastPopup != null)
+        {
+            UIManager.Instance.ClosePopupUI();
+            UpdateMenuButtonLabel(false);
+            return;
+        }
+
+        // Toggle LeftPanel
+        var leftPanel = FindFirstObjectByType<UI_LeftPanel>();
+        if (leftPanel != null)
+        {
+            bool willShow = !leftPanel.gameObject.activeSelf;
+            leftPanel.ToggleShowLeftPanel();
+            UpdateMenuButtonLabel(willShow);
+        }
+        else
+        {
+            // Fallback: fire event for any listener
+            EventManager.Instance.TriggerEvent(EEventType.UI_MenuButtonClicked);
+            UpdateMenuButtonLabel(true);
+        }
+    }
+
+    private void UpdateMenuButtonLabel(bool leftPanelVisible)
+    {
+        var label = GetText((int)Texts.MenuButtonText);
+        if (label == null) return;
+        // TODO: Localize 텍스트 처리
+        label.text = leftPanelVisible ? "Close" : "Menu";
     }
 }

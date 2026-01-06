@@ -59,7 +59,7 @@ public class UI_LeftPanel : UI_UGUI
         { Buttons.NewVideoButton, "UI_NewVideoPopup" },
         { Buttons.LiveStreamButton, "UI_LiveStreamPopup" },
         { Buttons.EducationButton, "UI_EducationPopup" },
-        { Buttons.HireButton, "UI_HirePopup" },
+        { Buttons.HireButton, "UI_JobPostingPopup" },
         { Buttons.FireButton, "UI_FirePopup" },
         { Buttons.GoalsButton, "UI_GoalsPopup" },
         { Buttons.PreVideosButton, "UI_PreVideosPopup" },
