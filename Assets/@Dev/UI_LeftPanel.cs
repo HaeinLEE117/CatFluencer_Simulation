@@ -62,7 +62,8 @@ public class UI_LeftPanel : UI_UGUI
         { Buttons.HireButton, "UI_JobPostingPopup" },
         { Buttons.FireButton, "UI_FirePopup" },
         { Buttons.GoalsButton, "UI_GoalsPopup" },
-        { Buttons.PreVideosButton, "UI_PreVideosPopup" },
+        { Buttons.PreVideosButton, "UI_UploadedVideosPopup" },
+        {  Buttons.SettingButton, "UI_SettingsPopup"   }
     };
 
     protected override void Awake()

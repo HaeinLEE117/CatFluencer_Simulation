@@ -2563,7 +2563,7 @@ GameObject:
   - component: {fileID: 8857079030227081074}
   - component: {fileID: 8567849618400435855}
   m_Layer: 5
-  m_Name: B_StreamerNameText
+  m_Name: PopupTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

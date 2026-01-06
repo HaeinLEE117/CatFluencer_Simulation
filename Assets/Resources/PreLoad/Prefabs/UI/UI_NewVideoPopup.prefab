@@ -1797,7 +1797,7 @@ GameObject:
   - component: {fileID: 78289313579427719}
   - component: {fileID: 2423091772602901945}
   m_Layer: 5
-  m_Name: B_RecordingNewVideoText
+  m_Name: PopupTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
