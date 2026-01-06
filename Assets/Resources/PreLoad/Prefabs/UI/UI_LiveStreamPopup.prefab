@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 105487317704422461}
   - component: {fileID: 437443528793246439}
   m_Layer: 5
-  m_Name: StatText3
+  m_Name: Stat3Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 1195325789651558202}
   - component: {fileID: 1915225012550350200}
   m_Layer: 5
-  m_Name: Stat2
+  m_Name: Stat2PointText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -830,7 +830,7 @@ GameObject:
   - component: {fileID: 7464215777242875510}
   - component: {fileID: 5314852921100710469}
   - component: {fileID: 6711014505869554630}
-  - component: {fileID: -750027991117945791}
+  - component: {fileID: 3541834458971698531}
   m_Layer: 5
   m_Name: UI_LiveStreamPopup
   m_TagString: Untagged
@@ -922,7 +922,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &-750027991117945791
+--- !u!114 &3541834458971698531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -931,9 +931,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4297073470475036624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cf916cd87e947746b6d5a80b25d1176, type: 3}
+  m_Script: {fileID: 11500000, guid: a112012e66b98bf45b91ef86c307ccf0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_NewVideoPopup
+  m_EditorClassIdentifier: Assembly-CSharp::UI_LiveStreamPopup
 --- !u!1 &4388661457492671947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,7 +1222,7 @@ GameObject:
   - component: {fileID: 8562470024336585009}
   - component: {fileID: 8643895143799907279}
   m_Layer: 5
-  m_Name: Stat3
+  m_Name: Stat3PointText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1358,7 +1358,7 @@ GameObject:
   - component: {fileID: 5792299452829959116}
   - component: {fileID: 292524549419766815}
   m_Layer: 5
-  m_Name: StatText1
+  m_Name: Stat1Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1751,7 +1751,7 @@ GameObject:
   - component: {fileID: 2185673983257669478}
   - component: {fileID: 804827138592483185}
   m_Layer: 5
-  m_Name: StatText2
+  m_Name: Stat2Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2073,7 +2073,7 @@ GameObject:
   - component: {fileID: 90284347991335255}
   - component: {fileID: 7130643922373751577}
   m_Layer: 5
-  m_Name: Stat1
+  m_Name: Stat1PointText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

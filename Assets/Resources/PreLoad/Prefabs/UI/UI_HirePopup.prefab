@@ -1445,7 +1445,7 @@ GameObject:
   - component: {fileID: 5824493430153136991}
   - component: {fileID: 3255740393502207640}
   - component: {fileID: 1530001841948728410}
-  - component: {fileID: 9209647615627095801}
+  - component: {fileID: 4698635759134533928}
   m_Layer: 5
   m_Name: UI_HirePopup
   m_TagString: Untagged
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9209647615627095801
+--- !u!114 &4698635759134533928
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1546,9 +1546,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5248313266415781672}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b6da1cbbf2be60449ac32586bb38597, type: 3}
+  m_Script: {fileID: 11500000, guid: 386304e4e341bf3439d9349583e5f75f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_EducationPopup
+  m_EditorClassIdentifier: Assembly-CSharp::UI_HirePopup
 --- !u!1 &6388017869120630781
 GameObject:
   m_ObjectHideFlags: 0
