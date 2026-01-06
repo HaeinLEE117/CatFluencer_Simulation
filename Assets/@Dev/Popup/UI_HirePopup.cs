@@ -13,7 +13,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         PreButton,
         NextButton,
 
-        HireButton,
+        PostingButton,
     }
 
     enum Texts
@@ -31,7 +31,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         ApplicantMentText,
 
         ApplicantPaymentText,
-        HireButtonText,
+        PostingButtonText,
     }
 
 protected override void Awake()
@@ -42,6 +42,11 @@ protected override void Awake()
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
+        GetButton((int)Buttons.PostingButton).onClick.AddListener(ClosePopup);
+    }
+    private void ClosePopup()
+    {
+        UIManager.Instance.ClosePopupUI();
     }
 
 }

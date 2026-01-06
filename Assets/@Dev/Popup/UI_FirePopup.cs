@@ -1,46 +1,39 @@
 using UnityEngine;
 
-public class UI_EducationPopup : UI_UGUI, IUI_Popup
+public class UI_FirePopup : UI_UGUI, IUI_Popup
 {
     enum GameObjects
     {
         EmployeePhoto,
-
     }
 
     enum Buttons
     {
-        UpGradeStat1Button,
-        UpGradeStat2Button,
-
+        //»ó´Ü
         PreButton,
         NextButton,
+
+        FireButton,
     }
 
     enum Texts
     {
-        EmployeeSalaryText,
+        EmployeetNameText,
 
-        //Column 1
         Stat1Text,
         Stat2Text, 
         Stat3Text,
 
-        //Column 2
         Stat1PointText,
         Stat2PointText,
         Stat3PointText,
 
-        //Column 3
-        UpPoint1,
-        UpPoint2,
 
-        //Buttons
-        UpGradeStat1ButtonText,
-        UpGradeStat2ButtonText,
+        EmployeeSalaryText,
+        FireButtonText,
     }
 
-protected override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -49,5 +42,4 @@ protected override void Awake()
         BindTexts(typeof(Texts));
 
     }
-
 }

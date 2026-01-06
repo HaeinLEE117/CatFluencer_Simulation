@@ -21,21 +21,20 @@ public class UI_JobPostingPopup : UI_UGUI, IUI_Popup
 
     }
 
-protected override void Awake()
+    protected override void Awake()
+        {
+            base.Awake();
+
+            BindObjects(typeof(GameObjects));
+            BindButtons(typeof(Buttons));
+            BindTexts(typeof(Texts));
+
+            GetButton((int)Buttons.PostingButton).onClick.AddListener(ClosePopup);
+
+        }
+
+    private void ClosePopup()
     {
-        base.Awake();
-
-        BindObjects(typeof(GameObjects));
-        BindButtons(typeof(Buttons));
-        BindTexts(typeof(Texts));
-
-        GetButton((int)Buttons.PostingButton).onClick.AddListener(ClosePopup);
-
+        UIManager.Instance.ClosePopupUI();
     }
-
-private void ClosePopup()
-{
-    UIManager.Instance.ClosePopupUI();
-}
-
 }
