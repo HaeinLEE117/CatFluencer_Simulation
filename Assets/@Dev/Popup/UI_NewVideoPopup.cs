@@ -43,7 +43,7 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         { Buttons.RecordingDetail_LocationButton, "UI_LocationPopup" },
         { Buttons.RecordingDetail_CastButton,     "UI_CastPopup" },
         { Buttons.RecordingDetail_ContentButton,  "UI_ContentPopup" },
-        { Buttons.RecordingDetail_TitleButton,    "UI_TitleEnterPopup" },
+        { Buttons.RecordingDetail_TitleButton,    "UI_TitleEnterPopup" }
     };
 
     protected override void Awake()
@@ -53,8 +53,6 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
-
-        GetButton((int)Buttons.StartButton).onClick.AddListener(ClosePopup);
 
         // Open mapped 3rd-level popup when detail buttons are pressed (reusable logic)
         foreach (var kv in _detailPopupMap)
@@ -70,6 +68,9 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         EventManager.Instance.AddEvent(Define.EEventType.UI_LocationSelected, OnDetailSelected);
         EventManager.Instance.AddEvent(Define.EEventType.UI_CastSelected, OnDetailSelected);
         EventManager.Instance.AddEvent(Define.EEventType.UI_ContentSelected, OnDetailSelected);
+
+        //TODO: Start Button에서 Directing팝업 뜰 때 각 데이터 널체크 하기
+        GetButton((int)Buttons.StartButton).onClick.AddListener(OnStartButtonClicked);
 
     }
 
@@ -97,5 +98,23 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
     private void ClosePopup()
     {
         UIManager.Instance.ClosePopupUI();
+    }
+
+    private void OnStartButtonClicked()
+    {
+        if (GameManager.Instance.RecordingVideoData == null)
+            return;
+        if(GameManager.Instance.RecordingVideoData.Location == null)
+            return;
+        if(GameManager.Instance.RecordingVideoData.Cast == null)
+            return;
+        if(GameManager.Instance.RecordingVideoData.Content == null)
+            return;
+
+        //TODO: 임시 타이틀 설정, 플레이어 데이터에서 여태 업로드한 갯수 파악 후 "동영상 {n}" 형식으로 설정
+        if (GameManager.Instance.RecordingVideoData.Title == null)
+            GameManager.Instance.UpdateRecordingTitle("tmp");
+
+        UIManager.Instance.ShowPopupUI("UI_DirectingBalancePopup");
     }
 }

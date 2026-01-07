@@ -9,6 +9,9 @@ public class GameData
     public int Gold;
     public int Level;
     public List<int> UpgradeCount;
+
+    //TODO: 나중에 동영상 밸런스 포인트 관련 데이터 추가
+    public int TotalVidieoBalancePoints = 5;
 }
 
 // 현재 촬영중인 동영상을 나타내는 데이터 클래스
@@ -22,13 +25,38 @@ public class RecordingVideoData
     public string Title;
 }
 
+// 현재 촬영중인 동영상 밸런스 데이터 클래스
+[Serializable]
+public class  VideoBalanceData
+{
+    public int Length;
+    public int Trend;
+    public int Laugh;
+    public int Info;
+    public int Memory;
+    public int Emotion;
+}
+
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField]
     private RecordingVideoData _recordingVideoData = new RecordingVideoData();
+    [SerializeField]
+    private VideoBalanceData _videoBalanceData = new VideoBalanceData();
 
     // 외부는 읽기만 가능
     public RecordingVideoData RecordingVideoData => _recordingVideoData;
+    public VideoBalanceData VideoBalanceData => _videoBalanceData;
+
+    public void UpdateVideoBalanceData(int length, int trend, int laugh, int info, int memory, int emotion)
+    {
+        _videoBalanceData.Length = length;
+        _videoBalanceData.Trend = trend;
+        _videoBalanceData.Laugh = laugh;
+        _videoBalanceData.Info = info;
+        _videoBalanceData.Memory = memory;
+        _videoBalanceData.Emotion = emotion;
+    }
+
 
     // 단일 필드 갱신 메서드들
     public void UpdateRecordingLocation(string location)
@@ -50,6 +78,8 @@ public class GameManager : Singleton<GameManager>
     {
         _recordingVideoData.Title = title;
     }
+
+
 
     private GameData _gameData = new GameData();
     public GameData GameData
