@@ -25,6 +25,8 @@ public static class Define
         UI_PreVideosClicked,
         // Selection events
         UI_LocationSelected,
+        // Popup stack changed
+        UI_PopupStackChanged,
     }
 
     public enum ESound

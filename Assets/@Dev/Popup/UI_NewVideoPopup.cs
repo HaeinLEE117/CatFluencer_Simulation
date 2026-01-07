@@ -36,8 +36,6 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         StartButtonText,
     }
 
-    private string _location;
-
     protected override void Awake()
     {
         base.Awake();
@@ -60,25 +58,28 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         EventManager.Instance.RemoveEvent(Define.EEventType.UI_LocationSelected, OnLocationSelected);
     }
 
-    private void OpenLocationPopup()
+    public override void RefreshUI()
     {
-        UIManager.Instance.ShowPopupUI("UI_LocationPopup");
+        base.RefreshUI();
+        GetText((int)Texts.SelectedLocationText).text = GameManager.Instance.RecordingVideoData.Location;
+        GetText((int)Texts.SelectedCastText).text = GameManager.Instance.RecordingVideoData.Cast;
+        GetText((int)Texts.SelectedContentText).text = GameManager.Instance.RecordingVideoData.Content;
+        GetText((int)Texts.EnteredTitleText).text = GameManager.Instance.RecordingVideoData.Title;
+
     }
 
     private void OnLocationSelected()
     {
-        // Find the location popup and get selected location
-        var popup = FindFirstObjectByType<UI_LocationPopup>();
-        if (popup != null)
-        {
-            _location = popup.GetSelected();
-            var txt = GetText((int)Texts.SelectedLocationText);
-            if (txt != null) txt.text = _location;
-        }
+        RefreshUI();
     }
 
     private void ClosePopup()
     {
         UIManager.Instance.ClosePopupUI();
+    }
+
+    private void OpenLocationPopup()
+    {
+        UIManager.Instance.ShowPopupUI("UI_LocationPopup");
     }
 }

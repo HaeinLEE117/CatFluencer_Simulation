@@ -43,6 +43,7 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
 
     // Example selected data. In real implementation, bind to selection list.
     private string _selectedLocation;
+    private Button _selectButton;
 
     protected override void Awake()
     {
@@ -50,40 +51,36 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        GetButton((int)Buttons.SelectButton).onClick.AddListener(OnClickSelect);
+        _selectButton = GetButton((int)Buttons.SelectButton);
+        _selectButton.onClick.AddListener(OnClickSelect);
+        _selectButton.gameObject.SetActive(false);
+
         GetButton((int)Buttons.LocationButton1).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText1).text));
         GetButton((int)Buttons.LocationButton2).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText2).text));
         GetButton((int)Buttons.LocationButton3).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText3).text));
         GetButton((int)Buttons.LocationButton4).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText4).text));
+    
     }
 
     public override void RefreshUI()
     {
         base.RefreshUI();
-        // Update selection text if needed
-        var txt = GetText((int)Texts.SelectButtonText);
-        if (txt != null)
-            txt.text = _selectedLocation;
     }
 
     // Call this when a location item is chosen from list
     public void SetSelectedLocation(string location)
     {
         _selectedLocation = location;
-        RefreshUI();
+        _selectButton.gameObject.SetActive(true);
     }
 
     private void OnClickSelect()
     {
-        //TODO: 정상적으로 작동하지 않음, 오히려 팝업 클로즈 버튼 버그 생성
-        //TODO:다른 팝업들도 UI_NewVideoPopup으로 돌아가야 하는데 여러 팝업에서 정보를 공유하는 방법 고민 필요
-
-        // Close this popup and notify selection
-        UIManager.Instance.ClosePopupUI();
+        GameManager.Instance.SetRecordingVideoData(_selectedLocation);
         // Trigger selection event
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
-        // Reopen NewVideo popup
-        UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
+        // Close this popup and notify selection
+        UIManager.Instance.ClosePopupUI();
     }
 
 

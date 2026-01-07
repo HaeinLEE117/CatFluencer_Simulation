@@ -96,6 +96,7 @@ public class UIManager : Singleton<UIManager>
             popup.GetComponent<Canvas>().sortingOrder = _popupOrder;
         }
 
+		EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupStackChanged);
         return popup as T;
     }
 
@@ -133,6 +134,7 @@ public class UIManager : Singleton<UIManager>
                 canvas.sortingOrder = _popupOrder;
         }
 
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupStackChanged);
         return popup;
     }
 
@@ -156,12 +158,14 @@ public class UIManager : Singleton<UIManager>
             popup.gameObject.SetActive(false);
 
         _popupOrder--;
+		EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupStackChanged);
     }
 
     public void CloseAllPopupUI()
     {
         while (_popupStack.Count > 0)
             ClosePopupUI();
+		EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupStackChanged);
     }
     #endregion
 

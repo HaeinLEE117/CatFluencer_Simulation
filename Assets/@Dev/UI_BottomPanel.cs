@@ -19,7 +19,6 @@ public class UI_BottomPanel : UI_UGUI
 
     }
 
-
     protected override void Awake()
     {
         base.Awake();
@@ -32,10 +31,39 @@ public class UI_BottomPanel : UI_UGUI
         GetButton((int)Buttons.MenuButton).onClick.AddListener(OnClickMenuButton);
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        EventManager.Instance.AddEvent(EEventType.UI_PopupStackChanged, OnPopupStackChanged);
+        // Initial label state
+        OnPopupStackChanged();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        if (EventManager.Instance != null)
+            EventManager.Instance.RemoveEvent(EEventType.UI_PopupStackChanged, OnPopupStackChanged);
+    }
+
     public override void RefreshUI()
     {
         base.RefreshUI();
+    }
 
+    private void OnPopupStackChanged()
+    {
+        bool hasPopup = UIManager.Instance.GetLastPopupUI<UI_Base>() != null;
+        if (hasPopup)
+        {
+            UpdateMenuButtonLabel(true); // Close
+        }
+        else
+        {
+            var leftPanel = FindFirstObjectByType<UI_LeftPanel>();
+            bool leftVisible = leftPanel != null && leftPanel.gameObject.activeSelf;
+            UpdateMenuButtonLabel(leftVisible);
+        }
     }
 
     private void OnClickMenuButton()
@@ -44,11 +72,7 @@ public class UI_BottomPanel : UI_UGUI
         var lastPopup = UIManager.Instance.GetLastPopupUI<UI_Base>();
         if (lastPopup != null)
         {
-            UpdateMenuButtonLabel(true);
             UIManager.Instance.ClosePopupUI();
-            lastPopup = UIManager.Instance.GetLastPopupUI<UI_Base>();
-            if (lastPopup ==null)
-                UpdateMenuButtonLabel(false);
             return;
         }
 
