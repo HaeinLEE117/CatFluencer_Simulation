@@ -25,6 +25,7 @@ public static class Define
         UI_PreVideosClicked,
         // Selection events
         UI_LocationSelected,
+        UI_CastSelected,
         // Popup stack changed
         UI_PopupStackChanged,
     }

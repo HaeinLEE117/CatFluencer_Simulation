@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
 {
@@ -36,6 +37,15 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         StartButtonText,
     }
 
+    // Map detail buttons to 3rd-level popup prefab names
+    private readonly Dictionary<Buttons, string> _detailPopupMap = new()
+    {
+        { Buttons.RecordingDetail_LocationButton, "UI_LocationPopup" },
+        { Buttons.RecordingDetail_CastButton,     "UI_CastPopup" },
+        { Buttons.RecordingDetail_ContentButton,  "UI_ContentPopup" },
+        { Buttons.RecordingDetail_TitleButton,    "UI_TitlePopup" },
+    };
+
     protected override void Awake()
     {
         base.Awake();
@@ -46,16 +56,26 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
 
         GetButton((int)Buttons.StartButton).onClick.AddListener(ClosePopup);
 
-        // Open Location popup when location button is pressed.
-        GetButton((int)Buttons.RecordingDetail_LocationButton).onClick.AddListener(OpenLocationPopup);
+        // Open mapped 3rd-level popup when detail buttons are pressed (reusable logic)
+        foreach (var kv in _detailPopupMap)
+        {
+            int idx = (int)kv.Key;
+            string popupName = kv.Value;
+            GetButton(idx).onClick.AddListener(() => {
+                UIManager.Instance.ShowPopupUI(popupName); 
+            });
+        }
 
-        // Subscribe to selection event
-        EventManager.Instance.AddEvent(Define.EEventType.UI_LocationSelected, OnLocationSelected);
+        // Subscribe to selection event(s)
+        EventManager.Instance.AddEvent(Define.EEventType.UI_LocationSelected, OnDetailSelected);
+        EventManager.Instance.AddEvent(Define.EEventType.UI_CastSelected, OnDetailSelected);
+
     }
 
     private void OnDestroy()
     {
-        EventManager.Instance.RemoveEvent(Define.EEventType.UI_LocationSelected, OnLocationSelected);
+        EventManager.Instance.RemoveEvent(Define.EEventType.UI_LocationSelected, OnDetailSelected);
+        EventManager.Instance.RemoveEvent(Define.EEventType.UI_CastSelected, OnDetailSelected);
     }
 
     public override void RefreshUI()
@@ -68,7 +88,7 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
 
     }
 
-    private void OnLocationSelected()
+    private void OnDetailSelected()
     {
         RefreshUI();
     }
@@ -76,10 +96,5 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
     private void ClosePopup()
     {
         UIManager.Instance.ClosePopupUI();
-    }
-
-    private void OpenLocationPopup()
-    {
-        UIManager.Instance.ShowPopupUI("UI_LocationPopup");
     }
 }

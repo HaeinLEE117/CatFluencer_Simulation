@@ -30,12 +30,24 @@ public class GameManager : Singleton<GameManager>
     // 외부는 읽기만 가능
     public RecordingVideoData RecordingVideoData => _recordingVideoData;
 
-    // 명시적 갱신 API
-    public void SetRecordingVideoData(string location=null, string cast = null, string content = null, string title = null)
+    // 단일 필드 갱신 메서드들
+    public void UpdateRecordingLocation(string location)
     {
         _recordingVideoData.Location = location;
+    }
+
+    public void UpdateRecordingCast(string cast)
+    {
         _recordingVideoData.Cast = cast;
+    }
+
+    public void UpdateRecordingContent(string content)
+    {
         _recordingVideoData.Content = content;
+    }
+
+    public void UpdateRecordingTitle(string title)
+    {
         _recordingVideoData.Title = title;
     }
 

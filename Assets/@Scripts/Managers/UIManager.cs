@@ -105,6 +105,7 @@ public class UIManager : Singleton<UIManager>
         if (string.IsNullOrEmpty(name))
             return null;
 
+        CloseAllPopupUI();
         if (_popups.TryGetValue(name, out UI_Base popup) == false)
         {
             GameObject go = ResourceManager.Instance.Instantiate(name);

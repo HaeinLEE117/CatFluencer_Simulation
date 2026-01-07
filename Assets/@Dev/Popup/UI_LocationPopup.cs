@@ -41,7 +41,7 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
         SelectButtonText,
     }
 
-    // Example selected data. In real implementation, bind to selection list.
+    // 3차 팝업으로 선택된 데이터를 전달하기 위한 내부 변수
     private string _selectedLocation;
     private Button _selectButton;
 
@@ -76,11 +76,11 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
 
     private void OnClickSelect()
     {
-        GameManager.Instance.SetRecordingVideoData(_selectedLocation);
+        GameManager.Instance.UpdateRecordingLocation(_selectedLocation);
         // Trigger selection event
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
         // Close this popup and notify selection
-        UIManager.Instance.ClosePopupUI();
+        UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
     }
 
 
