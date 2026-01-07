@@ -43,7 +43,7 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         { Buttons.RecordingDetail_LocationButton, "UI_LocationPopup" },
         { Buttons.RecordingDetail_CastButton,     "UI_CastPopup" },
         { Buttons.RecordingDetail_ContentButton,  "UI_ContentPopup" },
-        { Buttons.RecordingDetail_TitleButton,    "UI_TitlePopup" },
+        { Buttons.RecordingDetail_TitleButton,    "UI_TitleEnterPopup" },
     };
 
     protected override void Awake()
@@ -69,6 +69,7 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         // Subscribe to selection event(s)
         EventManager.Instance.AddEvent(Define.EEventType.UI_LocationSelected, OnDetailSelected);
         EventManager.Instance.AddEvent(Define.EEventType.UI_CastSelected, OnDetailSelected);
+        EventManager.Instance.AddEvent(Define.EEventType.UI_ContentSelected, OnDetailSelected);
 
     }
 

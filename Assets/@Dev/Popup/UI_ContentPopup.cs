@@ -2,39 +2,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class UI_LocationPopup : UI_UGUI, IUI_Popup
+public class UI_ContentPopup : UI_UGUI, IUI_Popup
 {
     enum Buttons
     {
         PreButton,
         NextButton,
 
-        LocationButton1,
-        LocationButton2,
-        LocationButton3,
-        LocationButton4,
+        ContentButton1,
+        ContentButton2,
+        ContentButton3,
+        ContentButton4,
 
         SelectButton,
     }
 
     enum Texts
     {
-        RecordingLocationText,
+        RecordingContentText,
         //Colum Titles
-        TitleLocationText,
+        TitleContentText,
         TitlePopularText,
         TitleCoastText,
 
-        LocationText1,
+        ContentText1,
         PopularText1,
         CoastText1,
-        LocationText2,
+        ContentText2,
         PopularText2,
         CoastText2,
-        LocationText3,
+        ContentText3,
         PopularText3,
         CoastText3,
-        LocationText4,
+        ContentText4,
         PopularText4,
         CoastText4,
 
@@ -43,7 +43,7 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
     }
 
     // 3차 팝업으로 선택된 데이터를 전달하기 위한 내부 변수
-    private string _selectedLocation;
+    private string _selectedContent;
     private Button _selectButton;
 
     protected override void Awake()
@@ -56,10 +56,10 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
         _selectButton.onClick.AddListener(OnClickSelect);
         _selectButton.gameObject.SetActive(false);
 
-        GetButton((int)Buttons.LocationButton1).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText1).text));
-        GetButton((int)Buttons.LocationButton2).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText2).text));
-        GetButton((int)Buttons.LocationButton3).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText3).text));
-        GetButton((int)Buttons.LocationButton4).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText4).text));
+        GetButton((int)Buttons.ContentButton1).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText1).text));
+        GetButton((int)Buttons.ContentButton2).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText2).text));
+        GetButton((int)Buttons.ContentButton3).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText3).text));
+        GetButton((int)Buttons.ContentButton4).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText4).text));
     
     }
 
@@ -68,23 +68,23 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
         base.RefreshUI();
     }
 
-    // Call this when a location item is chosen from list
-    public void SetSelectedLocation(string location)
+    // Call this when a Content item is chosen from list
+    public void SetSelectedContent(string Content)
     {
-        _selectedLocation = location;
+        _selectedContent = Content;
         _selectButton.gameObject.SetActive(true);
     }
 
     private void OnClickSelect()
     {
-        GameManager.Instance.UpdateRecordingLocation(_selectedLocation);
+        GameManager.Instance.UpdateRecordingContent(_selectedContent);
         // Trigger selection event
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_ContentSelected);
         // Close this popup and notify selection
         UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
     }
 
 
     // Provide a getter for selected data that NewVideoPopup can read via a shared service or static cache.
-    public string GetSelected() => _selectedLocation;
+    public string GetSelected() => _selectedContent;
 }

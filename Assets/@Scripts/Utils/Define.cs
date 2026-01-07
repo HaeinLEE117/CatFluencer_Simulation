@@ -28,6 +28,7 @@ public static class Define
         UI_CastSelected,
         // Popup stack changed
         UI_PopupStackChanged,
+        UI_ContentSelected,
     }
 
     public enum ESound
