@@ -40,6 +40,10 @@ public class UI_FirePopup : UI_UGUI, IUI_Popup
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
+    }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
     }
 }

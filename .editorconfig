@@ -1,0 +1,8 @@
+root = true
+
+# Enforce UTF-8 encoding for source and text assets
+[*.cs]
+charset = utf-8
+
+[*.{shader,compute,hlsl,uss,uxml,json,txt,md,yaml,yml,asmdef,asmref,meta}]
+charset = utf-8

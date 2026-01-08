@@ -81,7 +81,7 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
         // Trigger selection event
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_ContentSelected);
         // Close this popup and notify selection
-        UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
+        UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 
 

@@ -38,12 +38,17 @@ public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
         GetButton((int)Buttons.DoneButton).onClick.AddListener(OnClickDone);
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
+
     private void OnClickDone()
     {
         GameManager.Instance.UpdateRecordingTitle(GetText((int)Texts.TitleInputText).text);
 
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
 
-        UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
+        UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 }

@@ -48,6 +48,10 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
         GetButton((int)Buttons.HireButton).onClick.AddListener(OnClickSelect);
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 
     private void OnClickSelect()
     {
@@ -55,7 +59,6 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
 
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
 
-        UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
+        UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
-
 }

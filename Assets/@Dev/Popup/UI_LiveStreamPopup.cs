@@ -43,6 +43,11 @@ protected override void Awake()
         GetButton((int)Buttons.StartButton).onClick.AddListener(ClosePopup);
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
+
     private void ClosePopup()
     {
         UIManager.Instance.ClosePopupUI();

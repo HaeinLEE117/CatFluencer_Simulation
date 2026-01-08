@@ -33,7 +33,7 @@ public class UI_SettingsPopup : UI_UGUI, IUI_Popup
         SaveButtonText,
     }
 
-protected override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -42,5 +42,8 @@ protected override void Awake()
         BindTexts(typeof(Texts));
 
     }
-
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 }

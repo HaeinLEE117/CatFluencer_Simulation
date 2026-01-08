@@ -115,6 +115,6 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         if (GameManager.Instance.RecordingVideoData.Title == null)
             GameManager.Instance.UpdateRecordingTitle("tmp");
 
-        UIManager.Instance.ShowPopupUI("UI_DirectingBalancePopup");
+        UIManager.Instance.ShowPopupUI(nameof(UI_DirectingBalancePopup));
     }
 }

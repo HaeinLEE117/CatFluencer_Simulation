@@ -28,14 +28,17 @@ public class UI_UploadedVideosPopup : UI_UGUI, IUI_Popup
         VideoSalesText
     }
 
-protected override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
-
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 }

@@ -43,4 +43,9 @@ public class UI_ReleaseReactionPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
     }
+
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 }

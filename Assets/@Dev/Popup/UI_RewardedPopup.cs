@@ -29,5 +29,8 @@ public class UI_RewardedPopup : UI_UGUI, IUI_Popup
 
     }
 
-
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 }

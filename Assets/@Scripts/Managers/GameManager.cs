@@ -39,47 +39,54 @@ public class  VideoBalanceData
 
 public class GameManager : Singleton<GameManager>
 {
-    private RecordingVideoData _recordingVideoData = new RecordingVideoData();
-    [SerializeField]
-    private VideoBalanceData _videoBalanceData = new VideoBalanceData();
+    // Recording 상태를 중앙에서 확인할 수 있도록 브리지 제공
+    public bool IsRecording => RecordingManager.Instance != null && RecordingManager.Instance.IsRecording;
 
-    // 외부는 읽기만 가능
-    public RecordingVideoData RecordingVideoData => _recordingVideoData;
-    public VideoBalanceData VideoBalanceData => _videoBalanceData;
+    // 현재 촬영 정보는 계속 노출 (RecordingManager로 위임)
+    public RecordingVideoData RecordingVideoData => RecordingManager.Instance != null ? RecordingManager.Instance.RecordingVideoData : null;
+    public VideoBalanceData VideoBalanceData => RecordingManager.Instance != null ? RecordingManager.Instance.VideoBalanceData : null;
 
+    // 기존 호출 호환을 위한 포워딩 메서드들
     public void UpdateVideoBalanceData(int length, int trend, int laugh, int info, int memory, int emotion)
     {
-        _videoBalanceData.Length = length;
-        _videoBalanceData.Trend = trend;
-        _videoBalanceData.Laugh = laugh;
-        _videoBalanceData.Info = info;
-        _videoBalanceData.Memory = memory;
-        _videoBalanceData.Emotion = emotion;
+        RecordingManager.Instance.UpdateVideoBalanceData(length, trend, laugh, info, memory, emotion);
     }
 
-
-    // 단일 필드 갱신 메서드들
     public void UpdateRecordingLocation(string location)
     {
-        _recordingVideoData.Location = location;
+        RecordingManager.Instance.UpdateRecordingLocation(location);
     }
 
     public void UpdateRecordingCast(string cast)
     {
-        _recordingVideoData.Cast = cast;
+        RecordingManager.Instance.UpdateRecordingCast(cast);
     }
 
     public void UpdateRecordingContent(string content)
     {
-        _recordingVideoData.Content = content;
+        RecordingManager.Instance.UpdateRecordingContent(content);
     }
 
     public void UpdateRecordingTitle(string title)
     {
-        _recordingVideoData.Title = title;
+        RecordingManager.Instance.UpdateRecordingTitle(title);
     }
 
+    // 옵션: 촬영 수명주기 제어 포워딩 (필요 시 사용)
+    public void StartRecording(RecordingVideoData initial = null)
+    {
+        RecordingManager.Instance.StartRecording(initial);
+    }
 
+    public void CancelRecording()
+    {
+        RecordingManager.Instance.CancelRecording();
+    }
+
+    public void FinishRecording()
+    {
+        RecordingManager.Instance.FinishRecording();
+    }
 
     private GameData _gameData = new GameData();
     public GameData GameData

@@ -81,7 +81,7 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
         // Trigger selection event
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
         // Close this popup and notify selection
-        UIManager.Instance.ShowPopupUI("UI_NewVideoPopup");
+        UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup)); 
     }
 
 

@@ -14,7 +14,6 @@ public class UI_BottomPanel : UI_UGUI
 
     enum Texts
     {
-
     }
 
     protected override void Awake()
@@ -25,7 +24,11 @@ public class UI_BottomPanel : UI_UGUI
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
+    }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
     }
 
 

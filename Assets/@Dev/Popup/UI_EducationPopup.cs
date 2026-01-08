@@ -40,14 +40,17 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         UpGradeStat2ButtonText,
     }
 
-protected override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
-
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 }

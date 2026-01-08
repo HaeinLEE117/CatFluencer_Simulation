@@ -35,14 +35,17 @@ public class UI_GoalsPopup : UI_UGUI, IUI_Popup
         Goal5_GoalText,
     }
 
-protected override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
-
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 }

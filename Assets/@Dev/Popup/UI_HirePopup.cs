@@ -34,7 +34,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         FireButtonText,
     }
 
-protected override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
@@ -44,6 +44,12 @@ protected override void Awake()
 
         GetButton((int)Buttons.HireButton).onClick.AddListener(ClosePopup);
     }
+
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
+
     private void ClosePopup()
     {
         UIManager.Instance.ClosePopupUI();

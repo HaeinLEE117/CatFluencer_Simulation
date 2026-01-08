@@ -22,7 +22,7 @@ public class UI_JobPostingPopup : UI_UGUI, IUI_Popup
     }
 
     protected override void Awake()
-        {
+    {
             base.Awake();
 
             BindObjects(typeof(GameObjects));
@@ -30,8 +30,12 @@ public class UI_JobPostingPopup : UI_UGUI, IUI_Popup
             BindTexts(typeof(Texts));
 
             GetButton((int)Buttons.PostingButton).onClick.AddListener(ClosePopup);
+    }
 
-        }
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 
     private void ClosePopup()
     {
