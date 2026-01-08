@@ -1,24 +1,22 @@
 using UnityEngine;
 
-public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
+public class UI_ChatPopup : UI_UGUI, IUI_Popup
 {
     enum GameObjects
     {
+        NPCImage,
     }
 
     enum Buttons
     {
-        CancleButton,
-        ConfirmButton,
+        NextButton,
     }
 
     enum Texts
     {
-        ConfirmPopupText,
-        DescribtionText,
+        ComentText,
+        NPCNameText
 
-        CancleButtonText,
-        ConfirmButtonText,
     }
 
     protected override void Awake()

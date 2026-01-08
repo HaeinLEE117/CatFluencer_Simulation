@@ -1,24 +1,22 @@
 using UnityEngine;
 
-public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
+public class UI_RewardedPopup : UI_UGUI, IUI_Popup
 {
     enum GameObjects
     {
+        RewardedImage,
     }
 
     enum Buttons
     {
-        CancleButton,
-        ConfirmButton,
+        OfficeMovingButton,
     }
 
     enum Texts
     {
-        ConfirmPopupText,
+        RewardedPopupText,
         DescribtionText,
-
-        CancleButtonText,
-        ConfirmButtonText,
+        OfficeMovingButtonText,
     }
 
     protected override void Awake()

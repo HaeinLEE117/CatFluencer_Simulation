@@ -183,5 +183,7 @@ public class UI_DirectingBalancePopup : UI_UGUI, IUI_Popup
     {
         GameManager.Instance.UpdateVideoBalanceData(_length, _trend, _laugh, _info, _memory, _emotion);
         UIManager.Instance.ClosePopupUI();
+
+
     }
 }
