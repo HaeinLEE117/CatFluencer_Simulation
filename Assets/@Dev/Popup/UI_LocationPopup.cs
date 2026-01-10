@@ -77,11 +77,8 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
 
     private void OnClickSelect()
     {
-        GameManager.Instance.UpdateRecordingLocation(_selectedLocation);
-        // Trigger selection event
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
-        // Close this popup and notify selection
-        UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup)); 
+        UIManager.Instance.NotifyLocationSelected(_selectedLocation);
+        UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 
 

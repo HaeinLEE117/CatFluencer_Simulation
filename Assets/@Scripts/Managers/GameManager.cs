@@ -10,22 +10,22 @@ public class GameData
     public int Level;
     public List<int> UpgradeCount;
 
-    //TODO: ³ªÁß¿¡ µ¿¿µ»ó ¹ë·±½º Æ÷ÀÎÆ® °ü·Ã µ¥ÀÌÅÍ Ãß°¡
+    //TODO: ë‚˜ì¤‘ì— ë™ì˜ìƒ ë°¸ëŸ°ìŠ¤ í¬ì¸íŠ¸ ê´€ë ¨ ë°ì´í„° ì¶”ê°€
     public int TotalVidieoBalancePoints = 5;
 }
 
-// ÇöÀç ÃÔ¿µÁßÀÎ µ¿¿µ»óÀ» ³ªÅ¸³»´Â µ¥ÀÌÅÍ Å¬·¡½º
+// í˜„ì¬ ì´¬ì˜ì¤‘ì¸ ë™ì˜ìƒì„ ë‚˜íƒ€ë‚´ëŠ” ë°ì´í„° í´ë˜ìŠ¤
 [Serializable]
 public class RecordingVideoData
 {
-    //TODO: string => ID·Î º¯°æ
+    //TODO: string => IDë¡œ ë³€ê²½
     public string Location;
     public string Cast;
     public string Content;
     public string Title;
 }
 
-// ÇöÀç ÃÔ¿µÁßÀÎ µ¿¿µ»ó ¹ë·±½º µ¥ÀÌÅÍ Å¬·¡½º
+// í˜„ì¬ ì´¬ì˜ì¤‘ì¸ ë™ì˜ìƒ ë°¸ëŸ°ìŠ¤ ë°ì´í„° í´ë˜ìŠ¤
 [Serializable]
 public class  VideoBalanceData
 {
@@ -39,14 +39,14 @@ public class  VideoBalanceData
 
 public class GameManager : Singleton<GameManager>
 {
-    // Recording »óÅÂ¸¦ Áß¾Ó¿¡¼­ È®ÀÎÇÒ ¼ö ÀÖµµ·Ï ºê¸®Áö Á¦°ø
+    // Recording ìƒíƒœë¥¼ ì¤‘ì•™ì—ì„œ í™•ì¸í•  ìˆ˜ ìˆë„ë¡ ë¸Œë¦¬ì§€ ì œê³µ
     public bool IsRecording => RecordingManager.Instance != null && RecordingManager.Instance.IsRecording;
 
-    // ÇöÀç ÃÔ¿µ Á¤º¸´Â °è¼Ó ³ëÃâ (RecordingManager·Î À§ÀÓ)
+    // í˜„ì¬ ì´¬ì˜ ì •ë³´ëŠ” ê³„ì† ë…¸ì¶œ (RecordingManagerë¡œ ìœ„ì„)
     public RecordingVideoData RecordingVideoData => RecordingManager.Instance != null ? RecordingManager.Instance.RecordingVideoData : null;
     public VideoBalanceData VideoBalanceData => RecordingManager.Instance != null ? RecordingManager.Instance.VideoBalanceData : null;
 
-    // ±âÁ¸ È£Ãâ È£È¯À» À§ÇÑ Æ÷¿öµù ¸Ş¼­µåµé
+    // ê¸°ì¡´ í˜¸ì¶œ í˜¸í™˜ì„ ìœ„í•œ í¬ì›Œë”© ë©”ì„œë“œë“¤
     public void UpdateVideoBalanceData(int length, int trend, int laugh, int info, int memory, int emotion)
     {
         RecordingManager.Instance.UpdateVideoBalanceData(length, trend, laugh, info, memory, emotion);
@@ -55,24 +55,28 @@ public class GameManager : Singleton<GameManager>
     public void UpdateRecordingLocation(string location)
     {
         RecordingManager.Instance.UpdateRecordingLocation(location);
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
     }
 
     public void UpdateRecordingCast(string cast)
     {
         RecordingManager.Instance.UpdateRecordingCast(cast);
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
     }
 
     public void UpdateRecordingContent(string content)
     {
         RecordingManager.Instance.UpdateRecordingContent(content);
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_ContentSelected);
     }
 
     public void UpdateRecordingTitle(string title)
     {
         RecordingManager.Instance.UpdateRecordingTitle(title);
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
     }
 
-    // ¿É¼Ç: ÃÔ¿µ ¼ö¸íÁÖ±â Á¦¾î Æ÷¿öµù (ÇÊ¿ä ½Ã »ç¿ë)
+    // ì˜µì…˜: ì´¬ì˜ ìˆ˜ëª…ì£¼ê¸° ì œì–´ í¬ì›Œë”© (í•„ìš” ì‹œ ì‚¬ìš©)
     public void StartRecording(RecordingVideoData initial = null)
     {
         RecordingManager.Instance.StartRecording(initial);

@@ -25,6 +25,7 @@ public class ObjectManager : Singleton<ObjectManager>
     }
     #endregion
 
+    // 관리(캐싱) 중인 오브젝트들
     private HashSet<ObjectBase> _objects = new HashSet<ObjectBase>();
     private HashSet<Player> _players = new HashSet<Player>();
 

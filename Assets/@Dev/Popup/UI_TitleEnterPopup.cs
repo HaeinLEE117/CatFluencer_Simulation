@@ -21,7 +21,7 @@ public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
         DoneButtonText,
     }
 
-    // 3Â÷ ÆË¾÷À¸·Î ¼±ÅÃµÈ µ¥ÀÌÅÍ¸¦ Àü´ŞÇÏ±â À§ÇÑ ³»ºÎ º¯¼ö
+    // 3ì°¨ íŒì—…ìœ¼ë¡œ ì„ íƒëœ ë°ì´í„°ë¥¼ ì „ë‹¬í•˜ê¸° ìœ„í•œ ë‚´ë¶€ ë³€ìˆ˜
     private string _enteredTitle;
 
     protected override void Awake()
@@ -32,8 +32,8 @@ public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        //TODO: TitleInputPlaceholder ·ÎÄÃ¶óÀÌÂ¡ ½Ã½ºÅÛ Àû¿ë ½Ã ¼öÁ¤ ÇÊ¿ä
-        //TODO: ÀÔ·ÂÅØ½ºÆ® ¿¹¿ÜÃ³¸®
+        //TODO: TitleInputPlaceholder ë¡œì»¬ë¼ì´ì§• ì‹œìŠ¤í…œ ì ìš© ì‹œ ìˆ˜ì • í•„ìš”
+        //TODO: ì…ë ¥í…ìŠ¤íŠ¸ ì˜ˆì™¸ì²˜ë¦¬
 
         GetButton((int)Buttons.DoneButton).onClick.AddListener(OnClickDone);
     }
@@ -46,9 +46,6 @@ public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
     private void OnClickDone()
     {
         GameManager.Instance.UpdateRecordingTitle(GetText((int)Texts.TitleInputText).text);
-
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
-
         UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 }

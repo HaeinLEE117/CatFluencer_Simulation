@@ -11,7 +11,7 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
 
     enum Buttons
     {
-        //»ó´Ü
+        //ìƒë‹¨
         PreButton,
         NextButton,
 
@@ -34,7 +34,7 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
         ComboExpectationText,
     }
 
-    // 3Â÷ ÆË¾÷À¸·Î ¼±ÅÃµÈ µ¥ÀÌÅÍ¸¦ Àü´ŞÇÏ±â À§ÇÑ ³»ºÎ º¯¼ö
+    // 3ì°¨ íŒì—…ìœ¼ë¡œ ì„ íƒëœ ë°ì´í„°ë¥¼ ì „ë‹¬í•˜ê¸° ìœ„í•œ ë‚´ë¶€ ë³€ìˆ˜
     private string _selectedCast;
 
     protected override void Awake()
@@ -56,9 +56,6 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
     private void OnClickSelect()
     {
         GameManager.Instance.UpdateRecordingCast(GetText((int)Texts.ApplicantNameText).text);
-
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
-
         UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 }

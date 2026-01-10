@@ -42,7 +42,7 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
         SelectButtonText,
     }
 
-    // 3Â÷ ÆË¾÷À¸·Î ¼±ÅÃµÈ µ¥ÀÌÅÍ¸¦ Àü´ŞÇÏ±â À§ÇÑ ³»ºÎ º¯¼ö
+    // 3ì°¨ íŒì—…ìœ¼ë¡œ ì„ íƒëœ ë°ì´í„°ë¥¼ ì „ë‹¬í•˜ê¸° ìœ„í•œ ë‚´ë¶€ ë³€ìˆ˜
     private string _selectedContent;
     private Button _selectButton;
 
@@ -78,9 +78,6 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
     private void OnClickSelect()
     {
         GameManager.Instance.UpdateRecordingContent(_selectedContent);
-        // Trigger selection event
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_ContentSelected);
-        // Close this popup and notify selection
         UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 

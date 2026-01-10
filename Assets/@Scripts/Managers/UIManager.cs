@@ -189,4 +189,17 @@ public class UIManager : Singleton<UIManager>
 
         _sceneUI = null;
     }
+
+    public void NotifyLocationSelected(string location)
+    {
+        // 공통 검증/전처리
+        if (string.IsNullOrEmpty(location))
+            return;
+
+        GameManager.Instance.UpdateRecordingLocation(location);
+
+        // 이벤트 트리거를 중앙에서 수행
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
+
+    }
 }

@@ -3,18 +3,20 @@ using UnityEngine;
 
 public class RecordingManager : Singleton<RecordingManager>
 {
-    // ÇöÀç ÃÔ¿µ ÁøÇà ¿©ºÎ
+    // í˜„ì¬ ì´¬ì˜ ì§„í–‰ ì—¬ë¶€
     public bool IsRecording { get; private set; }
 
-    // ÇöÀç ÃÔ¿µ µ¥ÀÌÅÍ (¿ÜºÎ ÀĞ±â Àü¿ëÀ¸·Î »ç¿ëÇÏ±æ ±ÇÀå)
+    // í˜„ì¬ ì´¬ì˜ ë°ì´í„° (ì™¸ë¶€ ì½ê¸° ì „ìš©ìœ¼ë¡œ ì‚¬ìš©í•˜ê¸¸ ê¶Œì¥)
     public RecordingVideoData RecordingVideoData { get; private set; } = new RecordingVideoData();
     public VideoBalanceData VideoBalanceData { get; private set; } = new VideoBalanceData();
 
+
+    //TODO: ì´ë²¤íŠ¸ ë§¤ë‹ˆì €ë¡œ ì´ì „
     public event Action OnRecordingStarted;
     public event Action OnRecordingUpdated;
     public event Action OnRecordingEnded;
 
-    // ÃÔ¿µ ½ÃÀÛ (¼±ÅÃÀûÀ¸·Î ÃÊ±â µ¥ÀÌÅÍ Àü´Ş)
+    // ì´¬ì˜ ì‹œì‘ (ì„ íƒì ìœ¼ë¡œ ì´ˆê¸° ë°ì´í„° ì „ë‹¬)
     public void StartRecording(RecordingVideoData initial = null)
     {
         if (initial != null)
@@ -35,12 +37,12 @@ public class RecordingManager : Singleton<RecordingManager>
 
     public void FinishRecording()
     {
-        // °á°ú Ã³¸® / º¸»ó / ÀúÀå µî ÇÊ¿ä ½Ã ¿©±â¿¡ ±¸Çö
+        // ê²°ê³¼ ì²˜ë¦¬ / ë³´ìƒ / ì €ì¥ ë“± í•„ìš” ì‹œ ì—¬ê¸°ì— êµ¬í˜„
         IsRecording = false;
         OnRecordingEnded?.Invoke();
     }
 
-    // ´ÜÀÏ ÇÊµå °»½Å
+    // ë‹¨ì¼ í•„ë“œ ê°±ì‹ 
     public void UpdateRecordingLocation(string location)
     {
         RecordingVideoData.Location = location;
@@ -65,7 +67,7 @@ public class RecordingManager : Singleton<RecordingManager>
         OnRecordingUpdated?.Invoke();
     }
 
-    // ¹ë·±½º ÀÏ°ı °»½Å
+    // ë°¸ëŸ°ìŠ¤ ì¼ê´„ ê°±ì‹ 
     public void UpdateVideoBalanceData(int length, int trend, int laugh, int info, int memory, int emotion)
     {
         VideoBalanceData.Length = length;
