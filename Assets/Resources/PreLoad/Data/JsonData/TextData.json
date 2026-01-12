@@ -49,6 +49,71 @@
       "TemplateID": "LOAD",
       "KOR": "불러오기",
       "ENG": "Load"
+    },
+    {
+      "TemplateID": "MENU",
+      "KOR": "메뉴",
+      "ENG": "Menu"
+    },
+    {
+      "TemplateID": "CLOSE",
+      "KOR": "닫기",
+      "ENG": "Close"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_EDITING",
+      "KOR": "기획실",
+      "ENG": "Editing"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_HUMAN_RESOURCES",
+      "KOR": "직원",
+      "ENG": "Employee"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_STUDIO_INFO",
+      "KOR": "스튜디오 정보",
+      "ENG": "StudioInfo"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_SETTINGS",
+      "KOR": "설정",
+      "ENG": "Setting"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_NEW_VIDEO",
+      "KOR": "새 비디오",
+      "ENG": "New Video"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_LIVE_STREAM",
+      "KOR": "라이브 방송",
+      "ENG": "Live Stream"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_EDUCATION",
+      "KOR": "교육",
+      "ENG": "Education"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_HIRE",
+      "KOR": "고용",
+      "ENG": "Hiring"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_FIRE",
+      "KOR": "해고",
+      "ENG": "Firing"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_GOALS",
+      "KOR": "달성 목표",
+      "ENG": "Goals"
+    },
+    {
+      "TemplateID": "LEFT_PANEL_PREVIOUS_VIDEOS",
+      "KOR": "과거 동영상",
+      "ENG": "Old Videos"
     }
   ]
 }

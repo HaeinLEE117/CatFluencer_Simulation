@@ -9,3 +9,16 @@ DEFEAT,패배,Defeat
 LOADING,로딩 중...,Loading…
 SAVE,저장,Save
 LOAD,불러오기,Load
+MENU,메뉴,Menu
+CLOSE,닫기,Close
+LEFT_PANEL_EDITING,기획실,Editing
+LEFT_PANEL_HUMAN_RESOURCES,직원,Employee
+LEFT_PANEL_STUDIO_INFO,스튜디오 정보,StudioInfo
+LEFT_PANEL_SETTINGS,설정,Setting
+LEFT_PANEL_NEW_VIDEO,새 비디오,New Video
+LEFT_PANEL_LIVE_STREAM,라이브 방송,Live Stream
+LEFT_PANEL_EDUCATION,교육,Education
+LEFT_PANEL_HIRE,고용,Hiring
+LEFT_PANEL_FIRE,해고,Firing
+LEFT_PANEL_GOALS,달성 목표,Goals
+LEFT_PANEL_PREVIOUS_VIDEOS,과거 동영상,Old Videos

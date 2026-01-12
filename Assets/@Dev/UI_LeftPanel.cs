@@ -7,7 +7,7 @@ public class UI_LeftPanel : UI_UGUI
 {
     enum GameObjects
     {
-        //2¬˜ ∆–≥Œ ø¿∫Í¡ß∆Æ
+        //2Ï∞® Ìå®ÎÑê Ïò§Î∏åÏ†ùÌä∏
         EditingOptionPanel,
         HumanResOptionPanel,
         StudioInfoOptionPanel
@@ -15,13 +15,13 @@ public class UI_LeftPanel : UI_UGUI
 
     enum Buttons
     {
-        //1¬˜ ∆–≥Œ πˆ∆∞
+        //1Ï∞® Ìå®ÎÑê Î≤ÑÌäº
         EditingButton,
         HumanResourceButton,
         StudioInfoButton,
         SettingButton,
 
-        //2¬˜ ∆–≥Œ πˆ∆∞
+        //2Ï∞® Ìå®ÎÑê Î≤ÑÌäº
         NewVideoButton,
         LiveStreamButton,
 
@@ -35,13 +35,13 @@ public class UI_LeftPanel : UI_UGUI
 
     enum Texts
     {
-        //1¬˜ ∆–≥Œ ≈ÿΩ∫∆Æ
+        //1Ï∞® Ìå®ÎÑê ÌÖçÏä§Ìä∏
         EditingButtonText,
         HumanResourceButtonText,
         StudioInfoButtonText,
         SettingButtonText,
 
-        //2¬˜ ∆–≥Œ ≈ÿΩ∫∆Æ
+        //2Ï∞® Ìå®ÎÑê ÌÖçÏä§Ìä∏
         NewVideoButtonText,
         LiveStreamButtonText,
 
@@ -74,7 +74,7 @@ public class UI_LeftPanel : UI_UGUI
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        //1¬˜, 2¬˜ ∆–≥Œ √ ±‚ ∫Ò»∞º∫»≠
+        //1Ï∞®, 2Ï∞® Ìå®ÎÑê Ï¥àÍ∏∞ ÎπÑÌôúÏÑ±Ìôî
         gameObject.SetActive(false);
         
         GetObject((int)GameObjects.EditingOptionPanel).SetActive(false);
@@ -82,16 +82,16 @@ public class UI_LeftPanel : UI_UGUI
         GetObject((int)GameObjects.StudioInfoOptionPanel).SetActive(false);
 
 
-        //1¬˜ ∆–≥Œ ≈‰±€ ¿Ã∫•∆Æ µÓ∑œ
+        //1Ï∞® Ìå®ÎÑê ÌÜ†Í∏Ä Ïù¥Î≤§Ìä∏ Îì±Î°ù
         EventManager.Instance.AddEvent(EEventType.UI_MenuButtonClicked, ToggleShowLeftPanel);
 
-        // 1¬˜ ∆–≥Œ πˆ∆∞ ≈¨∏Ø Ω√ 2¬˜ ∆–≥Œ ≈‰±€
+        // 1Ï∞® Ìå®ÎÑê Î≤ÑÌäº ÌÅ¥Î¶≠ Ïãú 2Ï∞® Ìå®ÎÑê ÌÜ†Í∏Ä
         GetButton((int)Buttons.EditingButton).onClick.AddListener(() => ShowOnlyOptionPanel(GameObjects.EditingOptionPanel));
         GetButton((int)Buttons.HumanResourceButton).onClick.AddListener(() => ShowOnlyOptionPanel(GameObjects.HumanResOptionPanel));
         GetButton((int)Buttons.StudioInfoButton).onClick.AddListener(() => ShowOnlyOptionPanel(GameObjects.StudioInfoOptionPanel));
         GetButton((int)Buttons.SettingButton).onClick.AddListener(HideAllOptionPanels);
 
-        // 2¬˜ ∆–≥Œ πˆ∆∞ ∆Àæ˜ ∏≈«Œ¿∏∑Œ √≥∏Æ
+        // 2Ï∞® Ìå®ÎÑê Î≤ÑÌäº ÌåùÏóÖ Îß§ÌïëÏúºÎ°ú Ï≤òÎ¶¨
         foreach (var kv in _secondaryPopupMap)
         {
             Buttons btn = kv.Key;
@@ -113,6 +113,19 @@ public class UI_LeftPanel : UI_UGUI
     public override void RefreshUI()
     {
         base.RefreshUI();
+
+        GetText((int)Texts.EditingButtonText).SetLocalizedText("LEFT_PANEL_EDITING");
+        GetText((int)Texts.HumanResourceButtonText).SetLocalizedText("LEFT_PANEL_HUMAN_RESOURCES");
+        GetText((int)Texts.StudioInfoButtonText).SetLocalizedText("LEFT_PANEL_STUDIO_INFO");
+        GetText((int)Texts.SettingButtonText).SetLocalizedText("LEFT_PANEL_SETTINGS");
+
+        GetText((int)Texts.NewVideoButtonText).SetLocalizedText("LEFT_PANEL_NEW_VIDEO");
+        GetText((int)Texts.LiveStreamButtonText).SetLocalizedText("LEFT_PANEL_LIVE_STREAM");
+        GetText((int)Texts.EducationButtonText).SetLocalizedText("LEFT_PANEL_EDUCATION");
+        GetText((int)Texts.HireButtonText).SetLocalizedText("LEFT_PANEL_HIRE");
+        GetText((int)Texts.FireButtonText).SetLocalizedText("LEFT_PANEL_FIRE");
+        GetText((int)Texts.GoalsButtonText).SetLocalizedText("LEFT_PANEL_GOALS");
+        GetText((int)Texts.PreVideosButtonText).SetLocalizedText("LEFT_PANEL_PREVIOUS_VIDEOS");
     }
 
     public void ToggleShowLeftPanel()
@@ -129,7 +142,7 @@ public class UI_LeftPanel : UI_UGUI
     {
         if(GetObject((int)panel).activeSelf)
         {
-            // ¿ÃπÃ »∞º∫»≠µ» ∆–≥Œ¿Ã∏È º˚±‚±‚
+            // Ïù¥ÎØ∏ ÌôúÏÑ±ÌôîÎêú Ìå®ÎÑêÏù¥Î©¥ Ïà®Í∏∞Í∏∞
             GetObject((int)panel).SetActive(false);
         }
         else

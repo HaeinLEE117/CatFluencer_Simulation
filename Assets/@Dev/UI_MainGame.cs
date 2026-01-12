@@ -35,6 +35,7 @@ public class UI_MainGame : UI_UGUI, IUI_Scene
 
 
         GetButton((int)Buttons.MenuButton).onClick.AddListener(OnClickMenuButton);
+        GetText((int)Texts.MenuButtonText).SetLocalizedText("MENU");
 
     }
 
@@ -102,7 +103,9 @@ public class UI_MainGame : UI_UGUI, IUI_Scene
     {
         var label = GetText((int)Texts.MenuButtonText);
         if (label == null) return;
-        // TODO: Localize �ؽ�Ʈ ó��
-        label.text = leftPanelVisible ? "Close" : "Menu";
+        // TODO: Localize 텍스트 처리
+        string IdText = leftPanelVisible ? "CLOSE" : "MENU";
+
+        GetText((int)Texts.MenuButtonText).SetLocalizedText(IdText);
     }
 }

@@ -32,7 +32,7 @@ public class DataManager : Singleton<DataManager>
         IAPConfig = LoadScriptableObject<IAPConfig>("IAPConfig");
 
         TextDict = LoadJson<TextDataLoader, string, TextData>("TextData").MakeDict();
-        ItemDict = LoadJson<ItemDataLoader, int, ItemData>("ItemData").MakeDict();
+        //ItemDict = LoadJson<ItemDataLoader, int, ItemData>("ItemData").MakeDict();
         // TODO
 
         Validate();

@@ -20,10 +20,14 @@ public class UI_TopPanel : UI_UGUI
 
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
+
+        RefreshUI();
     }
 
     public override void RefreshUI()
     {
         base.RefreshUI();
+
+        //TODO: Update top panel texts based on game data
     }
 }
