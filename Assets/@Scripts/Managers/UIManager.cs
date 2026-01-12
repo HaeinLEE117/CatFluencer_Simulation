@@ -192,14 +192,10 @@ public class UIManager : Singleton<UIManager>
 
     public void NotifyLocationSelected(string location)
     {
-        // ∞¯≈Î ∞À¡ı/¿¸√≥∏Æ
+        // Í≥µÌÜµ Í≤ÄÏ¶ù/Ï†ÑÏ≤òÎ¶¨
         if (string.IsNullOrEmpty(location))
             return;
 
         GameManager.Instance.UpdateRecordingLocation(location);
-
-        // ¿Ã∫•∆Æ ∆Æ∏Æ∞≈∏¶ ¡ﬂæ”ø°º≠ ºˆ«‡
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
-
     }
 }

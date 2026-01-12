@@ -14,6 +14,7 @@ public class GameData
     public int TotalVidieoBalancePoints = 5;
 }
 
+#region Recording Video Data Classes
 // 현재 촬영중인 동영상을 나타내는 데이터 클래스
 [Serializable]
 public class RecordingVideoData
@@ -77,9 +78,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 옵션: 촬영 수명주기 제어 포워딩 (필요 시 사용)
-    public void StartRecording(RecordingVideoData initial = null)
+    public void StartRecording()
     {
-        RecordingManager.Instance.StartRecording(initial);
+        RecordingManager.Instance.StartRecording();
     }
 
     public void CancelRecording()
@@ -101,6 +102,19 @@ public class GameManager : Singleton<GameManager>
             _gameData = value;
         }
     }
+    #endregion
+
+    // 시간 규칙 상수
+    //TODO: config 파일로 분리
+    public const int WeeksPerMonth = 4;
+    public const int MonthsPerYear = 12;
+    public const float SecondsPerWeek = 10f;
+
+    // 현재 날짜(년/월/주)
+    public int Year { get; private set; } = 1;
+    public int Month { get; private set; } = 1;
+    public int Week { get; private set; } = 1;
+
 
     public int Gold
     {

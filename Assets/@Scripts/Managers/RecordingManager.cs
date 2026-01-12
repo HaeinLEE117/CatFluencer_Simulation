@@ -17,14 +17,8 @@ public class RecordingManager : Singleton<RecordingManager>
     public event Action OnRecordingEnded;
 
     // 촬영 시작 (선택적으로 초기 데이터 전달)
-    public void StartRecording(RecordingVideoData initial = null)
+    public void StartRecording()
     {
-        if (initial != null)
-            RecordingVideoData = initial;
-        else
-            RecordingVideoData = new RecordingVideoData();
-
-        VideoBalanceData = new VideoBalanceData();
         IsRecording = true;
         OnRecordingStarted?.Invoke();
     }
