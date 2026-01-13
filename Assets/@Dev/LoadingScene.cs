@@ -10,7 +10,6 @@ public class LoadingScene : BaseScene
         SceneType = Define.EScene.LoadingScene;
 
         ResourceManager.Instance.LoadAll(OnProgress, OnComplete);
-        SaveManager.Instance.Load();
     } 
 
     void OnProgress(float value)
@@ -22,6 +21,7 @@ public class LoadingScene : BaseScene
     {
 		Debug.Log($"Loading Complete");
         DataManager.Instance.LoadData();
+        SaveManager.Instance.Load();
         SceneManager.Instance.LoadScene(Define.EScene.DevScene);
 	}
 }

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -60,7 +61,7 @@ public class SaveManager : Singleton<SaveManager>
         Debug.Log($"SaveManager: Game saved to {SavePath}");
     }
     //TODO: LoadingScene에서 부르기
-    public void Load()
+    public void Load(Action onComplete = null)
     {
         if (File.Exists(SavePath) == false)
         {
