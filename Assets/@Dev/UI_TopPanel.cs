@@ -24,6 +24,8 @@ public class UI_TopPanel : UI_UGUI
         BindTexts(typeof(Texts));
 
         RefreshUI();
+
+        EventManager.Instance.AddEvent(Define.EEventType.GoldChanged, RefreshUI);
     }
 
 
