@@ -10,7 +10,10 @@
       "NameTextID": "EMPLOYEE_NORRIS_NAME",
       "CharMentTextID": "EMPLOYEE_NORRIS_MENT",
       "PhotoImageID": "photo_norris",
-      "PrefabNameID": "Norris"
+      "PrefabNameID": "Norris",
+      "Stat1Trained": 0,
+      "Stat2Trained": 0,
+      "Stat3Trained": 0
     },
     {
       "TemplateID": 1002,
@@ -22,7 +25,25 @@
       "NameTextID": "EMPLOYEE_MINI_NAME",
       "CharMentTextID": "EMPLOYEE_MINI_MENT",
       "PhotoImageID": "photo_mini",
-      "PrefabNameID": "Mini"
+      "PrefabNameID": "Mini",
+      "Stat1Trained": 0,
+      "Stat2Trained": 0,
+      "Stat3Trained": 0
+    },
+    {
+      "TemplateID": 0,
+      "Stat1": 0,
+      "Stat2": 0,
+      "Stat3": 0,
+      "Salary": 0,
+      "ContactFee": 0,
+      "NameTextID": null,
+      "CharMentTextID": null,
+      "PhotoImageID": null,
+      "PrefabNameID": null,
+      "Stat1Trained": 0,
+      "Stat2Trained": 0,
+      "Stat3Trained": 0
     }
   ]
 }

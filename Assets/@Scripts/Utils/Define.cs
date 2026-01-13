@@ -18,7 +18,6 @@ public static class Define
         // Left Panel secondary actions
         UI_NewVideoClicked,
         UI_LiveStreamClicked,
-        UI_EducationClicked,
         UI_HireClicked,
         UI_FireClicked,
         UI_GoalsClicked,
@@ -36,6 +35,7 @@ public static class Define
         SecondsPerWeekChanged,
         UpgradeCountChanged,
         InitHiredEmployeesChanged,
+        EmployEducationDone,
     }
 
     public enum ESound

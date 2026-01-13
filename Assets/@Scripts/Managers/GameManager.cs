@@ -63,6 +63,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+
     public int Gold
     {
         get { return _gameData.Gold; }
@@ -111,21 +112,14 @@ public class GameManager : Singleton<GameManager>
         set { _gameData.UpgradeCount = value; EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged); }
     }
 
-    // 초기 고용 직원 목록은 add 형태로만 갱신
-    public Dictionary<int,EmployeeData> HiredEmployees => _gameData.HiredEmployees;
-
-    public void AddInitHiredEmployeeId(int id)
-    {
-        if (_gameData.HiredEmployees == null)
-            _gameData.HiredEmployees = new Dictionary<int, EmployeeData>();
-
-        if (_gameData.HiredEmployees.ContainsKey(id))
-            return;
-
-        DataManager.Instance.EmployeeDict.TryGetValue(id, out EmployeeData tmpEmployeeData);
-        _gameData.HiredEmployees.Add(id, tmpEmployeeData);
-        EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
-    }
+    // EmployeeManager forwarders
+    public IReadOnlyDictionary<int, EmployeeData> HiredEmployees => EmployeeManager.Instance.HiredEmployees;
+    public bool HireEmployee(int employeeId) => EmployeeManager.Instance.Hire(employeeId);
+    public bool FireEmployee(int employeeId) => EmployeeManager.Instance.Fire(employeeId);
+    public bool ApplyEmployeeTraining(int employeeId, int stat1Delta = 0, int stat2Delta = 0, int stat3Delta = 0)
+        => EmployeeManager.Instance.ApplyTraining(employeeId, stat1Delta, stat2Delta, stat3Delta);
+    public bool TryGetEmployeeDisplayStats(int employeeId, out int stat1, out int stat2, out int stat3)
+        => EmployeeManager.Instance.TryGetDisplayStats(employeeId, out stat1, out stat2, out stat3);
 
 
     #region Recording Video

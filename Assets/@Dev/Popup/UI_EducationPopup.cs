@@ -56,8 +56,6 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        var hiredDict = GameManager.Instance.HiredEmployees;
-        _hiredIds = hiredDict != null ? new List<int>(hiredDict.Keys) : new List<int>();
         _currentIndex = 0;
 
         // Wire navigation buttons
@@ -119,6 +117,12 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         var img = photoGO != null ? photoGO.GetComponent<UnityEngine.UI.Image>() : null;
         if (img != null)
             img.sprite = ResourceManager.Instance.Get<Sprite>(employeeData.PhotoImageID);
+
+        GetText((int)Texts.UpPoint1).text = EmployeeManager.Instance.GetTrainDeltaPointsStat1(currentId).ToString();
+        GetText((int)Texts.UpPoint2).text = EmployeeManager.Instance.GetTrainDeltaPointsStat2(currentId).ToString();
+
+        GetText((int)Texts.UpGradeStat1ButtonText).text = EmployeeManager.Instance.GetEmployeeTrainStat1Coast(currentId).ToString() + " G";
+        GetText((int)Texts.UpGradeStat2ButtonText).text = EmployeeManager.Instance.GetEmployeeTrainStat2Coast(currentId).ToString() + " G";
     }
 
     private void OnPrev()

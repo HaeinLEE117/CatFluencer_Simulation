@@ -16,6 +16,10 @@ public class EmployeeData
     public string CharMentTextID;
     public string PhotoImageID;
     public string PrefabNameID;
+
+    public int Stat1Trained;
+    public int Stat2Trained;
+    public int Stat3Trained;
 }
 
 [Serializable]
