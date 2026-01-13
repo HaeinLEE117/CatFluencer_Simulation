@@ -66,6 +66,8 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         NextButton.onClick.AddListener(OnNext);
 
         RefreshUI();
+
+        EventManager.Instance.AddEvent(Define.EEventType.EmployEducationDone, RefreshUI);
     }
 
     public override void RefreshUI()
@@ -109,20 +111,37 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         GetText((int)Texts.Stat2Text).SetLocalizedText("STAT2");
         GetText((int)Texts.Stat3Text).SetLocalizedText("STAT3");
 
-        GetText((int)Texts.Stat1PointText).text = employeeData.Stat1.ToString();
-        GetText((int)Texts.Stat2PointText).text = employeeData.Stat2.ToString();
-        GetText((int)Texts.Stat3PointText).text = employeeData.Stat3.ToString();
+        GetText((int)Texts.Stat1PointText).text = (employeeData.Stat1).ToString();
+        GetText((int)Texts.Stat2PointText).text = (employeeData.Stat2).ToString();
+        GetText((int)Texts.Stat3PointText).text = (employeeData.Stat3).ToString();
 
         var photoGO = GetObject((int)GameObjects.EmployeePhoto);
         var img = photoGO != null ? photoGO.GetComponent<UnityEngine.UI.Image>() : null;
         if (img != null)
             img.sprite = ResourceManager.Instance.Get<Sprite>(employeeData.PhotoImageID);
 
-        GetText((int)Texts.UpPoint1).text = EmployeeManager.Instance.GetTrainDeltaPointsStat1(currentId).ToString();
-        GetText((int)Texts.UpPoint2).text = EmployeeManager.Instance.GetTrainDeltaPointsStat2(currentId).ToString();
+        int traindeltaPointStat1 = GameManager.Instance.GetTraindeltaPointStat1(currentId);
+        int traindeltaPointStat2 = GameManager.Instance.GetTraindeltaPointStat2(currentId);
+        int trainStat1Coast = GameManager.Instance.GetEmployeeTrainStat1Cost(currentId);
+        int trainStat2Coast = GameManager.Instance.GetEmployeeTrainStat2Cost(currentId);
 
-        GetText((int)Texts.UpGradeStat1ButtonText).text = EmployeeManager.Instance.GetEmployeeTrainStat1Coast(currentId).ToString() + " G";
-        GetText((int)Texts.UpGradeStat2ButtonText).text = EmployeeManager.Instance.GetEmployeeTrainStat2Coast(currentId).ToString() + " G";
+        GetButton((int)Buttons.UpGradeStat1Button).onClick.RemoveAllListeners();
+        GetButton((int)Buttons.UpGradeStat2Button).onClick.RemoveAllListeners();
+
+        GetButton((int)Buttons.UpGradeStat1Button).onClick.AddListener(() =>
+        {
+            EmployeeManager.Instance.ApplyTrainingStat1(currentId, trainStat1Coast,traindeltaPointStat1);
+        });
+        GetButton((int)Buttons.UpGradeStat2Button).onClick.AddListener(() =>
+        {
+            EmployeeManager.Instance.ApplyTrainingStat2(currentId, trainStat2Coast, traindeltaPointStat2);
+        });
+        GetText((int)Texts.UpPoint1).text = traindeltaPointStat1.ToString();
+        GetText((int)Texts.UpPoint2).text = traindeltaPointStat2.ToString();
+
+        GetText((int)Texts.UpGradeStat1ButtonText).text = trainStat1Coast.ToString() + " G";
+        GetText((int)Texts.UpGradeStat2ButtonText).text = trainStat2Coast.ToString() + " G";
+    
     }
 
     private void OnPrev()

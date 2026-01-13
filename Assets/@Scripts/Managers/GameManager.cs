@@ -73,6 +73,16 @@ public class GameManager : Singleton<GameManager>
             EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
         }
     }
+    public bool GoldDeduct(int amount)
+    {
+        Debug.Log($"Trying to deduct Gold: {amount}, Current Gold: {_gameData.Gold}");
+        if (_gameData.Gold >= amount)
+        {
+            Gold -= amount;
+            return true;
+        }
+        return false;
+    }
     public int Subscribers
     {
         get { return _gameData.Subscriber; }
@@ -118,8 +128,14 @@ public class GameManager : Singleton<GameManager>
     public bool FireEmployee(int employeeId) => EmployeeManager.Instance.Fire(employeeId);
     public bool ApplyEmployeeTraining(int employeeId, int stat1Delta = 0, int stat2Delta = 0, int stat3Delta = 0)
         => EmployeeManager.Instance.ApplyTraining(employeeId, stat1Delta, stat2Delta, stat3Delta);
-    public bool TryGetEmployeeDisplayStats(int employeeId, out int stat1, out int stat2, out int stat3)
-        => EmployeeManager.Instance.TryGetDisplayStats(employeeId, out stat1, out stat2, out stat3);
+    public int GetEmployeeTrainStat1Cost(int employeeId)
+        => EmployeeManager.Instance.GetEmployeeTrainStat1Coast(employeeId);
+    public int GetEmployeeTrainStat2Cost(int employeeId)
+        => EmployeeManager.Instance.GetEmployeeTrainStat2Coast(employeeId);
+    public int GetTraindeltaPointStat1(int employeeId)
+        => EmployeeManager.Instance.GetTrainDeltaPointsStat1(employeeId);
+    public int GetTraindeltaPointStat2(int employeeId)
+        => EmployeeManager.Instance.GetTrainDeltaPointsStat2(employeeId);
 
 
     #region Recording Video
