@@ -9,8 +9,9 @@ public class LoadingScene : BaseScene
 
         SceneType = Define.EScene.LoadingScene;
 
-        ResourceManager.Instance.LoadAll(OnProgress, OnComplete);		
-	} 
+        ResourceManager.Instance.LoadAll(OnProgress, OnComplete);
+        SaveManager.Instance.Load();
+    } 
 
     void OnProgress(float value)
     {

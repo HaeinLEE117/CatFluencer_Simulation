@@ -29,6 +29,13 @@ public static class Define
         // Popup stack changed
         UI_PopupStackChanged,
         UI_ContentSelected,
+        //GameData Changed
+        SubscriberChanged,
+        ChannelNameChanged,
+        VideoBalancePointsChanged,
+        SecondsPerWeekChanged,
+        UpgradeCountChanged,
+        InitHiredEmployeesChanged,
     }
 
     public enum ESound

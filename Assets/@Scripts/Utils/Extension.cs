@@ -32,4 +32,16 @@ public static class Extension
         tmpText.text = LocalizationManager.Instance.GetLocalizedText(templateID);
         tmpText.font = LocalizationManager.Instance.CurrentFontAsset;
     }
+
+    public static void SetTextwithFont(this TMP_Text tmpText, string newText)
+    {
+        if (tmpText == null)
+        {
+            Debug.LogWarning("Extension.GetText: TMP_Text is null");
+            return;
+        }
+
+        tmpText.text = newText;
+        tmpText.font = LocalizationManager.Instance.CurrentFontAsset;
+    }
 }

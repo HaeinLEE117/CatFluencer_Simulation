@@ -1,7 +1,7 @@
 ﻿TemplateID,KOR,ENG
-HELLO,안녕하세요,Hello
-GOODBYE,안녕히가세요,Goodbye
-WELCOME,환영합니다,Welcome
+ YEAR,년,Y
+MONTH,월,M
+WEEK,주,W
 GAME_START,게임 시작,Game Start
 GAME_OVER,게임 오버,Game Over
 VICTORY,승리,Victory

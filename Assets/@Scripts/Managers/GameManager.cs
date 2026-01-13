@@ -7,14 +7,26 @@ using UnityEngine;
 public class GameData
 {
     public int Gold;
-    public int Level;
     public List<int> UpgradeCount;
 
-    //TODO: 나중에 동영상 밸런스 포인트 관련 데이터 추가
-    public int TotalVidieoBalancePoints = 5;
+    // 구독자/채널 설정
+    public int Subscriber;
+    public string ChannelName;
+
+    public int StartYear;
+    public int StartMonth;
+    public int StartWeek;
+
+    // 동영상 밸런스 포인트
+    public int TotalVidieoBalancePoints;
+
+    // 시작 직원(초기 고용 직원 ID)
+    public List<int> HiredEmployeeIds;
+
+    // 주당 초(게임 시간 설정)
+    public float SecondsPerWeek;
 }
 
-#region Recording Video Data Classes
 // 현재 촬영중인 동영상을 나타내는 데이터 클래스
 [Serializable]
 public class RecordingVideoData
@@ -40,6 +52,82 @@ public class  VideoBalanceData
 
 public class GameManager : Singleton<GameManager>
 {
+
+    private GameData _gameData = new GameData();
+    public GameData GameData
+    {
+        get { return _gameData; }
+        set
+        {
+            _gameData = value;
+        }
+    }
+
+    public int Gold
+    {
+        get { return _gameData.Gold; }
+        set
+        {
+            _gameData.Gold = value;
+            EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
+        }
+    }
+    public int Subscribers
+    {
+        get { return _gameData.Subscriber; }
+        set
+        {
+            _gameData.Subscriber = value;
+            EventManager.Instance.TriggerEvent(Define.EEventType.SubscriberChanged);
+        }
+    }
+
+    // GameData proxy properties
+    public string ChannelName
+    {
+        get { return _gameData.ChannelName; }
+        set { _gameData.ChannelName = value; EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged); }
+    }
+
+    public int NowYear => _gameData.StartYear;
+    public int NowMonth => _gameData.StartMonth;
+    public int NowWeek => _gameData.StartWeek;
+
+    public int TotalVidieoBalancePoints
+    {
+        get { return _gameData.TotalVidieoBalancePoints; }
+        set { _gameData.TotalVidieoBalancePoints = value; EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged); }
+    }
+
+    public float SecondsPerWeek
+    {
+        get { return _gameData.SecondsPerWeek; }
+        set { _gameData.SecondsPerWeek = value; EventManager.Instance.TriggerEvent(Define.EEventType.SecondsPerWeekChanged); }
+    }
+
+    public List<int> UpgradeCount
+    {
+        get { return _gameData.UpgradeCount; }
+        set { _gameData.UpgradeCount = value; EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged); }
+    }
+
+    // 초기 고용 직원 목록은 add 형태로만 갱신
+    public List<int> HiredEmployeeIds => _gameData.HiredEmployeeIds;
+
+    public void AddInitHiredEmployeeId(int id)
+    {
+        if (_gameData.HiredEmployeeIds == null)
+            _gameData.HiredEmployeeIds = new List<int>();
+
+        if (_gameData.HiredEmployeeIds.Contains(id))
+            return;
+
+        _gameData.HiredEmployeeIds.Add(id);
+        EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
+    }
+
+
+    #region Recording Video
     // Recording 상태를 중앙에서 확인할 수 있도록 브리지 제공
     public bool IsRecording => RecordingManager.Instance != null && RecordingManager.Instance.IsRecording;
 
@@ -93,36 +181,8 @@ public class GameManager : Singleton<GameManager>
         RecordingManager.Instance.FinishRecording();
     }
 
-    private GameData _gameData = new GameData();
-    public GameData GameData
-    {
-        get { return _gameData; }
-        set
-        {
-            _gameData = value;
-        }
-    }
     #endregion
 
-    // 시간 규칙 상수
-    //TODO: config 파일로 분리
-    public const int WeeksPerMonth = 4;
-    public const int MonthsPerYear = 12;
-    public const float SecondsPerWeek = 10f;
 
-    // 현재 날짜(년/월/주)
-    public int Year { get; private set; } = 1;
-    public int Month { get; private set; } = 1;
-    public int Week { get; private set; } = 1;
-
-
-    public int Gold
-    {
-        get { return _gameData.Gold; }
-        set
-        {
-            _gameData.Gold = value;
-            EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
-        }
-    }
+    
 }

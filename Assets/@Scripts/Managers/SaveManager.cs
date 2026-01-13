@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ public class SaveManager : Singleton<SaveManager>
         File.WriteAllText(SavePath, json);
         Debug.Log($"SaveManager: Game saved to {SavePath}");
     }
-
+    //TODO: LoadingScene에서 부르기
     public void Load()
     {
         if (File.Exists(SavePath) == false)
@@ -75,10 +76,17 @@ public class SaveManager : Singleton<SaveManager>
 
     public void Reset()
     {
+        //TODO: 채널명 입력 받기
         GameData gameData = new GameData()
         {
             Gold = DataManager.Instance.GameConfig.InitialGold,
-            Level = DataManager.Instance.GameConfig.InitialLevel
+            Subscriber = DataManager.Instance.GameConfig.InitialSubscriber,
+            ChannelName = DataManager.Instance.GameConfig.InitialChannelName,
+            StartYear = DataManager.Instance.GameConfig.InitailYear,
+            StartMonth = DataManager.Instance.GameConfig.InitailMonth,
+            StartWeek = DataManager.Instance.GameConfig.InitailWeek,
+            TotalVidieoBalancePoints = DataManager.Instance.GameConfig.InitialVideoBalancePoints,
+            HiredEmployeeIds = new List<int>() { DataManager.Instance.GameConfig.InitialHiredEmployee }
         };
 
         GameManager.Instance.GameData = gameData;
