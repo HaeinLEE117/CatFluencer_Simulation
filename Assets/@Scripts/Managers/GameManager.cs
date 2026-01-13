@@ -75,7 +75,6 @@ public class GameManager : Singleton<GameManager>
     }
     public bool GoldDeduct(int amount)
     {
-        Debug.Log($"Trying to deduct Gold: {amount}, Current Gold: {_gameData.Gold}");
         if (_gameData.Gold >= amount)
         {
             Gold -= amount;
