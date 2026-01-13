@@ -6,11 +6,11 @@ GAME_START,게임 시작,Game Start
 GAME_OVER,게임 오버,Game Over
 VICTORY,승리,Victory
 DEFEAT,패배,Defeat
-LOADING,로딩 중...,Loading…
-SAVE,저장,Save
-LOAD,불러오기,Load
 MENU,메뉴,Menu
 CLOSE,닫기,Close
+STAT1,기술,Technique
+STAT2,예능,Entertainment
+STAT3,출연 비디오,Casted Video
 LEFT_PANEL_EDITING,기획실,Editing
 LEFT_PANEL_HUMAN_RESOURCES,직원,Employee
 LEFT_PANEL_STUDIO_INFO,스튜디오 정보,StudioInfo
@@ -22,3 +22,5 @@ LEFT_PANEL_HIRE,고용,Hiring
 LEFT_PANEL_FIRE,해고,Firing
 LEFT_PANEL_GOALS,달성 목표,Goals
 LEFT_PANEL_PREVIOUS_VIDEOS,과거 동영상,Old Videos
+EMPLOYEE_NORRIS_NAME,노리스,Norris
+EMPLOYEE_MINI_NAME,미니,Mini

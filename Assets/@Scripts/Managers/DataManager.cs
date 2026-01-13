@@ -22,6 +22,7 @@ public class DataManager : Singleton<DataManager>
     public IAPConfig IAPConfig { get; private set; }
 
     public Dictionary<string, TextData> TextDict { get; private set; } = new Dictionary<string, TextData>();
+    public Dictionary<int, EmployeeData> EmployeeDict { get; private set; } = new Dictionary<int, EmployeeData>();
     public Dictionary<int, ItemData> ItemDict { get; private set;  } = new Dictionary<int, ItemData>();
 
     public void LoadData()
@@ -32,6 +33,7 @@ public class DataManager : Singleton<DataManager>
         IAPConfig = LoadScriptableObject<IAPConfig>("IAPConfig");
 
         TextDict = LoadJson<TextDataLoader, string, TextData>("TextData").MakeDict();
+        EmployeeDict = LoadJson<EmployeeDataLoader, int, EmployeeData>("EmployeeData").MakeDict();
         //ItemDict = LoadJson<ItemDataLoader, int, ItemData>("ItemData").MakeDict();
         // TODO
 

@@ -1,0 +1,28 @@
+﻿{
+  "texts": [
+    {
+      "TemplateID": 1001,
+      "Stat1": 4,
+      "Stat2": 4,
+      "Stat3": 0,
+      "Salary": 200,
+      "ContactFee": 400,
+      "NameTextID": "EMPLOYEE_NORRIS_NAME",
+      "CharMentTextID": "EMPLOYEE_NORRIS_MENT",
+      "PhotoImageID": "photo_norris",
+      "PrefabNameID": "Norris"
+    },
+    {
+      "TemplateID": 1002,
+      "Stat1": 8,
+      "Stat2": 11,
+      "Stat3": 0,
+      "Salary": 300,
+      "ContactFee": 800,
+      "NameTextID": "EMPLOYEE_MINI_NAME",
+      "CharMentTextID": "EMPLOYEE_MINI_MENT",
+      "PhotoImageID": "photo_mini",
+      "PrefabNameID": "Mini"
+    }
+  ]
+}

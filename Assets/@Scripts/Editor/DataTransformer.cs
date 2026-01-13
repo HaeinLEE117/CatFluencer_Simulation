@@ -17,6 +17,7 @@ public class DataTransformer : EditorWindow
     {
         ParseExcelDataToJson<ItemDataLoader, ItemData>("Item");
         ParseExcelDataToJson<TextDataLoader, TextData>("Text");
+        ParseExcelDataToJson<EmployeeDataLoader, EmployeeData>("Employee");
     }
 
     private static void ParseExcelDataToJson<Loader, LoaderData>(string filename) where Loader : new()
@@ -117,7 +118,7 @@ public class DataTransformer : EditorWindow
         string json = JsonConvert.SerializeObject(loader, Formatting.Indented);
 
         // JSON 파일 저장 경로
-        string jsonPath = $"{Application.dataPath}/Resources/Data/JsonData/{filename}Data.json";
+        string jsonPath = $"{Application.dataPath}/Resources/PreLoad/Data/JsonData/{filename}Data.json";
         
         // 디렉토리 확인 및 생성
         string directory = Path.GetDirectoryName(jsonPath);

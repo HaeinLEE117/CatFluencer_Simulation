@@ -36,21 +36,6 @@
       "ENG": "Defeat"
     },
     {
-      "TemplateID": "LOADING",
-      "KOR": "로딩 중...",
-      "ENG": "Loading…"
-    },
-    {
-      "TemplateID": "SAVE",
-      "KOR": "저장",
-      "ENG": "Save"
-    },
-    {
-      "TemplateID": "LOAD",
-      "KOR": "불러오기",
-      "ENG": "Load"
-    },
-    {
       "TemplateID": "MENU",
       "KOR": "메뉴",
       "ENG": "Menu"
@@ -59,6 +44,21 @@
       "TemplateID": "CLOSE",
       "KOR": "닫기",
       "ENG": "Close"
+    },
+    {
+      "TemplateID": "STAT1",
+      "KOR": "기술",
+      "ENG": "Technique"
+    },
+    {
+      "TemplateID": "STAT2",
+      "KOR": "예능",
+      "ENG": "Entertainment"
+    },
+    {
+      "TemplateID": "STAT3",
+      "KOR": "출연 비디오",
+      "ENG": "Casted Video"
     },
     {
       "TemplateID": "LEFT_PANEL_EDITING",
@@ -114,6 +114,16 @@
       "TemplateID": "LEFT_PANEL_PREVIOUS_VIDEOS",
       "KOR": "과거 동영상",
       "ENG": "Old Videos"
+    },
+    {
+      "TemplateID": "EMPLOYEE_NORRIS_NAME",
+      "KOR": "노리스",
+      "ENG": "Norris"
+    },
+    {
+      "TemplateID": "EMPLOYEE_MINI_NAME",
+      "KOR": "미니",
+      "ENG": "Mini"
     }
   ]
 }
