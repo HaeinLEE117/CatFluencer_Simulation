@@ -41,6 +41,10 @@ public class UI_SettingsPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
+        GetButton((int)Buttons.SaveButton).onClick.AddListener(() => { 
+            SaveManager.Instance.Save();
+        });
+
     }
     public override void RefreshUI()
     {
