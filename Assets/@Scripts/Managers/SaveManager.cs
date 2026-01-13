@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -61,7 +60,7 @@ public class SaveManager : Singleton<SaveManager>
         Debug.Log($"SaveManager: Game saved to {SavePath}");
     }
     //TODO: LoadingScene에서 부르기
-    public void Load(Action onComplete = null)
+    public void Load()
     {
         if (File.Exists(SavePath) == false)
         {
@@ -87,8 +86,12 @@ public class SaveManager : Singleton<SaveManager>
             StartMonth = DataManager.Instance.GameConfig.InitailMonth,
             StartWeek = DataManager.Instance.GameConfig.InitailWeek,
             TotalVidieoBalancePoints = DataManager.Instance.GameConfig.InitialVideoBalancePoints,
-            HiredEmployeeIds = new List<int>() { DataManager.Instance.GameConfig.InitialHiredEmployee }
+            HiredEmployees = new Dictionary<int, EmployeeData>(),
         };
+
+        int empID = DataManager.Instance.GameConfig.InitialHiredEmployee;
+        EmployeeData employeeData = DataManager.Instance.EmployeeDict[empID];
+        gameData.HiredEmployees.Add(employeeData.TemplateID, employeeData);
 
         GameManager.Instance.GameData = gameData;
         Save();

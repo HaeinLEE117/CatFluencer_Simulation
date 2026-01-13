@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_EducationPopup : UI_UGUI, IUI_Popup
 {
@@ -41,6 +43,11 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         UpGradeStat2ButtonText,
     }
 
+    private List<int> _hiredIds;
+    private int _currentIndex;
+
+    Button PreButton;
+    Button NextButton;
     protected override void Awake()
     {
         base.Awake();
@@ -49,6 +56,17 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
+        var hiredDict = GameManager.Instance.HiredEmployees;
+        _hiredIds = hiredDict != null ? new List<int>(hiredDict.Keys) : new List<int>();
+        _currentIndex = 0;
+
+        // Wire navigation buttons
+
+        PreButton = GetButton((int)Buttons.PreButton);
+        PreButton.onClick.AddListener(OnPrev);
+        NextButton = GetButton((int)Buttons.NextButton);
+        NextButton.onClick.AddListener(OnNext);
+
         RefreshUI();
     }
 
@@ -56,8 +74,36 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
     {
         base.RefreshUI();
 
-        //TODO: Change 1001 to hired employee ID
-        DataManager.Instance.EmployeeDict.TryGetValue(1001, out EmployeeData employeeData);
+        var hiredDict = GameManager.Instance.HiredEmployees;
+        int count = hiredDict != null ? hiredDict.Count : 0;
+        if (count == 0)
+        {
+            Debug.Log("No hired employees to display.");
+            // 버튼 비활성화
+            PreButton.gameObject.SetActive(false);
+            NextButton.gameObject.SetActive(false);
+            return;
+        }
+
+        // _hiredIds를 최신 상태로 동기화(필요 시)
+        _hiredIds = new List<int>(hiredDict.Keys);
+
+        // 1명일 때는 순회 버튼 비활성화, 2명 이상이면 활성화
+        bool multi = _hiredIds.Count > 1;
+        PreButton.gameObject.SetActive(multi);
+        NextButton.gameObject.SetActive(multi);
+
+        // 현재 인덱스 정규화
+        if (_currentIndex < 0) _currentIndex = 0;
+        if (_currentIndex >= _hiredIds.Count) _currentIndex = 0;
+
+        int currentId = _hiredIds[_currentIndex];
+        if (!hiredDict.TryGetValue(currentId, out EmployeeData employeeData) || employeeData == null)
+        {
+            Debug.LogWarning($"Employee id {currentId} not found in HiredEmployees");
+            return;
+        }
+
         GetText((int)Texts.EmployeeNameText).SetLocalizedText(employeeData.NameTextID);
         GetText((int)Texts.EmployeeSalaryText).text = employeeData.Salary.ToString() + " G";
 
@@ -69,7 +115,23 @@ public class UI_EducationPopup : UI_UGUI, IUI_Popup
         GetText((int)Texts.Stat2PointText).text = employeeData.Stat2.ToString();
         GetText((int)Texts.Stat3PointText).text = employeeData.Stat3.ToString();
 
-        Get<GameObject>((int)GameObjects.EmployeePhoto).GetComponent<UnityEngine.UI.Image>().sprite
-              = ResourceManager.Instance.Get<Sprite>(employeeData.PhotoImageID);
+        var photoGO = GetObject((int)GameObjects.EmployeePhoto);
+        var img = photoGO != null ? photoGO.GetComponent<UnityEngine.UI.Image>() : null;
+        if (img != null)
+            img.sprite = ResourceManager.Instance.Get<Sprite>(employeeData.PhotoImageID);
+    }
+
+    private void OnPrev()
+    {
+        if (_hiredIds == null || _hiredIds.Count <= 1) return;
+        _currentIndex = (_currentIndex - 1 + _hiredIds.Count) % _hiredIds.Count;
+        RefreshUI();
+    }
+
+    private void OnNext()
+    {
+        if (_hiredIds == null || _hiredIds.Count <= 1) return;
+        _currentIndex = (_currentIndex + 1) % _hiredIds.Count;
+        RefreshUI();
     }
 }

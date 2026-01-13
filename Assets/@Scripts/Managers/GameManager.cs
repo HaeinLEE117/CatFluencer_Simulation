@@ -20,8 +20,8 @@ public class GameData
     // 동영상 밸런스 포인트
     public int TotalVidieoBalancePoints;
 
-    // 시작 직원(초기 고용 직원 ID)
-    public List<int> HiredEmployeeIds;
+    // 고용된 직원 목록 (ID 기준)
+    public Dictionary<int, EmployeeData> HiredEmployees;
 
     // 주당 초(게임 시간 설정)
     public float SecondsPerWeek;
@@ -112,17 +112,18 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 초기 고용 직원 목록은 add 형태로만 갱신
-    public List<int> HiredEmployeeIds => _gameData.HiredEmployeeIds;
+    public Dictionary<int,EmployeeData> HiredEmployees => _gameData.HiredEmployees;
 
     public void AddInitHiredEmployeeId(int id)
     {
-        if (_gameData.HiredEmployeeIds == null)
-            _gameData.HiredEmployeeIds = new List<int>();
+        if (_gameData.HiredEmployees == null)
+            _gameData.HiredEmployees = new Dictionary<int, EmployeeData>();
 
-        if (_gameData.HiredEmployeeIds.Contains(id))
+        if (_gameData.HiredEmployees.ContainsKey(id))
             return;
 
-        _gameData.HiredEmployeeIds.Add(id);
+        DataManager.Instance.EmployeeDict.TryGetValue(id, out EmployeeData tmpEmployeeData);
+        _gameData.HiredEmployees.Add(id, tmpEmployeeData);
         EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
     }
 
