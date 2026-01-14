@@ -26,6 +26,9 @@ public class UI_TopPanel : UI_UGUI
         RefreshUI();
 
         EventManager.Instance.AddEvent(Define.EEventType.GoldChanged, RefreshUI);
+        EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, RefreshUI);
+        EventManager.Instance.AddEvent(Define.EEventType.MonthAdvanced, RefreshUI);
+        EventManager.Instance.AddEvent(Define.EEventType.YearAdvanced, RefreshUI);
     }
 
 

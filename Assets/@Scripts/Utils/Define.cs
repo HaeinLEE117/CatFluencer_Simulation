@@ -36,6 +36,10 @@ public static class Define
         UpgradeCountChanged,
         InitHiredEmployeesChanged,
         EmployEducationDone,
+        //날짜 업데이트
+        WeekAdvanced,
+        MonthAdvanced,
+        YearAdvanced,
     }
 
     public enum ESound

@@ -23,8 +23,6 @@ public class GameData
     // 고용된 직원 목록 (ID 기준)
     public Dictionary<int, EmployeeData> HiredEmployees;
 
-    // 주당 초(게임 시간 설정)
-    public float SecondsPerWeek;
 }
 
 // 현재 촬영중인 동영상을 나타내는 데이터 클래스
@@ -63,6 +61,79 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private Coroutine _timeCoroutine;
+
+    // 현재 날짜(년/월/주)
+    public int NowYear => _gameData.StartYear;
+    public int NowMonth => _gameData.StartMonth;
+    public int NowWeek => _gameData.StartWeek;
+
+    // 시간 흐름 시작/중지
+    public void StartTime()
+    {
+        if (_timeCoroutine != null) return;
+        float secondsPerWeek = DataManager.Instance?.GameConfig?.GetSecondsPerWeek() ?? 10f;
+        _timeCoroutine = StartCoroutine(CoWeekTick(secondsPerWeek));
+    }
+
+    public void StopTime()
+    {
+        if (_timeCoroutine == null) return;
+        StopCoroutine(_timeCoroutine);
+        _timeCoroutine = null;
+    }
+
+    private System.Collections.IEnumerator CoWeekTick(float secondsPerWeek)
+    {
+        var wait = new WaitForSeconds(secondsPerWeek);
+        while (true)
+        {
+            yield return wait;
+            AdvanceWeek();
+        }
+    }
+
+    public void AdvanceWeek()
+    {
+        _gameData.StartWeek++;
+        EventManager.Instance.TriggerEvent(Define.EEventType.WeekAdvanced);
+
+        if (_gameData.StartWeek > constants.WEEKSPERMONTH)
+        {
+            _gameData.StartWeek = 1;
+            _gameData.StartMonth++;
+            EventManager.Instance.TriggerEvent(Define.EEventType.MonthAdvanced);
+
+            if (_gameData.StartMonth > constants.MONTHSPERYEAR)
+            {
+                _gameData.StartMonth = 1;
+                _gameData.StartYear++;
+                EventManager.Instance.TriggerEvent(Define.EEventType.YearAdvanced);
+            }
+        }
+    }
+
+    // Centralized updater to apply a new GameData and raise relevant events
+    public void ApplyGameData(GameData data)
+    {
+        if (data == null) return;
+        _gameData = data;
+
+        EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.SubscriberChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.SecondsPerWeekChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged);
+
+        // 재시작: 설정 변경 시 타이머 재시작 고려
+        if (_timeCoroutine != null)
+        {
+            StopTime();
+            StartTime();
+        }
+    }
 
     public int Gold
     {
@@ -99,20 +170,10 @@ public class GameManager : Singleton<GameManager>
         set { _gameData.ChannelName = value; EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged); }
     }
 
-    public int NowYear => _gameData.StartYear;
-    public int NowMonth => _gameData.StartMonth;
-    public int NowWeek => _gameData.StartWeek;
-
     public int TotalVidieoBalancePoints
     {
         get { return _gameData.TotalVidieoBalancePoints; }
         set { _gameData.TotalVidieoBalancePoints = value; EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged); }
-    }
-
-    public float SecondsPerWeek
-    {
-        get { return _gameData.SecondsPerWeek; }
-        set { _gameData.SecondsPerWeek = value; EventManager.Instance.TriggerEvent(Define.EEventType.SecondsPerWeekChanged); }
     }
 
     public List<int> UpgradeCount
@@ -192,7 +253,4 @@ public class GameManager : Singleton<GameManager>
     }
 
     #endregion
-
-
-    
 }

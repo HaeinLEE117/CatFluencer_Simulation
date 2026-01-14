@@ -15,5 +15,9 @@ public class DevScene : BaseScene
         Player cat = ObjectManager.Instance.SpawnPlayer("Cat");
         cat.State = Cat.ECatState.Idle;
         cat.transform.position = Vector3.zero;
+
+        //시간 관련
+        GameManager.Instance.StartTime();
+        //EventManager.Instance.AddEvent(Define.EEventType.UI_PopupStackChanged, GameManager.Instance.);
     }
 }
