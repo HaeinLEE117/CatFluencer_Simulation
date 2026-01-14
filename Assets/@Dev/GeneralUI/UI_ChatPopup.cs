@@ -4,21 +4,19 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
 {
     enum GameObjects
     {
+        NPCImage,
     }
 
     enum Buttons
     {
-        CancleButton,
-        ConfirmButton,
+        NextButton,
     }
 
     enum Texts
     {
-        ConfirmPopupText,
-        DescribtionText,
+        ComentText,
+        NPCNameText
 
-        CancleButtonText,
-        ConfirmButtonText,
     }
 
     protected override void Awake()
@@ -29,11 +27,6 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-    }
-
-    public override void RefreshUI()
-    {
-        base.RefreshUI();
     }
 
 
