@@ -9,7 +9,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
 
     enum Buttons
     {
-        //���
+        //상단
         PreButton,
         NextButton,
 
@@ -42,6 +42,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
+        //TODO: EmployeeManager와 연동 필요
         GetButton((int)Buttons.HireButton).onClick.AddListener(ClosePopup);
     }
 

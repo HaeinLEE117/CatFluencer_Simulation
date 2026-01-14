@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UI_ChatPopup : UI_UGUI, IUI_Popup
+public class UI_ConfirmPopup: UI_UGUI, IUI_Popup
 {
     enum GameObjects
     {
@@ -29,5 +29,10 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
 
     }
 
+
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 
 }

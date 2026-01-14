@@ -42,6 +42,8 @@ public class EmployeeManager : Singleton<EmployeeManager>
         return removed;
     }
 
+    #region 교육/훈련
+
     // Apply education/training points directly to the hired employee's stats in GameData
     public bool ApplyTraining(int employeeId, int stat1Delta = 0, int stat2Delta = 0, int stat3Delta = 0)
     {
@@ -185,4 +187,36 @@ public class EmployeeManager : Singleton<EmployeeManager>
             return 0;
         return points[sectionIndex];
     }
+    #endregion
+
+
+    //TODO: 구인 포스트를 올린 후, 일정 주가 지나면 지원자가 있다고 확인 팝업을 띄우는 기능 구현 필요
+    public void StartUIJobPosting()
+    {
+        // Subscribe to week advancement and after a delay, show the hire popup.
+        if (_jobPostingActive)
+        {
+            //TODO: Show ConfirmPopup
+        }
+        _jobPostingActive = true;
+        _weeksUntilApplicant = constants.WEEKSFORJOBPOSTINGDONE;
+        EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
+    }
+
+    private void OnWeekAdvancedForJobPosting()
+    {
+        if (!_jobPostingActive) return;
+        _weeksUntilApplicant--;
+        if (_weeksUntilApplicant <= 0)
+        {
+            _jobPostingActive = false;
+            EventManager.Instance.RemoveEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
+            // Show applicant confirmation popup
+            UIManager.Instance.ShowPopupUI("UI_HirePopup");
+        }
+    }
+
+    // Configurable defaults; can be moved to GameConfig if needed
+    private bool _jobPostingActive;
+    private int _weeksUntilApplicant = 0;
 }
