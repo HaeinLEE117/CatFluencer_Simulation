@@ -44,6 +44,7 @@ public static class Define
         UI_PopupClosed,
         UI_LeftPanelClosed,
         UI_LeftPanelOpened,
+        HireableEmployeesChanged,
     }
 
     public enum ESound

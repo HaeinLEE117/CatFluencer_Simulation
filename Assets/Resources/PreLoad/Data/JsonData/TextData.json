@@ -124,6 +124,21 @@
       "TemplateID": "EMPLOYEE_MINI_NAME",
       "KOR": "미니",
       "ENG": "Mini"
+    },
+    {
+      "TemplateID": "EMPLOYEE_CHLOE_NAME",
+      "KOR": "로로",
+      "ENG": "Chloe"
+    },
+    {
+      "TemplateID": "EMPLOYEE_MAX_NAME",
+      "KOR": "맥스",
+      "ENG": "Max"
+    },
+    {
+      "TemplateID": "EMPLOYEE_MILO_NAME",
+      "KOR": "마일로",
+      "ENG": "Milo"
     }
   ]
 }

@@ -8,6 +8,10 @@ public class EmployeeManager : Singleton<EmployeeManager>
     private Dictionary<int, EmployeeData> HiredDict => GameManager.Instance.GameData.HiredEmployees;
     public IReadOnlyDictionary<int, EmployeeData> HiredEmployees => HiredDict;
 
+    // Expose generated hire candidates for UI_HirePopup
+    private readonly List<EmployeeData> _hireCandidates = new List<EmployeeData>();
+    public IReadOnlyList<EmployeeData> HireCandidates => _hireCandidates;
+
     // Hire an employee (adds to GameData.HiredEmployees)
     public bool Hire(int employeeId)
     {
@@ -200,6 +204,8 @@ public class EmployeeManager : Singleton<EmployeeManager>
         }
         _jobPostingActive = true;
         _weeksUntilApplicant = constants.WEEKSFORJOBPOSTINGDONE;
+
+        GameManager.Instance.HireableEmployees = GenerateRandomHireCandidates(2, 4);
         EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
     }
 
@@ -211,9 +217,37 @@ public class EmployeeManager : Singleton<EmployeeManager>
         {
             _jobPostingActive = false;
             EventManager.Instance.RemoveEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
+
+            // Generate 2~4 random hire candidates from EmployeeDict (excluding already hired)
+            GenerateRandomHireCandidates(2, 4);
             // Show applicant confirmation popup
             UIManager.Instance.ShowPopupUI("UI_HirePopup");
         }
+    }
+
+    public List<EmployeeData> GenerateRandomHireCandidates(int minCount, int maxCount)
+    {
+        _hireCandidates.Clear();
+        var all = DataManager.Instance.EmployeeDict;
+
+        // Build a pool excluding already hired ids
+        List<EmployeeData> pool = new List<EmployeeData>(all.Count);
+        foreach (var kv in all)
+        {
+            if (HiredDict != null && HiredDict.ContainsKey(kv.Key))
+                continue;
+            pool.Add(kv.Value);
+        }
+
+        int target = Mathf.Clamp(Random.Range(minCount, maxCount + 1), 1, pool.Count);
+        // Simple random selection without repeats
+        for (int i = 0; i < target && pool.Count > 0; i++)
+        {
+            int idx = Random.Range(0, pool.Count);
+            _hireCandidates.Add(pool[idx]);
+            pool.RemoveAt(idx);
+        }
+        return pool;
     }
 
     // Configurable defaults; can be moved to GameConfig if needed

@@ -50,6 +50,15 @@ public class  VideoBalanceData
 
 public class GameManager : Singleton<GameManager>
 {
+    List<EmployeeData> _hireableEmployees = new List<EmployeeData>();
+    public List<EmployeeData> HireableEmployees
+    {
+        get { return _hireableEmployees; }
+        set { 
+            _hireableEmployees = value; 
+            EventManager.Instance.TriggerEvent(Define.EEventType.HireableEmployeesChanged);
+        }
+    }
 
     private GameData _gameData = new GameData();
     public GameData GameData
