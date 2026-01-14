@@ -130,9 +130,17 @@ public class UI_LeftPanel : UI_UGUI
 
     public void ToggleShowLeftPanel()
     {
-        bool wasActive = this.gameObject.activeSelf;
+        bool wasActive = this.gameObject.activeSelf; 
+        if (wasActive)
+        {
+            EventManager.Instance.TriggerEvent(EEventType.UI_LeftPanelClosed);
+        }
+        else
+        {
+            EventManager.Instance.TriggerEvent(EEventType.UI_LeftPanelOpened);
+        }
         gameObject.SetActive(!wasActive);
-
+       
         GetObject((int)GameObjects.EditingOptionPanel).SetActive(false);
         GetObject((int)GameObjects.HumanResOptionPanel).SetActive(false);
         GetObject((int)GameObjects.StudioInfoOptionPanel).SetActive(false);

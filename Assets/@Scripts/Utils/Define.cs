@@ -42,6 +42,8 @@ public static class Define
         YearAdvanced,
         UI_PopupOpened,
         UI_PopupClosed,
+        UI_LeftPanelClosed,
+        UI_LeftPanelOpened,
     }
 
     public enum ESound
