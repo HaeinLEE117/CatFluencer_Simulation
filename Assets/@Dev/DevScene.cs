@@ -18,6 +18,7 @@ public class DevScene : BaseScene
 
         //시간 관련
         GameManager.Instance.StartTime();
-        //EventManager.Instance.AddEvent(Define.EEventType.UI_PopupStackChanged, GameManager.Instance.);
+        EventManager.Instance.AddEvent(Define.EEventType.UI_PopupOpened, GameManager.Instance.StopTime);
+        EventManager.Instance.AddEvent(Define.EEventType.UI_PopupClosed, GameManager.Instance.StartTime);
     }
 }

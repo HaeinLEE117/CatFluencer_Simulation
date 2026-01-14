@@ -40,6 +40,8 @@ public static class Define
         WeekAdvanced,
         MonthAdvanced,
         YearAdvanced,
+        UI_PopupOpened,
+        UI_PopupClosed,
     }
 
     public enum ESound
