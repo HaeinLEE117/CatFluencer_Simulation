@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -223,5 +224,55 @@ public class UIManager : Singleton<UIManager>
             return;
 
         GameManager.Instance.UpdateRecordingLocation(location);
+    }
+
+    internal void ShowChatPopup(string titleText, string commentText, string npcNameText)
+    {
+        // If a popup is already active, defer chat popup until current is closed
+        if (_activePopup != null)
+        {
+            // Caller can decide to close current popup; here we just return
+            return;
+        }
+
+        string name = nameof(UI_ChatPopup);
+        if (_popups.TryGetValue(name, out UI_Base popup) == false)
+        {
+            GameObject go = ResourceManager.Instance.Instantiate(name);
+            popup = Utils.GetOrAddComponent<UI_ChatPopup>(go);
+            _popups[name] = popup;
+        }
+
+        var chat = popup as UI_ChatPopup;
+        if (chat != null)
+        {
+            chat.Configure(titleText, commentText, npcNameText);
+        }
+
+        _activePopup = chat;
+        _wasPopupOpen = true;
+
+        popup.transform.SetParent(PopupRoot);
+        popup.gameObject.SetActive(true);
+
+        if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
+        {
+            GameManager.Instance.StopTime();
+        }
+
+        if (popup is UI_Toolkit toolkitUI)
+        {
+            var doc = toolkitUI.GetComponent<UIDocument>();
+            doc.sortingOrder = FixedPopupSortingOrder;
+            doc.rootVisualElement.visible = true;
+        }
+        else
+        {
+            var canvas = popup.GetComponent<Canvas>();
+            if (canvas != null)
+                canvas.sortingOrder = FixedPopupSortingOrder;
+        }
+
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupOpened);
     }
 }

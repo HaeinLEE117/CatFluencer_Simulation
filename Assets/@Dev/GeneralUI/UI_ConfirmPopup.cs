@@ -31,5 +31,9 @@ public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
 
     }
 
+    public override void RefreshUI()
+    {
+        base.RefreshUI();
+    }
 
 }

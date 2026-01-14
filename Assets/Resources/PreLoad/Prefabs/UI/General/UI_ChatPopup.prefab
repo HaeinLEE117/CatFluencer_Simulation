@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 4179511970614510240}
   - component: {fileID: 3389561713533650034}
   m_Layer: 5
-  m_Name: ChatPopupText
+  m_Name: ChatPopupTitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 3529735969007017269}
   - component: {fileID: 5851800565440316509}
   - component: {fileID: 9118857859248907961}
-  - component: {fileID: 4515212916431264605}
+  - component: {fileID: 7328774724835872920}
   m_Layer: 5
   m_Name: UI_ChatPopup
   m_TagString: Untagged
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4515212916431264605
+--- !u!114 &7328774724835872920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7187068666796663282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49debd8ee84381e4a9e2f21ee3b65cb1, type: 3}
+  m_Script: {fileID: 11500000, guid: ade3c078b2c016d4196ba12a78df332c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_ChatPopup
 --- !u!1 &8722241343162618143

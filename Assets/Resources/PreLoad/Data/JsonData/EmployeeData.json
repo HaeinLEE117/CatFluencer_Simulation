@@ -25,16 +25,40 @@
       "PrefabNameID": "Mini"
     },
     {
-      "TemplateID": 0,
-      "Stat1": 0,
-      "Stat2": 0,
-      "Stat3": 0,
-      "Salary": 0,
-      "ContactFee": 0,
-      "NameTextID": null,
-      "CharMentTextID": null,
-      "PhotoImageID": null,
-      "PrefabNameID": null
+      "TemplateID": 1003,
+      "Stat1": 12,
+      "Stat2": 18,
+      "Stat3": 3,
+      "Salary": 400,
+      "ContactFee": 1200,
+      "NameTextID": "EMPLOYEE_CHLOE_NAME",
+      "CharMentTextID": "EMPLOYEE_CHLOE_MENT",
+      "PhotoImageID": "photo_chloe",
+      "PrefabNameID": "Chloe"
+    },
+    {
+      "TemplateID": 1004,
+      "Stat1": 16,
+      "Stat2": 25,
+      "Stat3": 1,
+      "Salary": 500,
+      "ContactFee": 1600,
+      "NameTextID": "EMPLOYEE_MAX_NAME",
+      "CharMentTextID": "EMPLOYEE_MAX_MENT",
+      "PhotoImageID": "photo_max",
+      "PrefabNameID": "Max"
+    },
+    {
+      "TemplateID": 1005,
+      "Stat1": 20,
+      "Stat2": 32,
+      "Stat3": 7,
+      "Salary": 600,
+      "ContactFee": 2000,
+      "NameTextID": "EMPLOYEE_MILO_NAME",
+      "CharMentTextID": "EMPLOYEE_MILO_MENT",
+      "PhotoImageID": "photo_milo",
+      "PrefabNameID": "Milo"
     }
   ]
 }
