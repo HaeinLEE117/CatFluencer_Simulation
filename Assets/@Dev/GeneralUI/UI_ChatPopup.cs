@@ -56,7 +56,7 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
 
     private void OnClickNext()
     {
-        _onClosed?.Invoke();
         UIManager.Instance.ClosePopupUI();
+        _onClosed?.Invoke();
     }
 }
