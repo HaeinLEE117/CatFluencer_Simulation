@@ -226,6 +226,8 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.UpdateRecordingLocation(location);
     }
 
+    #region 대화창 팝업
+
     internal void ShowChatPopup(string titleText, string commentText, string npcNameText)
     {
         // If a popup is already active, defer chat popup until current is closed
@@ -274,5 +276,16 @@ public class UIManager : Singleton<UIManager>
         }
 
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupOpened);
+    }
+    #endregion
+
+    public void ShowConfirmPopup(string titleText,string message, Action onConfirm, Action onCancel = null)
+    {
+        var popup = ShowPopupUI<UI_ConfirmPopup>();
+        if (popup == null)
+            return;
+        popup.SetTitle(titleText);
+        popup.SetMessage(message);
+        popup.SetActions(onConfirm, onCancel, confirmLabel: null, cancelLabel: null);
     }
 }
