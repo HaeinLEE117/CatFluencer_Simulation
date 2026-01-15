@@ -56,6 +56,8 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
 
         _index = 0;
 
+        _preBtn.gameObject.SetActive(false);
+        _nextBtn.gameObject.SetActive(false);
         RefreshUI();
     }
 
@@ -63,10 +65,13 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
     {
         base.RefreshUI();
 
+
         var list = GameManager.Instance.HireableEmployees;
         if (list == null || list.Count == 0)
         {
+            UIManager.Instance.ClosePopupUI();
             UIManager.Instance.ShowConfirmPopup("No applicants available.","No applicants available.", null);
+            return;
         }
 
         if (_index < 0) _index = 0;
@@ -96,7 +101,6 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         bool canNavigate = list.Count > 1;
         _preBtn.gameObject.SetActive(canNavigate);
         _nextBtn.gameObject.SetActive(canNavigate);
-        GetButton((int)Buttons.HireButton).interactable = true;
     }
 
     private void OnPrev()
@@ -123,7 +127,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         // Pay contact fee; if not enough gold, do nothing
         if (!GameManager.Instance.TryPayGold(e.ContactFee))
         {
-            UIManager.Instance.ShowConfirmPopup("No Money.", "No Money.", null);
+            UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"), LocalizationManager.Instance.GetLocalizedText("NO_MONEY"), null);
             return;
         }
 
@@ -134,6 +138,10 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
             if (_index >= list.Count) _index = Mathf.Max(0, list.Count - 1);
             GameManager.Instance.HireableEmployees = list;
             RefreshUI();
+        }
+        else
+        {
+            UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"), LocalizationManager.Instance.GetLocalizedText("HIRE_FAILED"), null);
         }
     }
 }

@@ -70,6 +70,8 @@ public class EmployeeManager : Singleton<EmployeeManager>
     {
         if (GameManager.Instance.TryPayGold(coast))
             return ApplyTraining(employeeId, stat1Delta, 0, 0);
+        else
+            UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"), LocalizationManager.Instance.GetLocalizedText("NO_MONEY"), null);
 
         return false;
     }
@@ -78,6 +80,8 @@ public class EmployeeManager : Singleton<EmployeeManager>
     {
         if (GameManager.Instance.TryPayGold(coast))
             return ApplyTraining(employeeId, 0, stat2Delta, 0);
+        else
+            UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"), LocalizationManager.Instance.GetLocalizedText("NO_MONEY"), null);
         return false;
     }
 
@@ -194,7 +198,6 @@ public class EmployeeManager : Singleton<EmployeeManager>
     #endregion
 
 
-    //TODO: 구인 포스트를 올린 후, 일정 주가 지나면 지원자가 있다고 확인 팝업을 띄우는 기능 구현 필요
     public void StartUIJobPosting()
     {
         // Subscribe to week advancement and after a delay, show the hire popup.
@@ -205,7 +208,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
         _jobPostingActive = true;
         _weeksUntilApplicant = constants.WEEKSFORJOBPOSTINGDONE;
 
-        GameManager.Instance.HireableEmployees = GenerateRandomHireCandidates(2, 4);
+        GameManager.Instance.HireableEmployees = GenerateRandomHireCandidates(2, 3);
         EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
     }
 
@@ -218,10 +221,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
             _jobPostingActive = false;
             EventManager.Instance.RemoveEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
 
-            // Generate 2~4 random hire candidates from EmployeeDict (excluding already hired)
-            GenerateRandomHireCandidates(2, 4);
             // Show applicant confirmation popup
-
             UIManager.Instance.ShowChatPopup(LocalizationManager.Instance.GetLocalizedText("JOP_OPENING_DONE"),
                 LocalizationManager.Instance.GetLocalizedText("JOP_OPENING_DONE_INSTRUCTION"),
                 LocalizationManager.Instance.GetLocalizedText("SYSTEM_NPC_NAME")

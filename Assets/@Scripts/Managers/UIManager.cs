@@ -70,11 +70,26 @@ public class UIManager : Singleton<UIManager>
     private bool _wasPopupOpen;
     private readonly Dictionary<string, UI_Base> _popups = new Dictionary<string, UI_Base>();
     private const int FixedPopupSortingOrder = 300;
+    private readonly Stack<UI_Base> _popupStack = new Stack<UI_Base>();
 
     public T ShowPopupUI<T>(string name = null) where T : UI_Base, IUI_Popup
 	{
+        return ShowPopupUI<T>(name, closeCurrent: false);
+    }
+
+    // Overload with option to close existing or stack current
+    public T ShowPopupUI<T>(string name, bool closeCurrent) where T : UI_Base, IUI_Popup
+    {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
+
+        if (closeCurrent)
+            CloseAllPopupUI();
+        else if (_activePopup != null)
+        {
+            _popupStack.Push(_activePopup);
+            SetPopupActive(_activePopup, false);
+        }
 
         if (_popups.TryGetValue(name, out UI_Base popup) == false)
         {
@@ -83,37 +98,15 @@ public class UIManager : Singleton<UIManager>
             _popups[name] = popup;
         }
 
-        // Close previous popup if different
-        if (_activePopup != null && _activePopup != popup)
-        {
-            if (_activePopup is UI_Toolkit prevToolkit)
-                prevToolkit.GetComponent<UIDocument>().rootVisualElement.visible = false;
-            else
-                _activePopup.gameObject.SetActive(false);
-        }
-
         _activePopup = popup;
         _wasPopupOpen = true;
 
         popup.transform.SetParent(PopupRoot);
-        popup.gameObject.SetActive(true);
+        SetPopupActive(popup, true);
 
         if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
         {
             GameManager.Instance.StopTime();
-        }
-
-        if (popup is UI_Toolkit toolkitUI)
-        {
-            var doc = toolkitUI.GetComponent<UIDocument>();
-            doc.sortingOrder = FixedPopupSortingOrder;
-            doc.rootVisualElement.visible = true;
-        }
-        else
-        {
-            var canvas = popup.GetComponent<Canvas>();
-            if (canvas != null)
-                canvas.sortingOrder = FixedPopupSortingOrder;
         }
 
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupOpened);
@@ -122,11 +115,22 @@ public class UIManager : Singleton<UIManager>
 
     public UI_Base ShowPopupUI(string name)
     {
+        return ShowPopupUI(name, closeCurrent: true);
+    }
+
+    // Overload with option to close existing or stack current
+    public UI_Base ShowPopupUI(string name, bool closeCurrent)
+    {
         if (string.IsNullOrEmpty(name))
             return null;
 
-        // Close current then open requested
-        ClosePopupUI();
+        if (closeCurrent)
+            CloseAllPopupUI();
+        else if (_activePopup != null)
+        {
+            _popupStack.Push(_activePopup);
+            SetPopupActive(_activePopup, false);
+        }
 
         if (_popups.TryGetValue(name, out UI_Base popup) == false)
         {
@@ -141,19 +145,11 @@ public class UIManager : Singleton<UIManager>
         _wasPopupOpen = true;
 
         popup.transform.SetParent(PopupRoot);
-        popup.gameObject.SetActive(true);
+        SetPopupActive(popup, true);
 
-        if (popup is UI_Toolkit toolkitUI)
+        if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
         {
-            var doc = toolkitUI.GetComponent<UIDocument>();
-            doc.sortingOrder = FixedPopupSortingOrder;
-            doc.rootVisualElement.visible = true;
-        }
-        else
-        {
-            var canvas = popup.GetComponent<Canvas>();
-            if (canvas != null)
-                canvas.sortingOrder = FixedPopupSortingOrder;
+            GameManager.Instance.StopTime();
         }
 
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupOpened);
@@ -175,25 +171,47 @@ public class UIManager : Singleton<UIManager>
         UI_Base popup = _activePopup;
         _activePopup = null;
 
-        if (popup is UI_Toolkit toolkitUI)
-            toolkitUI.GetComponent<UIDocument>().rootVisualElement.visible = false;
-        else
-            popup.gameObject.SetActive(false);
+        SetPopupActive(popup, false);
 
-        // Resume time flow only in DevScene
-        if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
+        // If there is a popup in stack, restore it; else resume time
+        if (_popupStack.Count > 0)
         {
-            GameManager.Instance.StartTime();
+            _activePopup = _popupStack.Pop();
+            SetPopupActive(_activePopup, true);
+        }
+        else
+        {
+            if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
+            {
+                GameManager.Instance.StartTime();
+            }
+            _wasPopupOpen = false;
         }
 
-        // Single-popup policy: after closing, none is open
-        _wasPopupOpen = false;
         EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupClosed);
     }
 
     public void CloseAllPopupUI()
     {
-        ClosePopupUI();
+        // Close active and clear stack entirely
+        if (_activePopup != null)
+        {
+            SetPopupActive(_activePopup, false);
+            _activePopup = null;
+        }
+        while (_popupStack.Count > 0)
+        {
+            var p = _popupStack.Pop();
+            SetPopupActive(p, false);
+        }
+
+        if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
+        {
+            GameManager.Instance.StartTime();
+        }
+
+        _wasPopupOpen = false;
+        EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupClosed);
     }
     #endregion
 
@@ -230,63 +248,45 @@ public class UIManager : Singleton<UIManager>
 
     internal void ShowChatPopup(string titleText, string commentText, string npcNameText, Action onClosed = null)
     {
-        // If a popup is already active, defer chat popup until current is closed
-        if (_activePopup != null)
-        {
-            // Caller can decide to close current popup; here we just return
-            return;
-        }
-
-        string name = nameof(UI_ChatPopup);
-        if (_popups.TryGetValue(name, out UI_Base popup) == false)
-        {
-            GameObject go = ResourceManager.Instance.Instantiate(name);
-            popup = Utils.GetOrAddComponent<UI_ChatPopup>(go);
-            _popups[name] = popup;
-        }
-
-        var chat = popup as UI_ChatPopup;
+        // Use stacking behavior by default (do not force close existing)
+        var chat = ShowPopupUI<UI_ChatPopup>(nameof(UI_ChatPopup), closeCurrent: false);
         if (chat != null)
         {
             chat.Configure(titleText, commentText, npcNameText);
             chat.SetOnClosed(onClosed);
         }
+    }
+    #endregion
 
-        _activePopup = chat;
-        _wasPopupOpen = true;
+    public void ShowConfirmPopup(string titleText,string message, Action onConfirm, Action onCancel = null)
+    {
+        var popup = ShowPopupUI<UI_ConfirmPopup>(null, closeCurrent: false);
+        if (popup == null)
+            return;
+        popup.SetTitle(titleText);
+        popup.SetMessage(message);
+        popup.SetActions(onConfirm, onCancel, confirmLabel: null, cancelLabel: null);
+    }
 
-        popup.transform.SetParent(PopupRoot);
-        popup.gameObject.SetActive(true);
-
-        if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
-        {
-            GameManager.Instance.StopTime();
-        }
-
+    private void SetPopupActive(UI_Base popup, bool active)
+    {
+        if (popup == null) return;
         if (popup is UI_Toolkit toolkitUI)
         {
             var doc = toolkitUI.GetComponent<UIDocument>();
             doc.sortingOrder = FixedPopupSortingOrder;
-            doc.rootVisualElement.visible = true;
+            doc.rootVisualElement.visible = active;
         }
         else
         {
             var canvas = popup.GetComponent<Canvas>();
             if (canvas != null)
                 canvas.sortingOrder = FixedPopupSortingOrder;
+            popup.gameObject.SetActive(active);
         }
-
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_PopupOpened);
-    }
-    #endregion
-
-    public void ShowConfirmPopup(string titleText,string message, Action onConfirm, Action onCancel = null)
-    {
-        var popup = ShowPopupUI<UI_ConfirmPopup>();
-        if (popup == null)
-            return;
-        popup.SetTitle(titleText);
-        popup.SetMessage(message);
-        popup.SetActions(onConfirm, onCancel, confirmLabel: null, cancelLabel: null);
+        if (active)
+        {
+            popup.transform.SetParent(PopupRoot);
+        }
     }
 }

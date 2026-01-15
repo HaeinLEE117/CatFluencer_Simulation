@@ -83,7 +83,6 @@ public class GameManager : Singleton<GameManager>
         if (_timeCoroutine != null) return;
         float secondsPerWeek = DataManager.Instance?.GameConfig?.GetSecondsPerWeek() ?? 10f;
         _timeCoroutine = StartCoroutine(CoWeekTick(secondsPerWeek));
-        Debug.Log("Game Time Started");
     }
 
     public void StopTime()
@@ -91,7 +90,6 @@ public class GameManager : Singleton<GameManager>
         if (_timeCoroutine == null) return;
         StopCoroutine(_timeCoroutine);
         _timeCoroutine = null;
-        Debug.Log("Game Time Stopped");
     }
 
     private System.Collections.IEnumerator CoWeekTick(float secondsPerWeek)

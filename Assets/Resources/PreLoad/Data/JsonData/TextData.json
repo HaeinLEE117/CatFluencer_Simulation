@@ -141,6 +141,31 @@
       "ENG": "Milo"
     },
     {
+      "TemplateID": "EMPLOYEE_NORRIS_MENT",
+      "KOR": "세상에서 제일 빛나는 고양이'",
+      "ENG": "Top of Cat'"
+    },
+    {
+      "TemplateID": "EMPLOYEE_MINI_MENT",
+      "KOR": "내가 제일 잘나가'",
+      "ENG": "Let's do this!'"
+    },
+    {
+      "TemplateID": "EMPLOYEE_CHLOE_MENT",
+      "KOR": "인급동 올라가봤어?'",
+      "ENG": null
+    },
+    {
+      "TemplateID": "EMPLOYEE_MAX_MENT",
+      "KOR": "내 손 안에 냥플루언서'",
+      "ENG": null
+    },
+    {
+      "TemplateID": "EMPLOYEE_MILO_MENT",
+      "KOR": "다 내 밑이냥'",
+      "ENG": null
+    },
+    {
       "TemplateID": "JOP_OPENING_DONE",
       "KOR": "직원 모집 완료",
       "ENG": "New Job Applicants"
@@ -149,6 +174,21 @@
       "TemplateID": "JOP_OPENING_DONE_INSTRUCTION",
       "KOR": "지원자들 중에 고용을 진행해보세요",
       "ENG": "You have new job applicants! Check them out in the Hire menu."
+    },
+    {
+      "TemplateID": "SYSTEM_NPC_NAME",
+      "KOR": "매니저",
+      "ENG": "Manager"
+    },
+    {
+      "TemplateID": "NO_MONEY",
+      "KOR": "골드가 부족합니다!",
+      "ENG": "Not enough money!"
+    },
+    {
+      "TemplateID": "FAILED",
+      "KOR": "실패",
+      "ENG": "Failed"
     }
   ]
 }
