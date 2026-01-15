@@ -242,8 +242,10 @@ public class EmployeeManager : Singleton<EmployeeManager>
                 continue;
             pool.Add(kv.Value);
         }
+        Debug.Log($"고용되지 않은 직원 전체 풀: {pool.Count}명");
 
-        int target = Mathf.Clamp(Random.Range(minCount, maxCount + 1), 1, pool.Count);
+        // Determine target count; if pool is empty, target is 0
+        int target = pool.Count > 0 ? Mathf.Clamp(Random.Range(minCount, maxCount + 1), 1, pool.Count) : 0;
         // Simple random selection without repeats
         for (int i = 0; i < target && pool.Count > 0; i++)
         {
@@ -251,7 +253,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
             _hireCandidates.Add(pool[idx]);
             pool.RemoveAt(idx);
         }
-        return pool;
+        return _hireCandidates;
     }
 
     // Configurable defaults; can be moved to GameConfig if needed
