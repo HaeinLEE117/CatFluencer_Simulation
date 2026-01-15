@@ -222,7 +222,9 @@ public class EmployeeManager : Singleton<EmployeeManager>
             GenerateRandomHireCandidates(2, 4);
             // Show applicant confirmation popup
 
-            UIManager.Instance.ShowChatPopup("Job Applicants Available", "You have new job applicants! Check the Hire menu to review and hire new employees.","System"
+            UIManager.Instance.ShowChatPopup(LocalizationManager.Instance.GetLocalizedText("JOP_OPENING_DONE"),
+                LocalizationManager.Instance.GetLocalizedText("JOP_OPENING_DONE_INSTRUCTION"),
+                LocalizationManager.Instance.GetLocalizedText("SYSTEM_NPC_NAME")
                 , ()=>UIManager.Instance.ShowPopupUI("UI_HirePopup"));
         }
     }
