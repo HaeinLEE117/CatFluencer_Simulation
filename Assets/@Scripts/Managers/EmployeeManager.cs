@@ -68,7 +68,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
 
     public bool ApplyTrainingStat1(int employeeId,int coast, int stat1Delta)
     {
-        if (GameManager.Instance.GoldDeduct(coast))
+        if (GameManager.Instance.TryPayGold(coast))
             return ApplyTraining(employeeId, stat1Delta, 0, 0);
 
         return false;
@@ -76,7 +76,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
 
     public bool ApplyTrainingStat2(int employeeId, int coast, int stat2Delta)
     {
-        if (GameManager.Instance.GoldDeduct(coast))
+        if (GameManager.Instance.TryPayGold(coast))
             return ApplyTraining(employeeId, 0, stat2Delta, 0);
         return false;
     }

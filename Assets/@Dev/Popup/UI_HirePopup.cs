@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_HirePopup : UI_UGUI, IUI_Popup
 {
@@ -35,6 +36,8 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
     }
 
     private int _index;
+    Button _preBtn;
+    Button _nextBtn;
 
     protected override void Awake()
     {
@@ -44,8 +47,11 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        GetButton((int)Buttons.PreButton).onClick.AddListener(OnPrev);
-        GetButton((int)Buttons.NextButton).onClick.AddListener(OnNext);
+        _preBtn = GetButton((int)Buttons.PreButton);
+        _nextBtn = GetButton((int)Buttons.NextButton);
+        _preBtn.onClick.AddListener(OnPrev);
+        _nextBtn.onClick.AddListener(OnNext);
+
         GetButton((int)Buttons.HireButton).onClick.AddListener(OnHire);
 
         _index = 0;
@@ -60,8 +66,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         var list = GameManager.Instance.HireableEmployees;
         if (list == null || list.Count == 0)
         {
-            // TODO: Show empty state
-            return;
+            UIManager.Instance.ShowConfirmPopup("No applicants available.","No applicants available.", null);
         }
 
         if (_index < 0) _index = 0;
@@ -89,8 +94,9 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         }
 
         bool canNavigate = list.Count > 1;
-        GetButton((int)Buttons.PreButton).interactable = canNavigate;
-        GetButton((int)Buttons.NextButton).interactable = canNavigate;
+        _preBtn.gameObject.SetActive(canNavigate);
+        _nextBtn.gameObject.SetActive(canNavigate);
+        GetButton((int)Buttons.HireButton).interactable = true;
     }
 
     private void OnPrev()
@@ -114,8 +120,20 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         var list = GameManager.Instance.HireableEmployees;
         if (list == null || list.Count == 0) return;
         var e = list[_index];
-        GameManager.Instance.HireEmployee(e.TemplateID);
-        // Optionally close popup or update candidates
-        UIManager.Instance.ClosePopupUI();
+        // Pay contact fee; if not enough gold, do nothing
+        if (!GameManager.Instance.TryPayGold(e.ContactFee))
+        {
+            UIManager.Instance.ShowConfirmPopup("No Money.", "No Money.", null);
+            return;
+        }
+
+        // Hire and update candidates list
+        if (GameManager.Instance.HireEmployee(e.TemplateID))
+        {
+            list.RemoveAt(_index);
+            if (_index >= list.Count) _index = Mathf.Max(0, list.Count - 1);
+            GameManager.Instance.HireableEmployees = list;
+            RefreshUI();
+        }
     }
 }

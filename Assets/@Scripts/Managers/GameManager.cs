@@ -155,7 +155,7 @@ public class GameManager : Singleton<GameManager>
             EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
         }
     }
-    public bool GoldDeduct(int amount)
+    public bool TryPayGold(int amount)
     {
         if (_gameData.Gold >= amount)
         {
