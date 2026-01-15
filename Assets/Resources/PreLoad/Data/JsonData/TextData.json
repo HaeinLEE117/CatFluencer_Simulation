@@ -139,6 +139,16 @@
       "TemplateID": "EMPLOYEE_MILO_NAME",
       "KOR": "마일로",
       "ENG": "Milo"
+    },
+    {
+      "TemplateID": "JOP_OPENING_DONE",
+      "KOR": "직원 모집 완료",
+      "ENG": "New Job Applicants"
+    },
+    {
+      "TemplateID": "JOP_OPENING_DONE_INSTRUCTION",
+      "KOR": "지원자들 중에 고용을 진행해보세요",
+      "ENG": "You have new job applicants! Check them out in the Hire menu."
     }
   ]
 }

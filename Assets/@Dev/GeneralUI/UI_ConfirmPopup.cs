@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using TMPro;
 
 public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
 {
@@ -35,23 +36,43 @@ public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
 
         GetButton((int)Buttons.CancleButton).onClick.AddListener(OnClickCancel);
         GetButton((int)Buttons.ConfirmButton).onClick.AddListener(OnClickConfirm);
+
+        RefreshUI();
     }
 
     public override void RefreshUI()
     {
         base.RefreshUI();
+        // Set all text fonts to current localization font asset
+        var font = LocalizationManager.Instance != null ? LocalizationManager.Instance.CurrentFontAsset : null;
+        if (font != null)
+        {
+            TrySetFont((int)Texts.ConfirmPopupText, font);
+            TrySetFont((int)Texts.DescribtionText, font);
+            TrySetFont((int)Texts.CancleButtonText, font);
+            TrySetFont((int)Texts.ConfirmButtonText, font);
+        }
+    }
+
+    private void TrySetFont(int textIndex, TMP_FontAsset font)
+    {
+        var t = GetText(textIndex);
+        if (t != null)
+        {
+            t.font = font;
+        }
     }
 
     private void OnClickCancel()
     {
-        _onCancel?.Invoke();
         UIManager.Instance.ClosePopupUI();
+        _onCancel?.Invoke();
     }
 
     private void OnClickConfirm()
     {
-        _onConfirm?.Invoke();
         UIManager.Instance.ClosePopupUI();
+        _onConfirm?.Invoke();
     }
 
     public void SetTitle(string title)
@@ -81,5 +102,6 @@ public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
             var txt = GetText((int)Texts.CancleButtonText);
             if (txt != null) txt.text = cancelLabel;
         }
+        RefreshUI();
     }
 }

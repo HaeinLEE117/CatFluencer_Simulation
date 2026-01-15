@@ -31,7 +31,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         ApplicantMentText,
 
         ApplicantPaymentText,
-        FireButtonText,
+        HireButtonText,
     }
 
     private int _index;

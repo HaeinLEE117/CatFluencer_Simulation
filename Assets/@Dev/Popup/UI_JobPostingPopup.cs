@@ -30,6 +30,7 @@ public class UI_JobPostingPopup : UI_UGUI, IUI_Popup
             BindButtons(typeof(Buttons));
             BindTexts(typeof(Texts));
 
+        GetButton((int)Buttons.PostingButton).onClick.AddListener(ClosePopup);
         GetButton((int)Buttons.PostingButton).onClick.AddListener(EmployeeManager.Instance.StartUIJobPosting);
     }
 

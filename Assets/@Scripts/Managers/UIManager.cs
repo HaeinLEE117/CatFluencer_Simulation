@@ -228,7 +228,7 @@ public class UIManager : Singleton<UIManager>
 
     #region 대화창 팝업
 
-    internal void ShowChatPopup(string titleText, string commentText, string npcNameText)
+    internal void ShowChatPopup(string titleText, string commentText, string npcNameText, Action onClosed = null)
     {
         // If a popup is already active, defer chat popup until current is closed
         if (_activePopup != null)
@@ -249,6 +249,7 @@ public class UIManager : Singleton<UIManager>
         if (chat != null)
         {
             chat.Configure(titleText, commentText, npcNameText);
+            chat.SetOnClosed(onClosed);
         }
 
         _activePopup = chat;

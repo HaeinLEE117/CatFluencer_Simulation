@@ -27,3 +27,5 @@ EMPLOYEE_MINI_NAME,미니,Mini
 EMPLOYEE_CHLOE_NAME,로로,Chloe
 EMPLOYEE_MAX_NAME,맥스,Max
 EMPLOYEE_MILO_NAME,마일로,Milo
+JOP_OPENING_DONE,직원 모집 완료,New Job Applicants
+JOP_OPENING_DONE_INSTRUCTION,지원자들 중에 고용을 진행해보세요,You have new job applicants! Check them out in the Hire menu.

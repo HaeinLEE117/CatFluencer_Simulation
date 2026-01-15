@@ -221,7 +221,19 @@ public class EmployeeManager : Singleton<EmployeeManager>
             // Generate 2~4 random hire candidates from EmployeeDict (excluding already hired)
             GenerateRandomHireCandidates(2, 4);
             // Show applicant confirmation popup
-            UIManager.Instance.ShowPopupUI("UI_HirePopup");
+
+            UIManager.Instance.ShowConfirmPopup(
+                LocalizationManager.Instance.GetLocalizedText("JOP_OPENING_DONE"),
+                LocalizationManager.Instance.GetLocalizedText("JOP_OPENING_DONE_INSTRUCTION"),
+                () => 
+                {
+                    UIManager.Instance.ShowPopupUI("UI_HirePopup");
+                },
+                () =>
+                {
+                    UIManager.Instance.ShowPopupUI("UI_HirePopup");
+                }
+            );
         }
     }
 

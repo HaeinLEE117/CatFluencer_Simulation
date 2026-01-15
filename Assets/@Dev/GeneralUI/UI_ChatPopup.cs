@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UI_ChatPopup : UI_UGUI, IUI_Popup
@@ -19,6 +20,8 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
         NPCNameText
     }
 
+    private Action _onClosed;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +30,7 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
+        GetButton((int)Buttons.NextButton).onClick.AddListener(OnClickNext);
     }
 
     public override void RefreshUI()
@@ -43,5 +47,16 @@ public class UI_ChatPopup : UI_UGUI, IUI_Popup
         if (title != null) title.text = titleText;
         if (comment != null) comment.text = commentText;
         if (npc != null) npc.text = npcNameText;
+    }
+
+    public void SetOnClosed(Action onClosed)
+    {
+        _onClosed = onClosed;
+    }
+
+    private void OnClickNext()
+    {
+        _onClosed?.Invoke();
+        UIManager.Instance.ClosePopupUI();
     }
 }
