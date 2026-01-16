@@ -27,11 +27,11 @@ EMPLOYEE_MINI_NAME,미니,Mini
 EMPLOYEE_CHLOE_NAME,로로,Chloe
 EMPLOYEE_MAX_NAME,맥스,Max
 EMPLOYEE_MILO_NAME,마일로,Milo
-EMPLOYEE_NORRIS_MENT,세상에서 제일 빛나는 고양이',Top of Cat'
-EMPLOYEE_MINI_MENT,내가 제일 잘나가',Let's do this!'
-EMPLOYEE_CHLOE_MENT,인급동 올라가봤어?',
-EMPLOYEE_MAX_MENT,내 손 안에 냥플루언서',
-EMPLOYEE_MILO_MENT,다 내 밑이냥',
+EMPLOYEE_NORRIS_MENT,특별한 건 못 해요. 그냥… 귀엽습니다.,I don’t try hard. I’m just cute.
+EMPLOYEE_MINI_MENT,밤샘 편집이요? 고양이는 원래 밤에 일합니다.,"Likes are my treats. The more, the better."
+EMPLOYEE_CHLOE_MENT,"꾸준함이 바이럴을 이깁니다. 매일 업로드, 자신 있습니다.",Mistakes make great content. Trust me.
+EMPLOYEE_MAX_MENT,클릭률은 수염처럼 민감합니다. 제가 다 계산해봤어요.,Consistency beats talent. I upload every day.
+EMPLOYEE_MILO_MENT,조회수보다 중요한 건 감성입니다. 하지만 조회수도 중요하죠.,"I may be new, but I’m already thinking viral."
 JOP_OPENING_DONE,직원 모집 완료,New Job Applicants
 JOP_OPENING_DONE_INSTRUCTION,지원자들 중에 고용을 진행해보세요,You have new job applicants! Check them out in the Hire menu.
 SYSTEM_NPC_NAME,매니저,Manager
