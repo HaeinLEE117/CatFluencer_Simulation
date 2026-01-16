@@ -65,30 +65,33 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    // Single active popup model
     private UI_Base _activePopup;
     private bool _wasPopupOpen;
     private readonly Dictionary<string, UI_Base> _popups = new Dictionary<string, UI_Base>();
-    private const int FixedPopupSortingOrder = 300;
     private readonly Stack<UI_Base> _popupStack = new Stack<UI_Base>();
 
+    // 동적 정렬 순서 관리용
+    private int _currentTopOrder = 1000; // 시작값은 충분히 큰 값으로 설정
+
     public T ShowPopupUI<T>(string name = null) where T : UI_Base, IUI_Popup
-	{
+    {
         return ShowPopupUI<T>(name, closeCurrent: false);
     }
 
-    // Overload with option to close existing or stack current
     public T ShowPopupUI<T>(string name, bool closeCurrent) where T : UI_Base, IUI_Popup
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
         if (closeCurrent)
+        {
             CloseAllPopupUI();
+        }
         else if (_activePopup != null)
         {
             _popupStack.Push(_activePopup);
-            SetPopupActive(_activePopup, false);
+            // 이전 활성 팝업은 그대로 스택에 보존하고 가시성만 끔
+            SetPopupActive(_activePopup, false, _currentTopOrder);
         }
 
         if (_popups.TryGetValue(name, out UI_Base popup) == false)
@@ -102,7 +105,10 @@ public class UIManager : Singleton<UIManager>
         _wasPopupOpen = true;
 
         popup.transform.SetParent(PopupRoot);
-        SetPopupActive(popup, true);
+
+        // 새 팝업을 최상단으로 올림
+        _currentTopOrder++;
+        SetPopupActive(popup, true, _currentTopOrder);
 
         if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
         {
@@ -118,18 +124,19 @@ public class UIManager : Singleton<UIManager>
         return ShowPopupUI(name, closeCurrent: true);
     }
 
-    // Overload with option to close existing or stack current
     public UI_Base ShowPopupUI(string name, bool closeCurrent)
     {
         if (string.IsNullOrEmpty(name))
             return null;
 
         if (closeCurrent)
+        {
             CloseAllPopupUI();
+        }
         else if (_activePopup != null)
         {
             _popupStack.Push(_activePopup);
-            SetPopupActive(_activePopup, false);
+            SetPopupActive(_activePopup, false, _currentTopOrder);
         }
 
         if (_popups.TryGetValue(name, out UI_Base popup) == false)
@@ -145,7 +152,9 @@ public class UIManager : Singleton<UIManager>
         _wasPopupOpen = true;
 
         popup.transform.SetParent(PopupRoot);
-        SetPopupActive(popup, true);
+
+        _currentTopOrder++;
+        SetPopupActive(popup, true, _currentTopOrder);
 
         if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
         {
@@ -163,21 +172,25 @@ public class UIManager : Singleton<UIManager>
 
     public void ClosePopupUI()
     {
-        // If no active popup, do nothing
         if (_activePopup == null)
             return;
 
-        // Deactivate current active popup
-        UI_Base popup = _activePopup;
+        // 현재 팝업 비활성화
+        var closing = _activePopup;
         _activePopup = null;
 
-        SetPopupActive(popup, false);
+        SetPopupActive(closing, false, _currentTopOrder);
 
-        // If there is a popup in stack, restore it; else resume time
+        // 최상단 오더 감소
+        if (_currentTopOrder > 0)
+            _currentTopOrder--;
+
+        // 스택에 있으면 복원
         if (_popupStack.Count > 0)
         {
             _activePopup = _popupStack.Pop();
-            SetPopupActive(_activePopup, true);
+            // 복원되는 팝업은 현재 최상단 오더로 보이도록
+            SetPopupActive(_activePopup, true, _currentTopOrder);
         }
         else
         {
@@ -193,17 +206,20 @@ public class UIManager : Singleton<UIManager>
 
     public void CloseAllPopupUI()
     {
-        // Close active and clear stack entirely
+        // 활성 팝업/스택 모두 닫기
         if (_activePopup != null)
         {
-            SetPopupActive(_activePopup, false);
+            SetPopupActive(_activePopup, false, _currentTopOrder);
             _activePopup = null;
         }
         while (_popupStack.Count > 0)
         {
             var p = _popupStack.Pop();
-            SetPopupActive(p, false);
+            SetPopupActive(p, false, _currentTopOrder);
         }
+
+        // 오더 초기화
+        _currentTopOrder = 1000;
 
         if (SceneManager.Instance.CurrentSceneType == Define.EScene.DevScene)
         {
@@ -237,7 +253,6 @@ public class UIManager : Singleton<UIManager>
 
     public void NotifyLocationSelected(string location)
     {
-        // 공통 검증/전처리
         if (string.IsNullOrEmpty(location))
             return;
 
@@ -245,10 +260,8 @@ public class UIManager : Singleton<UIManager>
     }
 
     #region 대화창 팝업
-
     internal void ShowChatPopup(string titleText, string commentText, string npcNameText, Action onClosed = null)
     {
-        // Use stacking behavior by default (do not force close existing)
         var chat = ShowPopupUI<UI_ChatPopup>(nameof(UI_ChatPopup), closeCurrent: false);
         if (chat != null)
         {
@@ -268,22 +281,29 @@ public class UIManager : Singleton<UIManager>
         popup.SetActions(onConfirm, onCancel, confirmLabel: null, cancelLabel: null);
     }
 
-    private void SetPopupActive(UI_Base popup, bool active)
+    // 정렬순서 인자로 받아 활성/비활성 처리
+    private void SetPopupActive(UI_Base popup, bool active, int sortingOrder)
     {
         if (popup == null) return;
+
         if (popup is UI_Toolkit toolkitUI)
         {
             var doc = toolkitUI.GetComponent<UIDocument>();
-            doc.sortingOrder = FixedPopupSortingOrder;
-            doc.rootVisualElement.visible = active;
+            if (doc != null)
+            {
+                doc.sortingOrder = sortingOrder;
+                doc.rootVisualElement.visible = active;
+            }
         }
         else
         {
             var canvas = popup.GetComponent<Canvas>();
             if (canvas != null)
-                canvas.sortingOrder = FixedPopupSortingOrder;
+                canvas.sortingOrder = sortingOrder;
+
             popup.gameObject.SetActive(active);
         }
+
         if (active)
         {
             popup.transform.SetParent(PopupRoot);
