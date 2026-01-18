@@ -88,7 +88,6 @@ public class SaveManager : Singleton<SaveManager>
             Week = DataManager.Instance.GameConfig.InitailWeek,
             TotalVidieoBalancePoints = DataManager.Instance.GameConfig.InitialVideoBalancePoints,
             HiredEmployees = new Dictionary<int, EmployeeData>(),
-            HireableEmployees = new Dictionary<int, EmployeeData>()
         };
 
         int empID = DataManager.Instance.GameConfig.InitialHiredEmployee;

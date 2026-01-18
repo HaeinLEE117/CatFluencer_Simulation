@@ -8,8 +8,6 @@ public class GameData
 {
     public int PlayerLevel;
     public int Gold;
-    //TODO: 업그레이드 카운트 지우기
-    public List<int> UpgradeCount;
 
     // 구독자/채널 설정
     public int Subscriber;
@@ -24,7 +22,6 @@ public class GameData
 
     // 고용된 직원 목록 (ID 기준)
     public Dictionary<int, EmployeeData> HiredEmployees;
-    public Dictionary<int, EmployeeData> HireableEmployees;
 
 }
 
@@ -62,7 +59,7 @@ public class GameManager : Singleton<GameManager>
             EventManager.Instance.TriggerEvent(Define.EEventType.HireableEmployeesChanged);
         }
     }
-
+    [SerializeField]
     private GameData _gameData = new GameData();
 
 # region GameData proxy properties
@@ -96,11 +93,6 @@ public class GameManager : Singleton<GameManager>
             _gameData.Gold = value;
             EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
         }
-    }
-    public List<int> UpgradeCount
-    {
-        get { return _gameData.UpgradeCount; }
-        set { _gameData.UpgradeCount = value; EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged); }
     }
     public int Subscriber
     {
@@ -136,17 +128,22 @@ public class GameManager : Singleton<GameManager>
         get { return _gameData.TotalVidieoBalancePoints; }
         set { _gameData.TotalVidieoBalancePoints = value; EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged); }
     }
-    public Dictionary<int, EmployeeData> HireableEmployees
-    { 
-        get { return _gameData.HireableEmployees; }
-        set { _gameData.HireableEmployees = value; EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged); }
-    }
+
     #endregion
 
     #region 레벨별 상한 데이터
+    public Dictionary<int, EmployeeData> _availableEmployees {get;private set;} = new Dictionary<int, EmployeeData>();
     public Dictionary<int, ContentsData> _availableContents { get; private set; } = new Dictionary<int, ContentsData>();
     public Dictionary<int, LocationData> _availableLocations { get; private set; } = new Dictionary<int, LocationData>();
 
+    public Dictionary<int, EmployeeData> HireableEmployees
+    {
+        get { return _availableEmployees; }
+        set
+        {
+            _availableEmployees = value;
+        }
+    }
     public Dictionary<int, ContentsData> AvailableContents
     {
         get { return _availableContents; }
