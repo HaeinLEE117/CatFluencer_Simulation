@@ -38,7 +38,6 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
         PopularText4,
         CoastText4,
 
-        ComboExpectationText,
         SelectButtonText,
     }
 

@@ -142,28 +142,13 @@
     },
     {
       "TemplateID": "EMPLOYEE_NORRIS_MENT",
-      "KOR": "세상에서 제일 빛나는 고양이'",
-      "ENG": "Top of Cat'"
-    },
-    {
-      "TemplateID": "EMPLOYEE_MINI_MENT",
-      "KOR": "내가 제일 잘나가'",
-      "ENG": "Let's do this!'"
-    },
-    {
-      "TemplateID": "EMPLOYEE_CHLOE_MENT",
-      "KOR": "인급동 올라가봤어?'",
-      "ENG": null
+      "KOR": "특별한 건 못 해요. 그냥… 귀엽습니다.",
+      "ENG": "I don’t try hard. I’m just cute."
     },
     {
       "TemplateID": "EMPLOYEE_MAX_MENT",
-      "KOR": "내 손 안에 냥플루언서'",
-      "ENG": null
-    },
-    {
-      "TemplateID": "EMPLOYEE_MILO_MENT",
-      "KOR": "다 내 밑이냥'",
-      "ENG": null
+      "KOR": "클릭률은 수염처럼 민감합니다. 제가 다 계산해봤어요.",
+      "ENG": "Consistency beats talent. I upload every day."
     },
     {
       "TemplateID": "JOP_OPENING_DONE",

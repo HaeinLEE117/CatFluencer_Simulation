@@ -18,6 +18,8 @@ public class DataTransformer : EditorWindow
         ParseExcelDataToJson<ItemDataLoader, ItemData>("Item");
         ParseExcelDataToJson<TextDataLoader, TextData>("Text");
         ParseExcelDataToJson<EmployeeDataLoader, EmployeeData>("Employee");
+        ParseExcelDataToJson<ContentsDataLoader, ContentsData>("Contents");
+        ParseExcelDataToJson<LocationDataLoader, LocationData>("Location");
     }
 
     private static void ParseExcelDataToJson<Loader, LoaderData>(string filename) where Loader : new()
