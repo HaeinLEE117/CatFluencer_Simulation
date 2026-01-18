@@ -83,9 +83,9 @@ public class SaveManager : Singleton<SaveManager>
             Gold = DataManager.Instance.GameConfig.InitialGold,
             Subscriber = DataManager.Instance.GameConfig.InitialSubscriber,
             ChannelName = DataManager.Instance.GameConfig.InitialChannelName,
-            StartYear = DataManager.Instance.GameConfig.InitailYear,
-            StartMonth = DataManager.Instance.GameConfig.InitailMonth,
-            StartWeek = DataManager.Instance.GameConfig.InitailWeek,
+            Year = DataManager.Instance.GameConfig.InitailYear,
+            Month = DataManager.Instance.GameConfig.InitailMonth,
+            Week = DataManager.Instance.GameConfig.InitailWeek,
             TotalVidieoBalancePoints = DataManager.Instance.GameConfig.InitialVideoBalancePoints,
             HiredEmployees = new Dictionary<int, EmployeeData>(),
             HireableEmployees = new Dictionary<int, EmployeeData>()

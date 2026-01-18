@@ -15,9 +15,9 @@ public class GameData
     public int Subscriber;
     public string ChannelName;
 
-    public int StartYear;
-    public int StartMonth;
-    public int StartWeek;
+    public int Year;
+    public int Month;
+    public int Week;
 
     // 동영상 밸런스 포인트
     public int TotalVidieoBalancePoints;
@@ -116,20 +116,20 @@ public class GameManager : Singleton<GameManager>
         get { return _gameData.ChannelName; }
         set { _gameData.ChannelName = value; EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged); }
     }
-    public int StartYear
+    public int Year
     {
-        get { return _gameData.StartYear; }
-        set { _gameData.StartYear = value; }
+        get { return _gameData.Year; }
+        set { _gameData.Year = value; }
     }
-    public int StartMonth
+    public int Month
     {
-        get { return _gameData.StartMonth; }
-        set { _gameData.StartMonth = value; }
+        get { return _gameData.Month; }
+        set { _gameData.Month = value; }
     }
-    public int StartWeek
+    public int Week
     {
-        get { return _gameData.StartWeek; }
-        set { _gameData.StartWeek = value; }
+        get { return _gameData.Week; }
+        set { _gameData.Week = value; }
     }
     public int TotalVidieoBalancePoints
     {
@@ -187,7 +187,7 @@ public class GameManager : Singleton<GameManager>
             if (count >= (PlayerLevel * constants.BASEEMPLOYEESFORLEVEL))
                 break;
         }
-        Debug.Log(PlayerLevel * constants.BASEEMPLOYEESFORLEVEL);
+
         count = 0;
         foreach (var kv in contDict)
         {
@@ -209,11 +209,6 @@ public class GameManager : Singleton<GameManager>
 
     private Coroutine _timeCoroutine;
 
-    // 현재 날짜(년/월/주)
-    //TODO: 프로퍼티
-    public int NowYear => _gameData.StartYear;
-    public int NowMonth => _gameData.StartMonth;
-    public int NowWeek => _gameData.StartWeek;
 
     // 시간 흐름 시작/중지
     public void StartTime()
@@ -242,19 +237,19 @@ public class GameManager : Singleton<GameManager>
 
     public void AdvanceWeek()
     {
-        _gameData.StartWeek++;
+        _gameData.Week++;
         EventManager.Instance.TriggerEvent(Define.EEventType.WeekAdvanced);
 
-        if (_gameData.StartWeek > constants.WEEKSPERMONTH)
+        if (_gameData.Week > constants.WEEKSPERMONTH)
         {
-            _gameData.StartWeek = 1;
-            _gameData.StartMonth++;
+            _gameData.Week = 1;
+            _gameData.Month++;
             EventManager.Instance.TriggerEvent(Define.EEventType.MonthAdvanced);
 
-            if (_gameData.StartMonth > constants.MONTHSPERYEAR)
+            if (_gameData.Month > constants.MONTHSPERYEAR)
             {
-                _gameData.StartMonth = 1;
-                _gameData.StartYear++;
+                _gameData.Month = 1;
+                _gameData.Year++;
                 EventManager.Instance.TriggerEvent(Define.EEventType.YearAdvanced);
             }
         }

@@ -36,9 +36,9 @@ public class UI_TopPanel : UI_UGUI
     {
         base.RefreshUI();
         GetText((int)Texts.StudioNameText).SetTextwithFont(GameManager.Instance.ChannelName);
-        string date = GameManager.Instance.NowYear.ToString() + LocalizationManager.Instance.GetLocalizedText("YEAR")
-            + GameManager.Instance.NowMonth.ToString() + LocalizationManager.Instance.GetLocalizedText("MONTH")
-            + GameManager.Instance.NowWeek.ToString() + LocalizationManager.Instance.GetLocalizedText("WEEK");
+        string date = GameManager.Instance.Year.ToString() + LocalizationManager.Instance.GetLocalizedText("YEAR")
+            + GameManager.Instance.Month.ToString() + LocalizationManager.Instance.GetLocalizedText("MONTH")
+            + GameManager.Instance.Week.ToString() + LocalizationManager.Instance.GetLocalizedText("WEEK");
 
         GetText((int)Texts.CalandarText).SetTextwithFont(date);
         GetText((int)Texts.SubscribersText).SetTextwithFont(GameManager.Instance.Subscribers.ToString());
