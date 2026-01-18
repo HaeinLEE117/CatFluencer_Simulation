@@ -10,6 +10,7 @@ public class GameConfig : ScriptableObject
     // 예: 초기 직원 정보
 
     [Header("Game Settings")]
+    private int initialPlayerLevel = 1;
     private int initialGold = 500;
     private int initalSubscriber;
     private int initialYear = 1;
@@ -24,7 +25,7 @@ public class GameConfig : ScriptableObject
     [Header("Staff Settings")]
     private int initHiredEmployee = 1001;    // 초기 고용 직원 ID 노리스
 
-
+    public int InitialPlayerLevel => initialPlayerLevel;
     public int InitialGold => initialGold;
     public int InitialSubscriber => initalSubscriber;
     public int InitailYear => initialYear;
@@ -38,6 +39,7 @@ public class GameConfig : ScriptableObject
     {
         return SecondsPerWeek;
     }
+
 
     public int InitHiredEmployee => initHiredEmployee;
 }

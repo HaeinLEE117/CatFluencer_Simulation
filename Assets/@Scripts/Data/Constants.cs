@@ -8,4 +8,17 @@ public class constants
     public const float SecondsPerWeek = 10f;
 
     public const int WEEKSFORJOBPOSTINGDONE = 2;
+
+    // 레벨 비례 데이터시트에서 가져올 직원수
+    public const int BASEEMPLOYEESFORLEVEL = 3;
+
+    // 레벨 비례 데이터시트에서 가져올 콘텐츠수
+    public const int BASECONTENTFORLEVEL = 3;
+
+    // 레벨 비례 데이터시트에서 가져올 촬영장소 수
+    public const int BASELOCATIONSFORLEVEL = 2;
+
+    // 레벨 비례 비디오 밸런스 증가 포인트
+    public const int BASEVIDEOBALANCEPOINTFORLEVEL = 3;
+
 }

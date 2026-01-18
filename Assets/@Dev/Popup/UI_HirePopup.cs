@@ -73,7 +73,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         base.RefreshUI();
 
 
-        var list = GameManager.Instance.HireableEmployees;
+        var list = GameManager.Instance.HireCandidates;
         if (list == null || list.Count == 0)
         {
             UIManager.Instance.ClosePopupUI();
@@ -112,7 +112,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
 
     private void OnPrev()
     {
-        var list = GameManager.Instance.HireableEmployees;
+        var list = GameManager.Instance.HireCandidates;
         if (list == null || list.Count <= 1) return;
         _index = (_index - 1 + list.Count) % list.Count;
         RefreshUI();
@@ -120,7 +120,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
 
     private void OnNext()
     {
-        var list = GameManager.Instance.HireableEmployees;
+        var list = GameManager.Instance.HireCandidates;
         if (list == null || list.Count <= 1) return;
         _index = (_index + 1) % list.Count;
         RefreshUI();
@@ -128,7 +128,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
 
     private void OnHire()
     {
-        var list = GameManager.Instance.HireableEmployees;
+        var list = GameManager.Instance.HireCandidates;
         if (list == null || list.Count == 0) return;
         var e = list[_index];
         // Pay contact fee; if not enough gold, do nothing
@@ -143,7 +143,7 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         {
             list.RemoveAt(_index);
             if (_index >= list.Count) _index = Mathf.Max(0, list.Count - 1);
-            GameManager.Instance.HireableEmployees = list;
+            GameManager.Instance.HireCandidates = list;
             RefreshUI();
         }
         else

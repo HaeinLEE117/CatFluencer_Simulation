@@ -6,7 +6,9 @@ using UnityEngine;
 [Serializable]
 public class GameData
 {
+    public int PlayerLevel;
     public int Gold;
+    //TODO: 업그레이드 카운트 지우기
     public List<int> UpgradeCount;
 
     // 구독자/채널 설정
@@ -22,6 +24,7 @@ public class GameData
 
     // 고용된 직원 목록 (ID 기준)
     public Dictionary<int, EmployeeData> HiredEmployees;
+    public Dictionary<int, EmployeeData> HireableEmployees;
 
 }
 
@@ -50,29 +53,164 @@ public class  VideoBalanceData
 
 public class GameManager : Singleton<GameManager>
 {
-    List<EmployeeData> _hireableEmployees = new List<EmployeeData>();
-    public List<EmployeeData> HireableEmployees
+    List<EmployeeData> _hireCandidates = new List<EmployeeData>();
+    public List<EmployeeData> HireCandidates
     {
-        get { return _hireableEmployees; }
+        get { return _hireCandidates; }
         set { 
-            _hireableEmployees = value; 
+            _hireCandidates = value; 
             EventManager.Instance.TriggerEvent(Define.EEventType.HireableEmployeesChanged);
         }
     }
 
     private GameData _gameData = new GameData();
+
+# region GameData proxy properties
     public GameData GameData
     {
         get { return _gameData; }
         set
         {
             _gameData = value;
+            EventManager.Instance.TriggerEvent(Define.EEventType.GameDataChanged);
+            UpdatePlayerLevelDatas();
         }
     }
+
+    public int PlayerLevel
+    {
+        get => _gameData.PlayerLevel;
+        set
+        {
+            if (_gameData.PlayerLevel == value)
+                return;
+            _gameData.PlayerLevel = value;
+            UpdatePlayerLevelDatas();
+        }
+    }
+    public int Gold
+    {
+        get { return _gameData.Gold; }
+        set
+        {
+            _gameData.Gold = value;
+            EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
+        }
+    }
+    public List<int> UpgradeCount
+    {
+        get { return _gameData.UpgradeCount; }
+        set { _gameData.UpgradeCount = value; EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged); }
+    }
+    public int Subscriber
+    {
+        get { return _gameData.Subscriber; }
+        set
+        {
+            _gameData.Subscriber = value;
+            EventManager.Instance.TriggerEvent(Define.EEventType.SubscriberChanged);
+        }
+    }    
+    public string ChannelName
+    {
+        get { return _gameData.ChannelName; }
+        set { _gameData.ChannelName = value; EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged); }
+    }
+    public int StartYear
+    {
+        get { return _gameData.StartYear; }
+        set { _gameData.StartYear = value; }
+    }
+    public int StartMonth
+    {
+        get { return _gameData.StartMonth; }
+        set { _gameData.StartMonth = value; }
+    }
+    public int StartWeek
+    {
+        get { return _gameData.StartWeek; }
+        set { _gameData.StartWeek = value; }
+    }
+    public int TotalVidieoBalancePoints
+    {
+        get { return _gameData.TotalVidieoBalancePoints; }
+        set { _gameData.TotalVidieoBalancePoints = value; EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged); }
+    }
+    public Dictionary<int, EmployeeData> HireableEmployees
+    { 
+        get { return _gameData.HireableEmployees; }
+        set { _gameData.HireableEmployees = value; EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged); }
+    }
+    #endregion
+
+    #region 레벨별 상한 데이터
+    public Dictionary<int, ContentsData> _availableContents { get; private set; } = new Dictionary<int, ContentsData>();
+    public Dictionary<int, LocationData> _availableLocations { get; private set; } = new Dictionary<int, LocationData>();
+
+    public Dictionary<int, ContentsData> AvailableContents
+    {
+        get { return _availableContents; }
+        set
+        {
+            _availableContents = value;
+        }
+    }
+    public Dictionary<int, LocationData> AvailableLocations
+    {
+        get { return _availableLocations; }
+        set { _availableLocations = value; }
+    }
+
+    private void UpdatePlayerLevelDatas()
+    {
+        int employeeLevelCap = PlayerLevel * constants.BASEEMPLOYEESFORLEVEL;
+        int contentLevelCap = PlayerLevel * constants.BASECONTENTFORLEVEL;
+        int locationLevelCap = PlayerLevel * constants.BASELOCATIONSFORLEVEL;
+
+        // 직원, 콘텐츠, 위치 데이터 업데이트
+        // DataManager에서 각 Dict의 앞부분을 레벨 캡만큼 가져와 세팅
+        HireableEmployees.Clear();
+        _availableContents.Clear();
+        _availableLocations.Clear();
+
+        var empDict = DataManager.Instance?.EmployeeDict;
+        var contDict = DataManager.Instance?.ContentsDict;
+        var locDict = DataManager.Instance?.LocationDict;
+
+        int count = 0;
+        foreach (var emp in empDict)
+        {
+            int empID = emp.Key;
+            EmployeeData empData = emp.Value;
+            HireableEmployees.Add(empID, empData);
+            count++;
+            if (count >= (PlayerLevel * constants.BASEEMPLOYEESFORLEVEL))
+                break;
+        }
+        Debug.Log(PlayerLevel * constants.BASEEMPLOYEESFORLEVEL);
+        count = 0;
+        foreach (var kv in contDict)
+        {
+            _availableContents[kv.Key] = kv.Value;
+            count++;
+            if (count >= contentLevelCap) break;
+        }
+
+        count = 0;
+        foreach (var kv in locDict)
+        {
+            _availableLocations[kv.Key] = kv.Value;
+            count++;
+            if (count >= locationLevelCap) break;
+        }
+    }
+
+    #endregion
 
     private Coroutine _timeCoroutine;
 
     // 현재 날짜(년/월/주)
+    //TODO: 프로퍼티
     public int NowYear => _gameData.StartYear;
     public int NowMonth => _gameData.StartMonth;
     public int NowWeek => _gameData.StartWeek;
@@ -144,15 +282,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public int Gold
-    {
-        get { return _gameData.Gold; }
-        set
-        {
-            _gameData.Gold = value;
-            EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
-        }
-    }
     public bool TryPayGold(int amount)
     {
         if (_gameData.Gold >= amount)
@@ -172,24 +301,6 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    // GameData proxy properties
-    public string ChannelName
-    {
-        get { return _gameData.ChannelName; }
-        set { _gameData.ChannelName = value; EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged); }
-    }
-
-    public int TotalVidieoBalancePoints
-    {
-        get { return _gameData.TotalVidieoBalancePoints; }
-        set { _gameData.TotalVidieoBalancePoints = value; EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged); }
-    }
-
-    public List<int> UpgradeCount
-    {
-        get { return _gameData.UpgradeCount; }
-        set { _gameData.UpgradeCount = value; EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged); }
-    }
 
     // EmployeeManager forwarders
     public IReadOnlyDictionary<int, EmployeeData> HiredEmployees => EmployeeManager.Instance.HiredEmployees;

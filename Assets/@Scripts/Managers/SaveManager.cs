@@ -79,6 +79,7 @@ public class SaveManager : Singleton<SaveManager>
         //TODO: 채널명 입력 받기
         GameData gameData = new GameData()
         {
+            PlayerLevel = DataManager.Instance.GameConfig.InitialPlayerLevel,
             Gold = DataManager.Instance.GameConfig.InitialGold,
             Subscriber = DataManager.Instance.GameConfig.InitialSubscriber,
             ChannelName = DataManager.Instance.GameConfig.InitialChannelName,
@@ -87,6 +88,7 @@ public class SaveManager : Singleton<SaveManager>
             StartWeek = DataManager.Instance.GameConfig.InitailWeek,
             TotalVidieoBalancePoints = DataManager.Instance.GameConfig.InitialVideoBalancePoints,
             HiredEmployees = new Dictionary<int, EmployeeData>(),
+            HireableEmployees = new Dictionary<int, EmployeeData>()
         };
 
         int empID = DataManager.Instance.GameConfig.InitialHiredEmployee;

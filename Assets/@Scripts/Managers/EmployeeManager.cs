@@ -211,9 +211,8 @@ public class EmployeeManager : Singleton<EmployeeManager>
          _jobPostingActive = true;
         _weeksUntilApplicant = constants.WEEKSFORJOBPOSTINGDONE;
 
-        GameManager.Instance.HireableEmployees = GenerateRandomHireCandidates(2, 3);
+        GameManager.Instance.HireCandidates = GenerateRandomHireCandidates(2, 3);
         EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
-            Debug.Log("구인 시작, 첫 인원:"+ GameManager.Instance.HireableEmployees[0].NameTextID.ToString());
         }
     }
 
@@ -237,28 +236,41 @@ public class EmployeeManager : Singleton<EmployeeManager>
     public List<EmployeeData> GenerateRandomHireCandidates(int minCount, int maxCount)
     {
         _hireCandidates.Clear();
-        var all = DataManager.Instance.EmployeeDict;
+
+        // Source: level-based available employees from GameManager
+        var available = GameManager.Instance.HireableEmployees;
+        Debug.Log("#1. "+available.Count + "명의 지원자 풀에서 구인 시도");
+        if (available == null || available.Count == 0)
+            return _hireCandidates; // return empty list safely
 
         // Build a pool excluding already hired ids
-        List<EmployeeData> pool = new List<EmployeeData>(all.Count);
-        foreach (var kv in all)
+        List<EmployeeData> pool = new List<EmployeeData>(available.Count);
+        foreach (var kv in available)
         {
             if (HiredDict != null && HiredDict.ContainsKey(kv.Key))
                 continue;
-            pool.Add(kv.Value);
+            if (kv.Value != null)
+                pool.Add(kv.Value);
         }
-        Debug.Log($"고용되지 않은 직원 전체 풀: {pool.Count}명");
-        if(pool.Count <= 0)
-            return null;
-        // Determine target count; if pool is empty, target is 0
-        int target = pool.Count > 0 ? Mathf.Clamp(Random.Range(minCount, maxCount + 1), 1, pool.Count) : 0;
-        // Simple random selection without repeats
+
+        if (pool.Count == 0)
+            return _hireCandidates;
+
+        // Clamp min/max
+        if (minCount < 1) minCount = 1;
+        if (maxCount < minCount) maxCount = minCount;
+
+        int target = Mathf.Clamp(Random.Range(minCount, maxCount + 1), 1, pool.Count);
+
+        // Random selection without repeats
         for (int i = 0; i < target && pool.Count > 0; i++)
         {
             int idx = Random.Range(0, pool.Count);
             _hireCandidates.Add(pool[idx]);
             pool.RemoveAt(idx);
         }
+        Debug.Log("구인 시작, 첫 인원:" + _hireCandidates[0].NameTextID.ToString());
+
         return _hireCandidates;
     }
 
