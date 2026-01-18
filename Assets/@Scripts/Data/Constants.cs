@@ -13,7 +13,7 @@ public class constants
     public const int BASEEMPLOYEESFORLEVEL = 3;
 
     // 레벨 비례 데이터시트에서 가져올 콘텐츠수
-    public const int BASECONTENTFORLEVEL = 3;
+    public const int BASECONTENTFORLEVEL = 6;
 
     // 레벨 비례 데이터시트에서 가져올 촬영장소 수
     public const int BASELOCATIONSFORLEVEL = 2;
