@@ -1,0 +1,76 @@
+﻿{
+  "texts": [
+    {
+      "LocationID": 801,
+      "Coast": 0,
+      "LocationTextID": "LOCATION_OFFICE",
+      "Popularity": 1
+    },
+    {
+      "LocationID": 802,
+      "Coast": 500,
+      "LocationTextID": "LOCATION_SMALL_PARK",
+      "Popularity": 2
+    },
+    {
+      "LocationID": 803,
+      "Coast": 800,
+      "LocationTextID": "LOCATION_CAFE",
+      "Popularity": 1
+    },
+    {
+      "LocationID": 804,
+      "Coast": 1000,
+      "LocationTextID": "LOCATION_UNIVERSITY_TOWN",
+      "Popularity": 1
+    },
+    {
+      "LocationID": 805,
+      "Coast": 1000,
+      "LocationTextID": "LOCATION_BASIC_STUDIO",
+      "Popularity": 1
+    },
+    {
+      "LocationID": 806,
+      "Coast": 1500,
+      "LocationTextID": "LOCATION_SCHIOOL",
+      "Popularity": 1
+    },
+    {
+      "LocationID": 807,
+      "Coast": 2000,
+      "LocationTextID": "LOCATION_COOKING_STUDIO",
+      "Popularity": 2
+    },
+    {
+      "LocationID": 808,
+      "Coast": 2000,
+      "LocationTextID": "LOCATION_PC_CAFE",
+      "Popularity": 2
+    },
+    {
+      "LocationID": 809,
+      "Coast": 3000,
+      "LocationTextID": "LOCATION_CAMPING_PLACE",
+      "Popularity": 1
+    },
+    {
+      "LocationID": 810,
+      "Coast": 5000,
+      "LocationTextID": "LOCATION_MOVIE_STUDIO",
+      "Popularity": 3
+    },
+    {
+      "LocationID": 811,
+      "Coast": 7000,
+      "LocationTextID": "LOCATION_AMUSEMENT_PARK",
+      "Popularity": 3
+    },
+    {
+      "LocationID": 812,
+      "Coast": 10000,
+      "LocationTextID": "LOCATION_JEJU",
+      "Popularity": 2
+    }
+  ]
+}

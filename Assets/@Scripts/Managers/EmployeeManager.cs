@@ -203,13 +203,18 @@ public class EmployeeManager : Singleton<EmployeeManager>
         // Subscribe to week advancement and after a delay, show the hire popup.
         if (_jobPostingActive)
         {
-            //TODO: Show ConfirmPopup
+            //TOD: 다국어매니저
+            UIManager.Instance.ShowConfirmPopup("진행중..", "이미 구인 공고가 진행 중입니다.", null);
         }
-        _jobPostingActive = true;
+        else
+        {
+         _jobPostingActive = true;
         _weeksUntilApplicant = constants.WEEKSFORJOBPOSTINGDONE;
 
         GameManager.Instance.HireableEmployees = GenerateRandomHireCandidates(2, 3);
         EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, OnWeekAdvancedForJobPosting);
+            Debug.Log("구인 시작, 첫 인원:"+ GameManager.Instance.HireableEmployees[0].NameTextID.ToString());
+        }
     }
 
     private void OnWeekAdvancedForJobPosting()

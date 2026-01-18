@@ -23,20 +23,15 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
         //Colum Titles
         TitleContentText,
         TitlePopularText,
-        TitleCoastText,
 
         ContentText1,
         PopularText1,
-        CoastText1,
         ContentText2,
         PopularText2,
-        CoastText2,
         ContentText3,
         PopularText3,
-        CoastText3,
         ContentText4,
         PopularText4,
-        CoastText4,
 
         SelectButtonText,
     }

@@ -174,6 +174,156 @@
       "TemplateID": "FAILED",
       "KOR": "실패",
       "ENG": "Failed"
+    },
+    {
+      "TemplateID": "LOCATION_OFFICE",
+      "KOR": "사무실",
+      "ENG": "Office"
+    },
+    {
+      "TemplateID": "LOCATION_SMALL_PARK",
+      "KOR": "놀이터",
+      "ENG": "Small Park"
+    },
+    {
+      "TemplateID": "LOCATION_CAFE",
+      "KOR": "카페",
+      "ENG": "Cafe"
+    },
+    {
+      "TemplateID": "LOCATION_UNIVERSITY_TOWN",
+      "KOR": "대학로",
+      "ENG": "University Town"
+    },
+    {
+      "TemplateID": "LOCATION_BASIC_STUDIO",
+      "KOR": "일반 스튜디오",
+      "ENG": "Basic Studio"
+    },
+    {
+      "TemplateID": "LOCATION_SCHIOOL",
+      "KOR": "고등학교",
+      "ENG": "High School"
+    },
+    {
+      "TemplateID": "LOCATION_COOKING_STUDIO",
+      "KOR": "조리 스튜디오",
+      "ENG": "Cooking Studio"
+    },
+    {
+      "TemplateID": "LOCATION_PC_CAFE",
+      "KOR": "PC방",
+      "ENG": "PC Cafe"
+    },
+    {
+      "TemplateID": "LOCATION_CAMPING_PLACE",
+      "KOR": "캠핑장",
+      "ENG": "Camping Place"
+    },
+    {
+      "TemplateID": "LOCATION_MOVIE_STUDIO",
+      "KOR": "영화 스튜디오",
+      "ENG": "Movie Studio"
+    },
+    {
+      "TemplateID": "LOCATION_AMUSEMENT_PARK",
+      "KOR": "놀이공원",
+      "ENG": "Amusement PArk"
+    },
+    {
+      "TemplateID": "LOCATION_JEJU",
+      "KOR": "제주도",
+      "ENG": "JeJu Island"
+    },
+    {
+      "TemplateID": "CONTENT_INTERVIEW",
+      "KOR": "인터뷰",
+      "ENG": "Interview"
+    },
+    {
+      "TemplateID": "CONTENT_DNACE_CHALLANGE",
+      "KOR": "댄스 챌린지",
+      "ENG": "Dance Challange"
+    },
+    {
+      "TemplateID": "CONTENT_GRWM",
+      "KOR": "겟레디위드미",
+      "ENG": "GRWM"
+    },
+    {
+      "TemplateID": "CONTENT_VLOG",
+      "KOR": "브이로그",
+      "ENG": "VLog"
+    },
+    {
+      "TemplateID": "CONTENT_LIFE_HACK",
+      "KOR": "일상 꿀팁",
+      "ENG": "Life Hack"
+    },
+    {
+      "TemplateID": "CONTENT_COOKING",
+      "KOR": "쿡방",
+      "ENG": "Cooking"
+    },
+    {
+      "TemplateID": "CONTENT_TRAVELING",
+      "KOR": "여행",
+      "ENG": "Traveling"
+    },
+    {
+      "TemplateID": "CONTENT_ASMR",
+      "KOR": "ASMR",
+      "ENG": "ASMR"
+    },
+    {
+      "TemplateID": "CONTENT_GAME_PLAY",
+      "KOR": "게임공략",
+      "ENG": "Game Play"
+    },
+    {
+      "TemplateID": "CONTENT_MUKBANG",
+      "KOR": "먹방",
+      "ENG": "Mukbang"
+    },
+    {
+      "TemplateID": "POPULARITY_HIGH",
+      "KOR": "상",
+      "ENG": "High"
+    },
+    {
+      "TemplateID": "POPULARITY_MIDDLE",
+      "KOR": "중",
+      "ENG": "Middle"
+    },
+    {
+      "TemplateID": "POPULARITY_LOW",
+      "KOR": "하",
+      "ENG": "Low"
+    },
+    {
+      "TemplateID": "RECORDING_LOCATION",
+      "KOR": "촬영 장소",
+      "ENG": "Recording Location"
+    },
+    {
+      "TemplateID": "POPULARITY",
+      "KOR": "인기",
+      "ENG": "Popularity"
+    },
+    {
+      "TemplateID": "COAST",
+      "KOR": "비용",
+      "ENG": "Coast"
+    },
+    {
+      "TemplateID": "SELECT",
+      "KOR": "선택",
+      "ENG": "Select"
+    },
+    {
+      "TemplateID": "RECORDING_CONTENTS",
+      "KOR": "촬영 컨텐츠",
+      "ENG": "Recording Contents"
     }
   ]
 }

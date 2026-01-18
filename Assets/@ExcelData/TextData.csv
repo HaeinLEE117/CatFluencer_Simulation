@@ -29,11 +29,41 @@ EMPLOYEE_MAX_NAME,맥스,Max
 EMPLOYEE_MILO_NAME,마일로,Milo
 EMPLOYEE_NORRIS_MENT,특별한 건 못 해요. 그냥… 귀엽습니다.,I don’t try hard. I’m just cute.
 EMPLOYEE_MINI_MENT,밤샘 편집이요? 고양이는 원래 밤에 일합니다.,"Likes are my treats. The more, the better."
-EMPLOYEE_CHLOE_MENT,"꾸준함이 바이럴을 이깁니다. 매일 업로드, 자신 있습니다.",Mistakes make great content. Trust me.
+EMPLOYEE_CHLOE_MENT,"매일 업로드, 자신 있습니다.",Mistakes make great content. Trust me.
 EMPLOYEE_MAX_MENT,클릭률은 수염처럼 민감합니다. 제가 다 계산해봤어요.,Consistency beats talent. I upload every day.
-EMPLOYEE_MILO_MENT,조회수보다 중요한 건 감성입니다. 하지만 조회수도 중요하죠.,"I may be new, but I’m already thinking viral."
+EMPLOYEE_MILO_MENT,조회수보다 중요한 건 감성입니다. ,"I may be new, but I’m already thinking viral."
 JOP_OPENING_DONE,직원 모집 완료,New Job Applicants
 JOP_OPENING_DONE_INSTRUCTION,지원자들 중에 고용을 진행해보세요,You have new job applicants! Check them out in the Hire menu.
 SYSTEM_NPC_NAME,매니저,Manager
 NO_MONEY,골드가 부족합니다!,Not enough money!
 FAILED,실패,Failed
+LOCATION_OFFICE,사무실,Office
+LOCATION_SMALL_PARK,놀이터,Small Park
+LOCATION_CAFE,카페,Cafe
+LOCATION_UNIVERSITY_TOWN,대학로,University Town
+LOCATION_BASIC_STUDIO,일반 스튜디오,Basic Studio
+LOCATION_SCHIOOL,고등학교,High School
+LOCATION_COOKING_STUDIO,조리 스튜디오,Cooking Studio
+LOCATION_PC_CAFE,PC방,PC Cafe
+LOCATION_CAMPING_PLACE,캠핑장,Camping Place
+LOCATION_MOVIE_STUDIO,영화 스튜디오,Movie Studio
+LOCATION_AMUSEMENT_PARK,놀이공원,Amusement PArk
+LOCATION_JEJU,제주도,JeJu Island
+CONTENT_INTERVIEW,인터뷰,Interview
+CONTENT_DNACE_CHALLANGE,댄스 챌린지,Dance Challange
+CONTENT_GRWM,겟레디위드미,GRWM
+CONTENT_VLOG,브이로그,VLog
+CONTENT_LIFE_HACK,일상 꿀팁,Life Hack
+CONTENT_COOKING,쿡방,Cooking
+CONTENT_TRAVELING,여행,Traveling
+CONTENT_ASMR,ASMR,ASMR
+CONTENT_GAME_PLAY,게임공략,Game Play
+CONTENT_MUKBANG,먹방,Mukbang
+POPULARITY_HIGH,상,High
+POPULARITY_MIDDLE,중,Middle
+POPULARITY_LOW,하,Low
+RECORDING_LOCATION,촬영 장소,Recording Location
+POPULARITY,인기,Popularity
+COAST,비용,Coast
+SELECT,선택,Select
+RECORDING_CONTENTS,촬영 컨텐츠,Recording Contents

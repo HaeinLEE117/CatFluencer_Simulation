@@ -61,6 +61,13 @@ public class UI_HirePopup : UI_UGUI, IUI_Popup
         RefreshUI();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        RefreshUI();
+    }
+
+
     public override void RefreshUI()
     {
         base.RefreshUI();

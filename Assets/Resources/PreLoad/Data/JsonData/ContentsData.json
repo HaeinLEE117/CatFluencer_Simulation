@@ -1,0 +1,54 @@
+﻿{
+  "texts": [
+    {
+      "ContentsID": 601,
+      "ContentsTextID": "CONTENT_INTERVIEW",
+      "Popularity": 1
+    },
+    {
+      "ContentsID": 602,
+      "ContentsTextID": "CONTENT_DNACE_CHALLANGE",
+      "Popularity": 2
+    },
+    {
+      "ContentsID": 603,
+      "ContentsTextID": "CONTENT_GRWM",
+      "Popularity": 1
+    },
+    {
+      "ContentsID": 604,
+      "ContentsTextID": "CONTENT_VLOG",
+      "Popularity": 1
+    },
+    {
+      "ContentsID": 605,
+      "ContentsTextID": "CONTENT_LIFE_HACK",
+      "Popularity": 1
+    },
+    {
+      "ContentsID": 606,
+      "ContentsTextID": "CONTENT_COOKING",
+      "Popularity": 2
+    },
+    {
+      "ContentsID": 607,
+      "ContentsTextID": "CONTENT_TRAVELING",
+      "Popularity": 2
+    },
+    {
+      "ContentsID": 608,
+      "ContentsTextID": "CONTENT_ASMR",
+      "Popularity": 1
+    },
+    {
+      "ContentsID": 609,
+      "ContentsTextID": "CONTENT_GAME_PLAY",
+      "Popularity": 3
+    },
+    {
+      "ContentsID": 610,
+      "ContentsTextID": "CONTENT_MUKBANG",
+      "Popularity": 3
+    }
+  ]
+}

@@ -7,7 +7,7 @@ using UnityEngine;
 public class LocationData
 {
     public int LocationID;
-    public int RentalFee;
+    public int Coast;
     public string LocationTextID;
     public int Popularity;
 }
