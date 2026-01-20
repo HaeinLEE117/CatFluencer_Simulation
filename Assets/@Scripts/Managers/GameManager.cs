@@ -134,6 +134,13 @@ public class GameManager : Singleton<GameManager>
     public Dictionary<int, EmployeeData> _availableEmployees {get;private set;} = new Dictionary<int, EmployeeData>();
     public Dictionary<int, ContentsData> _availableContents { get; private set; } = new Dictionary<int, ContentsData>();
     public Dictionary<int, LocationData> _availableLocations { get; private set; } = new Dictionary<int, LocationData>();
+    public Dictionary<int, CastData> _availableCasts { get; private set; } = new Dictionary<int, CastData>();
+
+    public Dictionary<int, CastData> AvailableCasts
+    {
+        get { return _availableCasts; }
+        set { _availableCasts = value; }
+    }
 
     public Dictionary<int, EmployeeData> HireableEmployees
     {
@@ -162,16 +169,19 @@ public class GameManager : Singleton<GameManager>
         int employeeLevelCap = PlayerLevel * constants.BASEEMPLOYEESFORLEVEL;
         int contentLevelCap = PlayerLevel * constants.BASECONTENTFORLEVEL;
         int locationLevelCap = PlayerLevel * constants.BASELOCATIONSFORLEVEL;
+        int castLevelCap = PlayerLevel * constants.BASECASTFORLEVEL;
 
         // 직원, 콘텐츠, 위치 데이터 업데이트
         // DataManager에서 각 Dict의 앞부분을 레벨 캡만큼 가져와 세팅
         HireableEmployees.Clear();
         _availableContents.Clear();
         _availableLocations.Clear();
+        _availableCasts.Clear();
 
         var empDict = DataManager.Instance?.EmployeeDict;
         var contDict = DataManager.Instance?.ContentsDict;
         var locDict = DataManager.Instance?.LocationDict;
+        var castDict = DataManager.Instance?.CastDict;
 
         int count = 0;
         foreach (var emp in empDict)
@@ -198,6 +208,26 @@ public class GameManager : Singleton<GameManager>
             _availableLocations[kv.Key] = kv.Value;
             count++;
             if (count >= locationLevelCap) break;
+        }
+        EmployeeData bestEmployee = GetLargestStat2Employee();
+        CastData employeeCastData = new CastData
+        {
+            TemplateID = 0,
+            NameTextID = bestEmployee.NameTextID,
+            PhotoImageID  =bestEmployee.PhotoImageID,
+            Stat1 = bestEmployee.Stat1,
+            Stat2 = bestEmployee.Stat2,
+            Stat3 = bestEmployee.Stat3,
+            CastPay = 0
+        };
+        _availableCasts[0] = employeeCastData;
+
+        count = 1;
+        foreach (var kv in castDict)
+        {
+            _availableCasts[kv.Key] = kv.Value;
+            count++;
+            if (count >= castLevelCap) break;
         }
     }
 
@@ -273,6 +303,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    #region 데이터 유틸 함수
     public bool TryPayGold(int amount)
     {
         if (_gameData.Gold >= amount)
@@ -283,6 +314,20 @@ public class GameManager : Singleton<GameManager>
         return false;
     }
 
+    public EmployeeData GetLargestStat2Employee()
+    {
+        EmployeeData bestEmployee = null;
+        foreach (var emp in HiredEmployees.Values)
+        {
+            if (bestEmployee == null || emp.Stat2 > bestEmployee.Stat2)
+            {
+                bestEmployee = emp;
+            }
+        }
+        return bestEmployee;
+    }
+
+    #endregion
 
     // EmployeeManager forwarders
     public IReadOnlyDictionary<int, EmployeeData> HiredEmployees => EmployeeManager.Instance.HiredEmployees;

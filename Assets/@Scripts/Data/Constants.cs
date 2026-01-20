@@ -1,3 +1,5 @@
+using NUnit.Framework.Internal.Builders;
+
 public class constants
 {
     public const int WEEKSPERMONTH = 4;
@@ -21,4 +23,6 @@ public class constants
     // 레벨 비례 비디오 밸런스 증가 포인트
     public const int BASEVIDEOBALANCEPOINTFORLEVEL = 3;
 
+    // 레벨 비례 캐스팅 가능한 출연진 수
+    public const int BASECASTFORLEVEL = 2;
 }

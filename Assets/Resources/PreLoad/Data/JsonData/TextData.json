@@ -324,6 +324,26 @@
       "TemplateID": "RECORDING_CONTENTS",
       "KOR": "촬영 컨텐츠",
       "ENG": "Recording Contents"
+    },
+    {
+      "TemplateID": "CAST_COOKIE_NAME",
+      "KOR": "쿠키",
+      "ENG": "Cookie"
+    },
+    {
+      "TemplateID": "CAST_PEBBLE_NAME",
+      "KOR": "맹이",
+      "ENG": "Pebble"
+    },
+    {
+      "TemplateID": "CAST_PUMPKIN_NAME",
+      "KOR": "감자",
+      "ENG": "Pumpkin"
+    },
+    {
+      "TemplateID": "CAST_PUDDING_NAME",
+      "KOR": "푸딩",
+      "ENG": "Pudding"
     }
   ]
 }
