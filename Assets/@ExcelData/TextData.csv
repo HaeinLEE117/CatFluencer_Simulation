@@ -71,3 +71,4 @@ CAST_COOKIE_NAME,쿠키,Cookie
 CAST_PEBBLE_NAME,맹이,Pebble
 CAST_PUMPKIN_NAME,감자,Pumpkin
 CAST_PUDDING_NAME,푸딩,Pudding
+INVALID_TITLE_SPECIAL,특수문자 포함 불가,Type only english and number!

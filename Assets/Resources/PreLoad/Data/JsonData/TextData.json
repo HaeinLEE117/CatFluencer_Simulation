@@ -344,6 +344,11 @@
       "TemplateID": "CAST_PUDDING_NAME",
       "KOR": "푸딩",
       "ENG": "Pudding"
+    },
+    {
+      "TemplateID": "INVALID_TITLE_SPECIAL",
+      "KOR": "특수문자 포함 불가",
+      "ENG": "Type only english and number!"
     }
   ]
 }

@@ -1,9 +1,9 @@
-{
+﻿{
   "texts": [
     {
       "TemplateID": 1101,
-      "Stat1": 12,
-      "Stat2": 12,
+      "Stat1": 4,
+      "Stat2": 4,
       "Stat3": 0,
       "CastPay": 1000,
       "NameTextID": "CAST_COOKIE_NAME",
@@ -11,8 +11,8 @@
     },
     {
       "TemplateID": 1102,
-      "Stat1": 33,
-      "Stat2": 33,
+      "Stat1": 8,
+      "Stat2": 11,
       "Stat3": 0,
       "CastPay": 2500,
       "NameTextID": "CAST_PEBBLE_NAME",
