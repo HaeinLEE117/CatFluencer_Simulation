@@ -41,7 +41,7 @@ public class UI_TopPanel : UI_UGUI
             + GameManager.Instance.Week.ToString() + LocalizationManager.Instance.GetLocalizedText("WEEK");
 
         GetText((int)Texts.CalandarText).SetTextwithFont(date);
-        GetText((int)Texts.SubscribersText).SetTextwithFont(GameManager.Instance.Subscribers.ToString());
+        GetText((int)Texts.SubscribersText).SetTextwithFont(GameManager.Instance.Subscriber.ToString());
         GetText((int)Texts.GoldText).SetTextwithFont( GameManager.Instance.Gold.ToString() + "G");
 
     }

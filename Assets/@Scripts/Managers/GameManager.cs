@@ -22,7 +22,6 @@ public class GameData
 
     // 고용된 직원 목록 (ID 기준)
     public Dictionary<int, EmployeeData> HiredEmployees;
-
 }
 
 // 현재 촬영중인 동영상을 나타내는 데이터 클래스
@@ -62,7 +61,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameData _gameData = new GameData();
 
-# region GameData proxy properties
+    # region GameData proxy properties
     public GameData GameData
     {
         get { return _gameData; }
@@ -204,8 +203,8 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
+    #region 날짜 흐름 처리
     private Coroutine _timeCoroutine;
-
 
     // 시간 흐름 시작/중지
     public void StartTime()
@@ -251,7 +250,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
-
+    #endregion
     // Centralized updater to apply a new GameData and raise relevant events
     public void ApplyGameData(GameData data)
     {
@@ -282,15 +281,6 @@ public class GameManager : Singleton<GameManager>
             return true;
         }
         return false;
-    }
-    public int Subscribers
-    {
-        get { return _gameData.Subscriber; }
-        set
-        {
-            _gameData.Subscriber = value;
-            EventManager.Instance.TriggerEvent(Define.EEventType.SubscriberChanged);
-        }
     }
 
 
