@@ -98,8 +98,9 @@ public class UI_DirectingBalancePopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        GetText((int)Texts.SelectedContentText).text = GameManager.Instance.RecordingVideoData.Content;
-        GetText((int)Texts.SelectedLocationText).text = GameManager.Instance.RecordingVideoData.Location;
+        //TODO: 데이터매니저를 통해서 ID값에 해당하는 TextID가져오기
+        GetText((int)Texts.SelectedContentText).text = GameManager.Instance.RecordingVideoData.Content.ToString();
+        GetText((int)Texts.SelectedLocationText).text = GameManager.Instance.RecordingVideoData.Location.ToString();
 
         GetButton((int)Buttons.StartButton).onClick.AddListener(OnStartButtonClicked);
 

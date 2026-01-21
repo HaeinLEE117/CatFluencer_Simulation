@@ -349,6 +349,11 @@
       "TemplateID": "INVALID_TITLE_SPECIAL",
       "KOR": "특수문자 포함 불가",
       "ENG": "Type only english and number!"
+    },
+    {
+      "TemplateID": "NO_DATA",
+      "KOR": null,
+      "ENG": null
     }
   ]
 }

@@ -251,12 +251,9 @@ public class UIManager : Singleton<UIManager>
         _sceneUI = null;
     }
 
-    public void NotifyLocationSelected(string location)
+    public void NotifyLocationSelected(int locationID)
     {
-        if (string.IsNullOrEmpty(location))
-            return;
-
-        GameManager.Instance.UpdateRecordingLocation(location);
+        GameManager.Instance.UpdateRecordingLocation(locationID);
     }
 
     #region 대화창 팝업

@@ -24,29 +24,6 @@ public class GameData
     public Dictionary<int, EmployeeData> HiredEmployees;
 }
 
-// 현재 촬영중인 동영상을 나타내는 데이터 클래스
-[Serializable]
-public class RecordingVideoData
-{
-    //TODO: string => ID로 변경
-    public string Location;
-    public string Cast;
-    public string Content;
-    public string Title;
-}
-
-// 현재 촬영중인 동영상 밸런스 데이터 클래스
-[Serializable]
-public class  VideoBalanceData
-{
-    public int Length;
-    public int Trend;
-    public int Laugh;
-    public int Info;
-    public int Memory;
-    public int Emotion;
-}
-
 public class GameManager : Singleton<GameManager>
 {
     List<EmployeeData> _hireCandidates = new List<EmployeeData>();
@@ -105,7 +82,7 @@ public class GameManager : Singleton<GameManager>
     public string ChannelName
     {
         get { return _gameData.ChannelName; }
-        set { _gameData.ChannelName = value; EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged); }
+        set { _gameData.ChannelName = value; }
     }
     public int Year
     {
@@ -289,7 +266,6 @@ public class GameManager : Singleton<GameManager>
 
         EventManager.Instance.TriggerEvent(Define.EEventType.GoldChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.SubscriberChanged);
-        EventManager.Instance.TriggerEvent(Define.EEventType.ChannelNameChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.SecondsPerWeekChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
@@ -349,7 +325,7 @@ public class GameManager : Singleton<GameManager>
     // Recording 상태를 중앙에서 확인할 수 있도록 브리지 제공
     public bool IsRecording => RecordingManager.Instance != null && RecordingManager.Instance.IsRecording;
 
-    // 현재 촬영 정보는 계속 노출 (RecordingManager로 위임)
+    // 현재 촬영 정보는 계속 노출
     public RecordingVideoData RecordingVideoData => RecordingManager.Instance != null ? RecordingManager.Instance.RecordingVideoData : null;
     public VideoBalanceData VideoBalanceData => RecordingManager.Instance != null ? RecordingManager.Instance.VideoBalanceData : null;
 
@@ -359,28 +335,24 @@ public class GameManager : Singleton<GameManager>
         RecordingManager.Instance.UpdateVideoBalanceData(length, trend, laugh, info, memory, emotion);
     }
 
-    public void UpdateRecordingLocation(string location)
+    public void UpdateRecordingLocation(int locationID)
     {
-        RecordingManager.Instance.UpdateRecordingLocation(location);
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_LocationSelected);
+        RecordingManager.Instance.UpdateRecordingLocation(locationID);
     }
 
     public void UpdateRecordingCast(string cast)
     {
         RecordingManager.Instance.UpdateRecordingCast(cast);
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
     }
 
-    public void UpdateRecordingContent(string content)
+    public void UpdateRecordingContent(int contentID)
     {
-        RecordingManager.Instance.UpdateRecordingContent(content);
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_ContentSelected);
+        RecordingManager.Instance.UpdateRecordingContent(contentID);
     }
 
     public void UpdateRecordingTitle(string title)
     {
         RecordingManager.Instance.UpdateRecordingTitle(title);
-        EventManager.Instance.TriggerEvent(Define.EEventType.UI_CastSelected);
     }
 
     // 옵션: 촬영 수명주기 제어 포워딩 (필요 시 사용)

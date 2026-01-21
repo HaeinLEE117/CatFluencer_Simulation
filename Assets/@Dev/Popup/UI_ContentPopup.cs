@@ -37,13 +37,15 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
     }
 
     // 3차 팝업으로 선택된 데이터를 전달하기 위한 내부 변수
-    private string _selectedContent;
+    private int _selectedContent;
     private Button _selectButton;
     private int _startIndex = 0;
 
-    Button preBtn;
-    Button nextBtn; 
+    private int[] _contentIDs = new int[4];
 
+    Button _preBtn;
+    Button _nextBtn; 
+    
     protected override void Awake()
     {
         base.Awake();
@@ -54,17 +56,17 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
         _selectButton.onClick.AddListener(OnClickSelect);
         _selectButton.gameObject.SetActive(false);
 
-        GetButton((int)Buttons.ContentButton1).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText1).text));
-        GetButton((int)Buttons.ContentButton2).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText2).text));
-        GetButton((int)Buttons.ContentButton3).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText3).text));
-        GetButton((int)Buttons.ContentButton4).onClick.AddListener(() => SetSelectedContent(GetText((int)Texts.ContentText4).text));
+        GetButton((int)Buttons.ContentButton1).onClick.AddListener(() => SetSelectedContent(_contentIDs[0]));
+        GetButton((int)Buttons.ContentButton2).onClick.AddListener(() => SetSelectedContent(_contentIDs[1]));
+        GetButton((int)Buttons.ContentButton3).onClick.AddListener(() => SetSelectedContent(_contentIDs[2]));
+        GetButton((int)Buttons.ContentButton4).onClick.AddListener(() => SetSelectedContent(_contentIDs[3]));
 
         // Wire navigation
-        preBtn  = GetButton((int)Buttons.PreButton);
-        nextBtn = GetButton((int)Buttons.NextButton);
+        _preBtn  = GetButton((int)Buttons.PreButton);
+        _nextBtn = GetButton((int)Buttons.NextButton);
 
-        preBtn.onClick.AddListener(OnPrev);
-        nextBtn.onClick.AddListener(OnNext);
+        _preBtn.onClick.AddListener(OnPrev);
+        _nextBtn.onClick.AddListener(OnNext);
     }
 
     public override void RefreshUI()
@@ -117,6 +119,7 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
                 var data = items[idx];
                 contentTexts[i]?.SetLocalizedText(data.ContentsTextID);
                 popularTexts[i]?.SetTextwithFont(data.Popularity.ToString());
+                _contentIDs[i] = data.ContentsID;
             }
             else
             {
@@ -129,10 +132,10 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
         // Toggle navigation buttons
         bool canPrev = _startIndex > 0;
         bool canNext = _startIndex + 4 < total;
-        if (preBtn != null) preBtn.gameObject.SetActive(total > 4);
-        if (nextBtn != null) nextBtn.gameObject.SetActive(total > 4);
-        if (preBtn != null) preBtn.interactable = canPrev;
-        if (nextBtn != null) nextBtn.interactable = canNext;
+        if (_preBtn != null) _preBtn.gameObject.SetActive(total > 4);
+        if (_nextBtn != null) _nextBtn.gameObject.SetActive(total > 4);
+        if (_preBtn != null) _preBtn.interactable = canPrev;
+        if (_nextBtn != null) _nextBtn.interactable = canNext;
     }
 
     private void OnPrev()
@@ -152,9 +155,9 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
     }
 
     // Call this when a Content item is chosen from list
-    public void SetSelectedContent(string Content)
+    public void SetSelectedContent(int ContentID)
     {
-        _selectedContent = Content;
+        _selectedContent = ContentID;
         _selectButton.gameObject.SetActive(true);
     }
 
@@ -166,7 +169,7 @@ public class UI_ContentPopup : UI_UGUI, IUI_Popup
 
 
     // Provide a getter for selected data that NewVideoPopup can read via a shared service or static cache.
-    public string GetSelected() => _selectedContent;
+    public int GetSelected() => _selectedContent;
 
     private System.Collections.Generic.List<ContentsData> GetOrderedContentItems()
     {

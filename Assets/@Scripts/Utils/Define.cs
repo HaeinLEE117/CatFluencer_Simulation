@@ -22,15 +22,10 @@ public static class Define
         UI_FireClicked,
         UI_GoalsClicked,
         UI_PreVideosClicked,
-        // Selection events
-        UI_LocationSelected,
-        UI_CastSelected,
         // Popup stack changed
         UI_PopupStackChanged,
-        UI_ContentSelected,
         //GameData Changed
         SubscriberChanged,
-        ChannelNameChanged,
         VideoBalancePointsChanged,
         SecondsPerWeekChanged,
         UpgradeCountChanged,
@@ -46,6 +41,10 @@ public static class Define
         UI_LeftPanelOpened,
         HireableEmployeesChanged,
         GameDataChanged,
+        // 새 영상 촬영 관련
+        RecordingStart,
+        RecordingEnd,
+        RecordDataUpdated,
     }
 
     public enum ESound

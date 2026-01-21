@@ -79,4 +79,19 @@ public class DataManager : Singleton<DataManager>
 
         return success;
     }
+
+    public string GetTextIDwithIntKey(int key)
+    {
+        string textID = "NO_DATA";
+        if (ContentsDict.TryGetValue(key, out ContentsData data))
+        {
+            textID = data.ContentsTextID;
+        }
+        else if(LocationDict.TryGetValue(key, out LocationData locData))
+        {
+            textID = locData.LocationTextID;
+        }
+
+        return textID;
+    }
 }

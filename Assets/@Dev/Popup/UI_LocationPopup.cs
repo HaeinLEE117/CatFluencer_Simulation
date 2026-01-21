@@ -43,12 +43,14 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
     }
 
     // 3차 팝업으로 선택된 데이터를 전달하기 위한 내부 변수
-    private string _selectedLocation;
+    private int _selectedLocation;
     private Button _selectButton;
     private int _startIndex = 0;
 
     Button preBtn;
     Button nextBtn;
+
+    private int[] _locationIDs = new int[4];
 
     protected override void Awake()
     {
@@ -60,10 +62,10 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
         _selectButton.onClick.AddListener(OnClickSelect);
         _selectButton.gameObject.SetActive(false);
 
-        GetButton((int)Buttons.LocationButton1).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText1).text));
-        GetButton((int)Buttons.LocationButton2).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText2).text));
-        GetButton((int)Buttons.LocationButton3).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText3).text));
-        GetButton((int)Buttons.LocationButton4).onClick.AddListener(() => SetSelectedLocation(GetText((int)Texts.LocationText4).text));
+        GetButton((int)Buttons.LocationButton1).onClick.AddListener(() => SetSelectedLocation(_locationIDs[0]));
+        GetButton((int)Buttons.LocationButton2).onClick.AddListener(() => SetSelectedLocation(_locationIDs[1]));
+        GetButton((int)Buttons.LocationButton3).onClick.AddListener(() => SetSelectedLocation(_locationIDs[2]));
+        GetButton((int)Buttons.LocationButton4).onClick.AddListener(() => SetSelectedLocation(_locationIDs[3]));
         
         preBtn = GetButton((int)Buttons.PreButton);
         nextBtn = GetButton((int)Buttons.NextButton);
@@ -131,6 +133,7 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
                 contentTexts[i]?.SetLocalizedText(data.LocationTextID);
                 popularTexts[i]?.SetTextwithFont(data.Popularity.ToString());
                 coastTexts[i]?.SetTextwithFont(data.Coast.ToString());
+                _locationIDs[i] = data.LocationID;
             }
             else
             {
@@ -167,9 +170,10 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
     }
 
     // Call this when a location item is chosen from list
-    public void SetSelectedLocation(string location)
+    public void SetSelectedLocation(int locationID)
     {
-        _selectedLocation = location;
+        _selectedLocation = locationID;
+        Debug.Log($"Location selected: {_selectedLocation}");
         _selectButton.gameObject.SetActive(true);
     }
 
@@ -181,7 +185,7 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
 
 
     // Provide a getter for selected data that NewVideoPopup can read via a shared service or static cache.
-    public string GetSelected() => _selectedLocation;
+    public int GetSelected() => _selectedLocation;
 
     private System.Collections.Generic.List<LocationData> GetOrderedCLocationItems()
     {

@@ -64,30 +64,30 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
             });
         }
 
-        // Subscribe to selection event(s)
-        EventManager.Instance.AddEvent(Define.EEventType.UI_LocationSelected, OnDetailSelected);
-        EventManager.Instance.AddEvent(Define.EEventType.UI_CastSelected, OnDetailSelected);
-        EventManager.Instance.AddEvent(Define.EEventType.UI_ContentSelected, OnDetailSelected);
 
-        //TODO: Start Button¿¡¼­ DirectingÆË¾÷ ¶ã ¶§ °¢ µ¥ÀÌÅÍ ³ÎÃ¼Å© ÇÏ±â
+        //TODO: Start Buttonì—ì„œ DirectingíŒì—… ëœ° ë•Œ ê° ë°ì´í„° ë„ì²´í¬ í•˜ê¸°
         GetButton((int)Buttons.StartButton).onClick.AddListener(OnStartButtonClicked);
 
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        RefreshUI();
+    }
+
     private void OnDestroy()
     {
-        EventManager.Instance.RemoveEvent(Define.EEventType.UI_LocationSelected, OnDetailSelected);
-        EventManager.Instance.RemoveEvent(Define.EEventType.UI_CastSelected, OnDetailSelected);
     }
 
     public override void RefreshUI()
     {
         base.RefreshUI();
-        GetText((int)Texts.SelectedLocationText).text = GameManager.Instance.RecordingVideoData.Location;
+        string locationTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Location);
+        string contentTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Content);
+        GetText((int)Texts.SelectedLocationText).SetLocalizedText(locationTextId);
         GetText((int)Texts.SelectedCastText).text = GameManager.Instance.RecordingVideoData.Cast;
-        GetText((int)Texts.SelectedContentText).text = GameManager.Instance.RecordingVideoData.Content;
-        GetText((int)Texts.EnteredTitleText).text = GameManager.Instance.RecordingVideoData.Title;
-
+        GetText((int)Texts.SelectedContentText).SetLocalizedText(contentTextId);
     }
 
     private void OnDetailSelected()
@@ -111,7 +111,7 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         if(GameManager.Instance.RecordingVideoData.Content == null)
             return;
 
-        //TODO: ÀÓ½Ã Å¸ÀÌÆ² ¼³Á¤, ÇÃ·¹ÀÌ¾î µ¥ÀÌÅÍ¿¡¼­ ¿©ÅÂ ¾÷·ÎµåÇÑ °¹¼ö ÆÄ¾Ç ÈÄ "µ¿¿µ»ó {n}" Çü½ÄÀ¸·Î ¼³Á¤
+        //TODO: ì„ì‹œ íƒ€ì´í‹€ ì„¤ì •, í”Œë ˆì´ì–´ ë°ì´í„°ì—ì„œ ì—¬íƒœ ì—…ë¡œë“œí•œ ê°¯ìˆ˜ íŒŒì•… í›„ "ë™ì˜ìƒ {n}" í˜•ì‹ìœ¼ë¡œ ì„¤ì •
         if (GameManager.Instance.RecordingVideoData.Title == null)
             GameManager.Instance.UpdateRecordingTitle("tmp");
 
