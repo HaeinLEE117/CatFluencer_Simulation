@@ -44,7 +44,7 @@ public static class Define
         // 새 영상 촬영 관련
         RecordingStart,
         RecordingEnd,
-        RecordDataUpdated,
+        RecordDatdChanged,
     }
 
     public enum ESound
