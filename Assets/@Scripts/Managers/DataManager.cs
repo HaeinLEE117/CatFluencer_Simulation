@@ -91,7 +91,15 @@ public class DataManager : Singleton<DataManager>
         {
             textID = locData.LocationTextID;
         }
+        else if(CastDict.TryGetValue(key, out CastData castData))
+        {
+            textID = castData.NameTextID;
+        }
+        else if(EmployeeDict.TryGetValue(key, out EmployeeData empData))
+        {
+            textID = empData.NameTextID;
+        }
 
-        return textID;
+            return textID;
     }
 }

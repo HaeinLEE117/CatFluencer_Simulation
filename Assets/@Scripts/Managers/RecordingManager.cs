@@ -7,7 +7,7 @@ public class RecordingVideoData
 {
     //TODO: string => ID로 변경
     public int Location;
-    public string Cast;
+    public int Cast;
     public int Content;
     public string Title;
     public int castStat1;
@@ -63,7 +63,7 @@ public class RecordingManager : Singleton<RecordingManager>
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordDataUpdated);
     }
 
-    public void UpdateRecordingCast(string cast)
+    public void UpdateRecordingCast(int cast)
     {
         RecordingVideoData.Cast = cast;
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordDataUpdated);

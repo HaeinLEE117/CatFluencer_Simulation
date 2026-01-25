@@ -85,8 +85,9 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         base.RefreshUI();
         string locationTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Location);
         string contentTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Content);
+        string castTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Cast);
         GetText((int)Texts.SelectedLocationText).SetLocalizedText(locationTextId);
-        GetText((int)Texts.SelectedCastText).text = GameManager.Instance.RecordingVideoData.Cast;
+        GetText((int)Texts.SelectedCastText).SetLocalizedText(castTextId);
         GetText((int)Texts.SelectedContentText).SetLocalizedText(contentTextId);
     }
 
@@ -103,12 +104,6 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
     private void OnStartButtonClicked()
     {
         if (GameManager.Instance.RecordingVideoData == null)
-            return;
-        if(GameManager.Instance.RecordingVideoData.Location == null)
-            return;
-        if(GameManager.Instance.RecordingVideoData.Cast == null)
-            return;
-        if(GameManager.Instance.RecordingVideoData.Content == null)
             return;
 
         //TODO: 임시 타이틀 설정, 플레이어 데이터에서 여태 업로드한 갯수 파악 후 "동영상 {n}" 형식으로 설정

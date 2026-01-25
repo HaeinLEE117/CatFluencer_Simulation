@@ -29,7 +29,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
             return false;
 
         dict.Add(employeeId, data);
-        EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.HiredEmployeesChanged);
         return true;
     }
 
@@ -42,7 +42,7 @@ public class EmployeeManager : Singleton<EmployeeManager>
 
         bool removed = dict.Remove(employeeId);
         if (removed)
-            EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
+            EventManager.Instance.TriggerEvent(Define.EEventType.HiredEmployeesChanged);
         return removed;
     }
 

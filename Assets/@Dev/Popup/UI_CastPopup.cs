@@ -35,7 +35,7 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
     }
 
     // 3차 팝업으로 선택된 데이터를 전달하기 위한 내부 변수
-    private string _selectedCast;
+    private int _selectedCast;
     private int _index = 0;
     private Button _preBtn;
     private Button _nextBtn;
@@ -94,6 +94,8 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
         int currentId = keys[_index];
         var data = dict[currentId];
 
+        _selectedCast = data.TemplateID;
+
         GetText((int)Texts.ApplicantNameText)?.SetLocalizedText(data.NameTextID);
         GetText((int)Texts.Stat1Text)?.SetLocalizedText("STAT1");
         GetText((int)Texts.Stat2Text)?.SetLocalizedText("STAT2");
@@ -128,7 +130,7 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
 
     private void OnClickSelect()
     {
-        GameManager.Instance.UpdateRecordingCast(GetText((int)Texts.ApplicantNameText).text);
+        GameManager.Instance.UpdateRecordingCast(_selectedCast);
         UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 

@@ -107,6 +107,18 @@ public class GameManager : Singleton<GameManager>
 
     #endregion
 
+    private void OnEnable()
+    {
+        // Subscribe to hired employees initialization/changes to refresh level-based data
+        EventManager.Instance.AddEvent(Define.EEventType.HiredEmployeesChanged, UpdatePlayerLevelDatas);
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe to prevent leaks or calls on destroyed object
+        EventManager.Instance.RemoveEvent(Define.EEventType.HiredEmployeesChanged, UpdatePlayerLevelDatas);
+    }
+
     #region 레벨별 상한 데이터
     public Dictionary<int, EmployeeData> _availableEmployees {get;private set;} = new Dictionary<int, EmployeeData>();
     public Dictionary<int, ContentsData> _availableContents { get; private set; } = new Dictionary<int, ContentsData>();
@@ -189,7 +201,7 @@ public class GameManager : Singleton<GameManager>
         EmployeeData bestEmployee = GetLargestStat2Employee();
         CastData employeeCastData = new CastData
         {
-            TemplateID = 0,
+            TemplateID = bestEmployee.TemplateID,
             NameTextID = bestEmployee.NameTextID,
             PhotoImageID  =bestEmployee.PhotoImageID,
             Stat1 = bestEmployee.Stat1,
@@ -268,7 +280,7 @@ public class GameManager : Singleton<GameManager>
         EventManager.Instance.TriggerEvent(Define.EEventType.SubscriberChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.VideoBalancePointsChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.SecondsPerWeekChanged);
-        EventManager.Instance.TriggerEvent(Define.EEventType.InitHiredEmployeesChanged);
+        EventManager.Instance.TriggerEvent(Define.EEventType.HiredEmployeesChanged);
         EventManager.Instance.TriggerEvent(Define.EEventType.UpgradeCountChanged);
 
         // 재시작: 설정 변경 시 타이머 재시작 고려
@@ -340,7 +352,7 @@ public class GameManager : Singleton<GameManager>
         RecordingManager.Instance.UpdateRecordingLocation(locationID);
     }
 
-    public void UpdateRecordingCast(string cast)
+    public void UpdateRecordingCast(int cast)
     {
         RecordingManager.Instance.UpdateRecordingCast(cast);
     }

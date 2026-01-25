@@ -29,7 +29,7 @@ public static class Define
         VideoBalancePointsChanged,
         SecondsPerWeekChanged,
         UpgradeCountChanged,
-        InitHiredEmployeesChanged,
+        HiredEmployeesChanged,
         EmployEducationDone,
         //날짜 업데이트
         WeekAdvanced,
