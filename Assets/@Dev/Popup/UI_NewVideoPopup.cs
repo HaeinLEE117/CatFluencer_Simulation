@@ -89,7 +89,6 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         GetText((int)Texts.SelectedLocationText).SetLocalizedText(locationTextId);
         GetText((int)Texts.SelectedCastText).SetLocalizedText(castTextId);
         GetText((int)Texts.SelectedContentText).SetLocalizedText(contentTextId);
-        GetText((int)Texts.RecordingCostText).SetTextwithFont(GameManager.Instance.RecordingVideoData.recordingCost.ToString() + " G");
     }
 
     private void OnDetailSelected()

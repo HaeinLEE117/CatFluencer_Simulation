@@ -138,8 +138,6 @@ public class RecordingManager : Singleton<RecordingManager>
         locationCost = locationData?.Coast ?? 0;
 
         RecordingVideoData.recordingCost = castCost + locationCost;
-        Debug.Log($"Recording Cost Calculated: CastCost={castCost}, LocationCost={locationCost}, Total={RecordingVideoData.recordingCost}");
-
     }
 
 }
