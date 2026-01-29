@@ -7,6 +7,7 @@ GAME_OVER,게임 오버,Game Over
 VICTORY,승리,Victory
 DEFEAT,패배,Defeat
 MENU,메뉴,Menu
+CONFIRM,확인,Confirm
 CLOSE,닫기,Close
 STAT1,기술,Technique
 STAT2,예능,Entertainment
@@ -77,3 +78,4 @@ NEW_VIDEO,새로운 비디오,New video
 INVALID_LOCATION,촬영 장소를 선택 해주세요!,No Location Data!
 INVALID_CAST,출연진을 선택 해주세요!,No Cast Data!
 INVALID_CONTENT,촬영 콘텐츠를 선택 해주세요!,No Content Data!
+RECORDING_ALREADY_PROGRESSING,이미 촬영중인 영상이 있습니다!,Recording Progressing!

@@ -268,14 +268,14 @@ public class UIManager : Singleton<UIManager>
     }
     #endregion
 
-    public void ShowConfirmPopup(string titleText,string message, Action onConfirm, Action onCancel = null)
+    public void ShowConfirmPopup(string titleText,string message, Action onConfirm, Action onCancel = null, bool closeCurrentPopup=false)
     {
-        var popup = ShowPopupUI<UI_ConfirmPopup>(null, closeCurrent: false);
+        var popup = ShowPopupUI<UI_ConfirmPopup>(null, closeCurrent: closeCurrentPopup);
         if (popup == null)
             return;
         popup.SetTitle(titleText);
         popup.SetMessage(message);
-        popup.SetActions(onConfirm, onCancel, confirmLabel: null, cancelLabel: null);
+        popup.SetActions(onConfirm, onCancel);
     }
 
     // 정렬순서 인자로 받아 활성/비활성 처리

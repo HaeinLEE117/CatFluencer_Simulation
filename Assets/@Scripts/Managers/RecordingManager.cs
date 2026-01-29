@@ -67,6 +67,8 @@ public class RecordingManager : Singleton<RecordingManager>
     // 촬영 시작 
     public void StartRecording()
     {
+        if(IsRecording)
+            return;
         IsRecording = true;
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordingStart);
     }

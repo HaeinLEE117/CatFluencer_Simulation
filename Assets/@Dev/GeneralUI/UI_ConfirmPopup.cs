@@ -87,21 +87,13 @@ public class UI_ConfirmPopup : UI_UGUI, IUI_Popup
         if (t != null) t.text = message;
     }
 
-    public void SetActions(Action onConfirm, Action onCancel = null, string confirmLabel = null, string cancelLabel = null)
+    public void SetActions(Action onConfirm, Action onCancel = null, string confirmLabel = "CONFIRM", string cancelLabel = "CLOSE")
     {
         _onConfirm = onConfirm;
-        _onCancel = onCancel;
+        _onCancel = onCancel != null ? onCancel : UIManager.Instance.ClosePopupUI;
 
-        if (!string.IsNullOrEmpty(confirmLabel))
-        {
-            var txt = GetText((int)Texts.ConfirmButtonText);
-            if (txt != null) txt.text = confirmLabel;
-        }
-        if (!string.IsNullOrEmpty(cancelLabel))
-        {
-            var txt = GetText((int)Texts.CancleButtonText);
-            if (txt != null) txt.text = cancelLabel;
-        }
+        GetText((int)Texts.ConfirmButtonText).SetLocalizedText(confirmLabel);
+        GetText((int)Texts.CancleButtonText).SetLocalizedText(cancelLabel);
         RefreshUI();
     }
 }

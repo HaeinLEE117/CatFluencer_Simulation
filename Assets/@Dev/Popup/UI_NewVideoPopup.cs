@@ -72,8 +72,13 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
 
     protected override void OnEnable()
     {
-        base.OnEnable();
-        RefreshUI();
+        if(GameManager.Instance.IsRecording)
+            UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"), LocalizationManager.Instance.GetLocalizedText("RECORDING_ALREADY_PROGRESSING"), null,null, true);
+        else
+        {
+            base.OnEnable();
+            RefreshUI();
+        }
     }
 
     private void OnDestroy()
@@ -94,16 +99,6 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         string title = GameManager.Instance.RecordingVideoData.Title;
         GetText((int)Texts.EnteredTitleText).SetTextwithFont(title);
 
-    }
-
-    private void OnDetailSelected()
-    {
-        RefreshUI();
-    }
-
-    private void ClosePopup()
-    {
-        UIManager.Instance.ClosePopupUI();
     }
 
     private void OnStartButtonClicked()

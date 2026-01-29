@@ -390,5 +390,10 @@ public class GameManager : Singleton<GameManager>
         return RecordingManager.Instance.CheckVideoDataValidity();
     }
 
+   public bool IsVideoRecording()
+    {
+        return RecordingManager.Instance.IsRecording;
+    }
+
     #endregion
 }

@@ -41,6 +41,11 @@
       "ENG": "Menu"
     },
     {
+      "TemplateID": "CONFIRM",
+      "KOR": "확인",
+      "ENG": "Confirm"
+    },
+    {
       "TemplateID": "CLOSE",
       "KOR": "닫기",
       "ENG": "Close"
@@ -374,6 +379,11 @@
       "TemplateID": "INVALID_CONTENT",
       "KOR": "촬영 콘텐츠를 선택 해주세요!",
       "ENG": "No Content Data!"
+    },
+    {
+      "TemplateID": "RECORDING_ALREADY_PROGRESSING",
+      "KOR": "이미 촬영중인 영상이 있습니다!",
+      "ENG": "Recording Progressing!"
     }
   ]
 }
