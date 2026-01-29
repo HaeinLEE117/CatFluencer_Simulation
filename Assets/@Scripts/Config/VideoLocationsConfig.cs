@@ -20,5 +20,5 @@ public class VideoLocationsConfig : ScriptableObject
 
     };
 
-
+    public List<LocationGoodComboData> GoodComboContents => _goodComboContents;
 }

@@ -21,6 +21,7 @@ public class DataManager : Singleton<DataManager>
     public AdsConfig AdsConfig { get; private set; }
     public IAPConfig IAPConfig { get; private set; }
     public EducationConfig EducationConfig { get; private set; }
+    public VideoLocationsConfig VideoLocationsConfig { get; private set; }
 
     public Dictionary<string, TextData> TextDict { get; private set; } = new Dictionary<string, TextData>();
     public Dictionary<int, EmployeeData> EmployeeDict { get; private set; } = new Dictionary<int, EmployeeData>();
@@ -35,6 +36,7 @@ public class DataManager : Singleton<DataManager>
         AdsConfig = LoadScriptableObject<AdsConfig>("AdsConfig");
         IAPConfig = LoadScriptableObject<IAPConfig>("IAPConfig");
         EducationConfig = LoadScriptableObject<EducationConfig>("EducationConfig");
+        VideoLocationsConfig = LoadScriptableObject<VideoLocationsConfig>("VideoLocationConfig");
 
         TextDict = LoadJson<TextDataLoader, string, TextData>("TextData").MakeDict();
         EmployeeDict = LoadJson<EmployeeDataLoader, int, EmployeeData>("EmployeeData").MakeDict();

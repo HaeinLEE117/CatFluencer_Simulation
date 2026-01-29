@@ -25,4 +25,16 @@ public class constants
 
     // 레벨 비례 캐스팅 가능한 출연진 수
     public const int BASECASTFORLEVEL = 2;
+
+    // 새 비디오 촬영시 점수 계산을 위한 최소/최대 값
+    public const int MIN_CAST_STAT1_SCORE = 1;
+    public const int MIN_CAST_STAT2_SCORE = 1;
+    public const int MIN_CAST_STAT3_SCORE = 0;
+
+    public const int MAX_CAST_STAT1_SCORE = 10;
+    public const int MAX_CAST_STAT2_SCORE = 10;
+    public const int MAX_CAST_STAT3_SCORE = 10;
+
+    public const float COMBO_BONUS_MULTIPLIER = 2f;
+
 }

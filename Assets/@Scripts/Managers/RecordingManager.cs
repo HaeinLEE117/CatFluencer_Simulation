@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static constants;
 
 // 현재 촬영중인 동영상을 나타내는 데이터 클래스
 [Serializable]
@@ -12,7 +13,7 @@ public class RecordingVideoData
     public int castStat1;
     public int castStat2;
     public int castStat3;
-    public int videoScore;
+    public float videoScore;
     public int recordingCost;
 
     public RecordingVideoData()
@@ -58,11 +59,13 @@ public class RecordingManager : Singleton<RecordingManager>
     private void OnEnable()
     {
         EventManager.Instance.AddEvent(Define.EEventType.RecordDatdChanged, CalculateRecordCost);
+        EventManager.Instance.AddEvent(Define.EEventType.RecordingEnd, AutoUpdateVideoTitle);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.RemoveEvent(Define.EEventType.RecordDatdChanged, CalculateRecordCost);
+        EventManager.Instance.RemoveEvent(Define.EEventType.RecordingEnd, AutoUpdateVideoTitle);
     }
 
     // 촬영 시작 
@@ -71,6 +74,7 @@ public class RecordingManager : Singleton<RecordingManager>
         if(IsRecording)
             return;
         IsRecording = true;
+        CalculdateRecordingVideoScroe();
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordingStart);
     }
 
@@ -85,6 +89,7 @@ public class RecordingManager : Singleton<RecordingManager>
         // 결과 처리 / 보상 / 저장 등 필요 시 여기에 구현
         IsRecording = false;
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordingEnd);
+        //TODO: 촬영 완료 후 데이터 저장(플레이어 데이터 업데이트) 및 보상 처리
     }
 
     // 단일 필드 갱신
@@ -133,14 +138,48 @@ public class RecordingManager : Singleton<RecordingManager>
 
     private void CalculdateRecordingVideoScroe()
     {
+
         if (CheckVideoDataValidity() != VideoDataErrorTye.None)
             return;
-        if(!IsRecording)
+        if (!IsRecording)
             return;
 
+        var config = DataManager.Instance.VideoLocationsConfig;
+        if (config == null)
+        {
+            Debug.LogError("VideoLocationsConfig not loaded.");
+            return;
+        }
 
-        RecordingVideoData.videoScore = 0;
+        int castStatScore = Mathf.Clamp(RecordingVideoData.castStat1 / 10, MIN_CAST_STAT1_SCORE, MAX_CAST_STAT1_SCORE) +
+             Mathf.Clamp(RecordingVideoData.castStat2 / 5, MIN_CAST_STAT2_SCORE, MAX_CAST_STAT2_SCORE) +
+             Mathf.Clamp(RecordingVideoData.castStat3 / 5, MIN_CAST_STAT3_SCORE, MAX_CAST_STAT3_SCORE);
+        Debug.Log($"Cst Score : {castStatScore}");
 
+        bool isGoodCombo = CheckLocationContentCombo(config);
+        if (isGoodCombo)
+            RecordingVideoData.videoScore =castStatScore * constants.COMBO_BONUS_MULTIPLIER;
+        else
+            RecordingVideoData.videoScore = castStatScore;
+        Debug.Log($"Is Combo? : {isGoodCombo}");
+
+    }
+
+    private bool CheckLocationContentCombo(VideoLocationsConfig config)
+    {
+        foreach (LocationGoodComboData combodata in config.GoodComboContents)
+        {
+            if (combodata.locationId == RecordingVideoData.Location)
+            {
+                foreach (int id in combodata.goodContentsIds)
+                {
+                    if (id == RecordingVideoData.Content)
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 
@@ -170,6 +209,12 @@ public class RecordingManager : Singleton<RecordingManager>
         locationCost = locationData?.Coast ?? 0;
 
         RecordingVideoData.recordingCost = castCost + locationCost;
+    }
+
+    public void AutoUpdateVideoTitle()
+    {
+        int i = GameManager.Instance.GameData.UpdateVideoCount + 1;
+        RecordingVideoData.Title = LocalizationManager.Instance.GetLocalizedText("NEW_VIDEO") + " " + i.ToString();
     }
 
     public VideoDataErrorTye CheckVideoDataValidity()
