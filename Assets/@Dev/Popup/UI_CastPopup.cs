@@ -40,6 +40,8 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
     private Button _preBtn;
     private Button _nextBtn;
 
+    private int _stat1, _stat2, _stat3;
+
     protected override void Awake()
     {
         base.Awake();
@@ -101,9 +103,13 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
         GetText((int)Texts.Stat2Text)?.SetLocalizedText("STAT2");
         GetText((int)Texts.Stat3Text)?.SetLocalizedText("STAT3");
 
-        GetText((int)Texts.Stat1PointText)?.SetTextwithFont(data.Stat1.ToString());
-        GetText((int)Texts.Stat2PointText)?.SetTextwithFont(data.Stat2.ToString());
-        GetText((int)Texts.Stat3PointText)?.SetTextwithFont(data.Stat3.ToString());
+        _stat1 = data.Stat1;
+        _stat2 = data.Stat2;
+        _stat3 = data.Stat3;
+
+        GetText((int)Texts.Stat1PointText)?.SetTextwithFont(_stat1.ToString());
+        GetText((int)Texts.Stat2PointText)?.SetTextwithFont(_stat2.ToString());
+        GetText((int)Texts.Stat3PointText)?.SetTextwithFont(_stat3.ToString());
 
         int castPay = data.CastPay;
         GetText((int)Texts.ApplicantCastFeeText)?.SetTextwithFont(castPay.ToString() + " G");
@@ -131,6 +137,9 @@ public class UI_CastPopup : UI_UGUI, IUI_Popup
     private void OnClickSelect()
     {
         GameManager.Instance.UpdateRecordingCast(_selectedCast);
+        GameManager.Instance.UpdateRecordingCastStat1(_stat1);
+        GameManager.Instance.UpdateRecordingCastStat2(_stat2);
+        GameManager.Instance.UpdateRecordingCastStat3(_stat3);
         UIManager.Instance.ShowPopupUI(nameof(UI_NewVideoPopup));
     }
 

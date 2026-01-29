@@ -359,6 +359,19 @@ public class GameManager : Singleton<GameManager>
         RecordingManager.Instance.UpdateRecordingCast(cast);
     }
 
+    public void UpdateRecordingCastStat1(int stat)
+    {
+        RecordingManager.Instance.UpdateRecordingCastStat1(stat);
+    }
+    public void UpdateRecordingCastStat2(int stat)
+    {
+        RecordingManager.Instance.UpdateRecordingCastStat2(stat);
+    }
+    public void UpdateRecordingCastStat3(int stat)
+    {
+        RecordingManager.Instance.UpdateRecordingCastStat3(stat);
+    }
+
     public void UpdateRecordingContent(int contentID)
     {
         RecordingManager.Instance.UpdateRecordingContent(contentID);

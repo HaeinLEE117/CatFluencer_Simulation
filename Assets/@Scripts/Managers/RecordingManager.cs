@@ -11,6 +11,7 @@ public class RecordingVideoData
     public string Title;
     public int castStat1;
     public int castStat2;
+    public int castStat3;
     public int videoScore;
     public int recordingCost;
 
@@ -123,9 +124,21 @@ public class RecordingManager : Singleton<RecordingManager>
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordDatdChanged);
     }
 
+    public void UpdateRecordingCastStat3(int stat)
+    {
+        RecordingVideoData.castStat3 = stat;
+        EventManager.Instance.TriggerEvent(Define.EEventType.RecordDatdChanged);
+    }
+
 
     private void CalculdateRecordingVideoScroe()
     {
+        if (CheckVideoDataValidity() != VideoDataErrorTye.None)
+            return;
+        if(!IsRecording)
+            return;
+
+
         RecordingVideoData.videoScore = 0;
 
     }

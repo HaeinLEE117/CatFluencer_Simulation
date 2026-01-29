@@ -2,18 +2,18 @@
   "texts": [
     {
       "TemplateID": 1101,
-      "Stat1": 4,
-      "Stat2": 4,
-      "Stat3": 0,
+      "Stat1": 6,
+      "Stat2": 8,
+      "Stat3": 3,
       "CastPay": 1000,
       "NameTextID": "CAST_COOKIE_NAME",
       "PhotoImageID": "photo_cookie"
     },
     {
       "TemplateID": 1102,
-      "Stat1": 8,
-      "Stat2": 11,
-      "Stat3": 0,
+      "Stat1": 11,
+      "Stat2": 20,
+      "Stat3": 20,
       "CastPay": 2500,
       "NameTextID": "CAST_PEBBLE_NAME",
       "PhotoImageID": "photo_pebble"
@@ -22,7 +22,7 @@
       "TemplateID": 1103,
       "Stat1": 12,
       "Stat2": 18,
-      "Stat3": 3,
+      "Stat3": 51,
       "CastPay": 5800,
       "NameTextID": "CAST_PUMPKIN_NAME",
       "PhotoImageID": "photo_pumpkin"
@@ -31,7 +31,7 @@
       "TemplateID": 1104,
       "Stat1": 16,
       "Stat2": 25,
-      "Stat3": 1,
+      "Stat3": 40,
       "CastPay": 10000,
       "NameTextID": "CAST_PUDDING_NAME",
       "PhotoImageID": "photo_pudding"
