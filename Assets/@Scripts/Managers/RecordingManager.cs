@@ -13,6 +13,14 @@ public class RecordingVideoData
     public int castStat2;
     public int videoScore;
     public int recordingCost;
+
+    public RecordingVideoData()
+    {
+        recordingCost = 0;
+
+        int i = GameManager.Instance.GameData.UpdateVideoCount + 1;
+        Title = LocalizationManager.Instance.GetLocalizedText("NEW_VIDEO") + " " + i.ToString();
+    }
 }
 
 // 현재 촬영중인 동영상 밸런스 데이터 클래스
@@ -27,12 +35,21 @@ public class VideoBalanceData
     public int Emotion;
 }
 
+public enum VideoDataErrorTye
+{
+    None,
+    NoLocation,
+    NoCast,
+    NoContent,
+}
+
 public class RecordingManager : Singleton<RecordingManager>
 {
     // 현재 촬영 진행 여부
     public bool IsRecording { get; private set; }
 
     // 현재 촬영 데이터 (외부 읽기 전용으로 사용하길 권장)
+    [field: SerializeField]
     public RecordingVideoData RecordingVideoData { get; private set; } = new RecordingVideoData();
     public VideoBalanceData VideoBalanceData { get; private set; } = new VideoBalanceData();
 
@@ -138,6 +155,17 @@ public class RecordingManager : Singleton<RecordingManager>
         locationCost = locationData?.Coast ?? 0;
 
         RecordingVideoData.recordingCost = castCost + locationCost;
+    }
+
+    public VideoDataErrorTye CheckVideoDataValidity()
+    {
+        if (RecordingVideoData.Location == 0)
+            return VideoDataErrorTye.NoLocation;
+        if (RecordingVideoData.Cast == 0)
+            return VideoDataErrorTye.NoCast;
+        if (RecordingVideoData.Content == 0)
+            return VideoDataErrorTye.NoContent;
+        return VideoDataErrorTye.None;
     }
 
 }

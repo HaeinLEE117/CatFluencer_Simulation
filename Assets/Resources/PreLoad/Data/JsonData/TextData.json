@@ -354,6 +354,26 @@
       "TemplateID": "NO_DATA",
       "KOR": null,
       "ENG": null
+    },
+    {
+      "TemplateID": "NEW_VIDEO",
+      "KOR": "새로운 비디오",
+      "ENG": "New video"
+    },
+    {
+      "TemplateID": "INVALID_LOCATION",
+      "KOR": "촬영 장소를 선택 해주세요!",
+      "ENG": "No Location Data!"
+    },
+    {
+      "TemplateID": "INVALID_CAST",
+      "KOR": "출연진을 선택 해주세요!",
+      "ENG": "No Cast Data!"
+    },
+    {
+      "TemplateID": "INVALID_CONTENT",
+      "KOR": "촬영 콘텐츠를 선택 해주세요!",
+      "ENG": "No Content Data!"
     }
   ]
 }

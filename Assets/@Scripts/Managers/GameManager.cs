@@ -17,6 +17,8 @@ public class GameData
     public int Month;
     public int Week;
 
+    public int UpdateVideoCount;
+
     // 동영상 밸런스 포인트
     public int TotalVidieoBalancePoints;
 
@@ -381,6 +383,11 @@ public class GameManager : Singleton<GameManager>
     public void FinishRecording()
     {
         RecordingManager.Instance.FinishRecording();
+    }
+
+    public VideoDataErrorTye CheckVideoDataValidity()
+    {
+        return RecordingManager.Instance.CheckVideoDataValidity();
     }
 
     #endregion

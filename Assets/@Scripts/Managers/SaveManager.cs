@@ -86,6 +86,7 @@ public class SaveManager : Singleton<SaveManager>
             Year = DataManager.Instance.GameConfig.InitailYear,
             Month = DataManager.Instance.GameConfig.InitailMonth,
             Week = DataManager.Instance.GameConfig.InitailWeek,
+            UpdateVideoCount = DataManager.Instance.GameConfig.InitialVideos,
             TotalVidieoBalancePoints = DataManager.Instance.GameConfig.InitialVideoBalancePoints,
             HiredEmployees = new Dictionary<int, EmployeeData>(),
         };

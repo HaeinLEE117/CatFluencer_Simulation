@@ -16,6 +16,7 @@ public class GameConfig : ScriptableObject
     private int initialYear = 1;
     private int initialMonth = 1;
     private int initialWeek = 1;
+    private int initialVideos = 0;
     private int initialVideoBalancePoints = 4;
     private string initialChannelName = "Myao Studio";
 
@@ -31,6 +32,7 @@ public class GameConfig : ScriptableObject
     public int InitailYear => initialYear;
     public int InitailMonth => initialMonth;
     public int InitailWeek => initialWeek;
+    public int InitialVideos => initialVideos;
     public int InitialVideoBalancePoints => initialVideoBalancePoints;
     public int InitialHiredEmployee => initHiredEmployee;
     public string InitialChannelName => initialChannelName;

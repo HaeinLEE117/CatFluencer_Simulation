@@ -98,9 +98,12 @@ public class UI_DirectingBalancePopup : UI_UGUI, IUI_Popup
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
-        //TODO: 데이터매니저를 통해서 ID값에 해당하는 TextID가져오기
-        GetText((int)Texts.SelectedContentText).text = GameManager.Instance.RecordingVideoData.Content.ToString();
-        GetText((int)Texts.SelectedLocationText).text = GameManager.Instance.RecordingVideoData.Location.ToString();
+        string locationTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Location);
+        string contentTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Content);
+
+
+        GetText((int)Texts.SelectedLocationText).SetLocalizedText(locationTextId);
+        GetText((int)Texts.SelectedContentText).SetLocalizedText(contentTextId);
 
         GetButton((int)Buttons.StartButton).onClick.AddListener(OnStartButtonClicked);
 
@@ -125,6 +128,19 @@ public class UI_DirectingBalancePopup : UI_UGUI, IUI_Popup
 
         RefreshUI();
     }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        string locationTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Location);
+        string contentTextId = DataManager.Instance.GetTextIDwithIntKey(GameManager.Instance.RecordingVideoData.Content);
+
+
+        GetText((int)Texts.SelectedLocationText).SetLocalizedText(locationTextId);
+        GetText((int)Texts.SelectedContentText).SetLocalizedText(contentTextId);
+        RefreshUI();
+    }
+
     public override void RefreshUI()
     {
         base.RefreshUI();

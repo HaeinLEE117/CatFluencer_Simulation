@@ -173,7 +173,6 @@ public class UI_LocationPopup : UI_UGUI, IUI_Popup
     public void SetSelectedLocation(int locationID)
     {
         _selectedLocation = locationID;
-        Debug.Log($"Location selected: {_selectedLocation}");
         _selectButton.gameObject.SetActive(true);
     }
 

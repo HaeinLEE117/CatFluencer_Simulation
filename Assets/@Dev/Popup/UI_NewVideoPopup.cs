@@ -89,6 +89,11 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
         GetText((int)Texts.SelectedLocationText).SetLocalizedText(locationTextId);
         GetText((int)Texts.SelectedCastText).SetLocalizedText(castTextId);
         GetText((int)Texts.SelectedContentText).SetLocalizedText(contentTextId);
+        GetText((int)Texts.RecordingCostText).SetTextwithFont(GameManager.Instance.RecordingVideoData.recordingCost.ToString() + " G");
+
+        string title = GameManager.Instance.RecordingVideoData.Title;
+        GetText((int)Texts.EnteredTitleText).SetTextwithFont(title);
+
     }
 
     private void OnDetailSelected()
@@ -103,13 +108,23 @@ public class UI_NewVideoPopup : UI_UGUI, IUI_Popup
 
     private void OnStartButtonClicked()
     {
-        if (GameManager.Instance.RecordingVideoData == null)
-            return;
+        VideoDataErrorTye errorType = GameManager.Instance.CheckVideoDataValidity();
 
-        //TODO: 임시 타이틀 설정, 플레이어 데이터에서 여태 업로드한 갯수 파악 후 "동영상 {n}" 형식으로 설정
-        if (GameManager.Instance.RecordingVideoData.Title == null)
-            GameManager.Instance.UpdateRecordingTitle("tmp");
+        switch (errorType)
+        {
+            case VideoDataErrorTye.NoLocation:
+                UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"),LocalizationManager.Instance.GetLocalizedText("INVALID_LOCATION"),null);
+                break;
+            case VideoDataErrorTye.NoCast:
+                UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"),LocalizationManager.Instance.GetLocalizedText("INVALID_CAST"),null);
+                break;
+            case VideoDataErrorTye.NoContent:
+                UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"),LocalizationManager.Instance.GetLocalizedText("INVALID_CONTENT"),null);
+                break;
+            case VideoDataErrorTye.None:
+                UIManager.Instance.ShowPopupUI(nameof(UI_DirectingBalancePopup));
+                break;
+        }
 
-        UIManager.Instance.ShowPopupUI(nameof(UI_DirectingBalancePopup));
     }
 }

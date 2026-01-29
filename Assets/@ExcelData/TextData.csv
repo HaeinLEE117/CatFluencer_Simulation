@@ -73,3 +73,7 @@ CAST_PUMPKIN_NAME,감자,Pumpkin
 CAST_PUDDING_NAME,푸딩,Pudding
 INVALID_TITLE_SPECIAL,특수문자 포함 불가,Type only english and number!
 NO_DATA,  ,
+NEW_VIDEO,새로운 비디오,New video
+INVALID_LOCATION,촬영 장소를 선택 해주세요!,No Location Data!
+INVALID_CAST,출연진을 선택 해주세요!,No Cast Data!
+INVALID_CONTENT,촬영 콘텐츠를 선택 해주세요!,No Content Data!

@@ -44,4 +44,14 @@ public static class Extension
         tmpText.text = newText;
         tmpText.font = LocalizationManager.Instance.CurrentFontAsset;
     }
+
+    public static void SetFont(this TMP_Text tmpText)
+    {
+        if (tmpText == null)
+        {
+            Debug.LogWarning("Extension.GetText: TMP_Text is null");
+            return;
+        }
+        tmpText.font = LocalizationManager.Instance.CurrentFontAsset;
+    }
 }

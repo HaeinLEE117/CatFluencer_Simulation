@@ -1,10 +1,11 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
 {
     enum GameObjects
     {
-        TitleInputPlaceholder,
     }
 
     enum Buttons
@@ -17,34 +18,42 @@ public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
         TitleEnterText,
 
         TitleInputText,
+        TitleInputPlaceholder,
 
         DoneButtonText,
     }
 
-    // 3차 팝업으로 선택된 데이터를 전달하기 위한 내부 변수
-    private string _enteredTitle;
+    private TMP_Text _inputTextHolder;
 
     protected override void Awake()
     {
         base.Awake();
-
         BindObjects(typeof(GameObjects));
         BindButtons(typeof(Buttons));
         BindTexts(typeof(Texts));
 
         //TODO: TitleInputPlaceholder 로컬라이징 시스템 적용 시 수정 필요
         GetButton((int)Buttons.DoneButton).onClick.AddListener(OnClickDone);
+
+
+        RefreshUI();
     }
 
     public override void RefreshUI()
     {
         base.RefreshUI();
+
+        string title = GameManager.Instance.RecordingVideoData.Title;
+        _inputTextHolder = GetText((int)Texts.TitleInputPlaceholder);
+        //TODO: 텍스트 바꾸기 localization 시스템 적용
     }
 
     private void OnClickDone()
     {
         var titleText = GetText((int)Texts.TitleInputText)?.text ?? string.Empty;
-        Debug.Log("Entered Title: " + titleText);
+        if(string.IsNullOrWhiteSpace(titleText))
+            titleText = _inputTextHolder.text;
+
         if (!IsValidTitle(titleText))
         {
             // Show error and keep popup open
@@ -61,7 +70,7 @@ public class UI_TitleEnterPopup : UI_UGUI, IUI_Popup
 
     private bool IsValidTitle(string text)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (text.Length < 2)
             return false;
         // Remove embedded null and zero-width/invisible characters that can appear from TMP input
         text = text.Replace("\0", string.Empty)
