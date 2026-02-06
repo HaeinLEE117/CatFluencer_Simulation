@@ -199,7 +199,9 @@ public class UI_DirectingBalancePopup : UI_UGUI, IUI_Popup
     private void OnStartButtonClicked()
     {
         GameManager.Instance.UpdateVideoBalanceData(_length, _trend, _laugh, _info, _memory, _emotion);
-        GameManager.Instance.StartRecording();
-        UIManager.Instance.ClosePopupUI();
+        if(GameManager.Instance.StartRecording())
+            UIManager.Instance.ClosePopupUI();
+        else
+            UIManager.Instance.ShowConfirmPopup(LocalizationManager.Instance.GetLocalizedText("FAILED"), LocalizationManager.Instance.GetLocalizedText("NO_MONEY"), null);
     }
 }

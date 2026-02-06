@@ -37,4 +37,6 @@ public class constants
 
     public const float COMBO_BONUS_MULTIPLIER = 2f;
 
+    public int WEEKS_FOR_RECORDING = 8;
+
 }

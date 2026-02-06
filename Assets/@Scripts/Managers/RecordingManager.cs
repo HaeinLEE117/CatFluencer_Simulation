@@ -69,13 +69,19 @@ public class RecordingManager : Singleton<RecordingManager>
     }
 
     // 촬영 시작 
-    public void StartRecording()
+    public bool StartRecording()
     {
         if(IsRecording)
-            return;
-        IsRecording = true;
-        CalculdateRecordingVideoScroe();
-        EventManager.Instance.TriggerEvent(Define.EEventType.RecordingStart);
+            return false;
+        if (GameManager.Instance.TryPayGold(RecordingVideoData.recordingCost))
+        {
+            IsRecording = true;
+            CalculdateRecordingVideoScroe();
+            EventManager.Instance.TriggerEvent(Define.EEventType.RecordingStart);
+            return true;
+        }
+
+        return false;
     }
 
     public void CancelRecording()

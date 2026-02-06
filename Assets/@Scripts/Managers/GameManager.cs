@@ -383,9 +383,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 옵션: 촬영 수명주기 제어 포워딩 (필요 시 사용)
-    public void StartRecording()
+    public bool StartRecording()
     {
-        RecordingManager.Instance.StartRecording();
+        return RecordingManager.Instance.StartRecording();
     }
 
     public void CancelRecording()
