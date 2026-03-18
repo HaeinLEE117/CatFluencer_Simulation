@@ -26,6 +26,9 @@ public class GameConfig : ScriptableObject
     [Header("Staff Settings")]
     private int initHiredEmployee = 1001;    // 초기 고용 직원 ID 노리스
 
+    [Header("Video Settings")]
+    private int videoRecordingTime = 3; // 동영상 촬영에 걸리는 시간 (주 단위)
+
     public int InitialPlayerLevel => initialPlayerLevel;
     public int InitialGold => initialGold;
     public int InitialSubscriber => initalSubscriber;
@@ -36,6 +39,7 @@ public class GameConfig : ScriptableObject
     public int InitialVideoBalancePoints => initialVideoBalancePoints;
     public int InitialHiredEmployee => initHiredEmployee;
     public string InitialChannelName => initialChannelName;
+    public int VideoRecordingTime => videoRecordingTime;
 
     public float GetSecondsPerWeek()
     {

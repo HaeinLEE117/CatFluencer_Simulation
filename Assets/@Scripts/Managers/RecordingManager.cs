@@ -15,10 +15,12 @@ public class RecordingVideoData
     public int castStat3;
     public float videoScore;
     public int recordingCost;
+    public int remainRecordingWeeks;
 
     public RecordingVideoData()
     {
         recordingCost = 0;
+        remainRecordingWeeks = DataManager.Instance.GameConfig.VideoRecordingTime;
 
         int i = GameManager.Instance.GameData.UpdateVideoCount + 1;
         Title = LocalizationManager.Instance.GetLocalizedText("NEW_VIDEO") + " " + i.ToString();
@@ -78,16 +80,27 @@ public class RecordingManager : Singleton<RecordingManager>
             IsRecording = true;
             CalculdateRecordingVideoScroe();
             EventManager.Instance.TriggerEvent(Define.EEventType.RecordingStart);
+            EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, updateRecordingperWeek);
             return true;
         }
 
         return false;
     }
 
+    public void updateRecordingperWeek()
+    {
+        RecordingVideoData.remainRecordingWeeks--;
+        if (RecordingVideoData.remainRecordingWeeks <= 0)
+        {
+            FinishRecording();
+        }
+    }
+
     public void CancelRecording()
     {
         IsRecording = false;
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordingEnd);
+        EventManager.Instance.RemoveEvent(Define.EEventType.WeekAdvanced, updateRecordingperWeek);
     }
 
     public void FinishRecording()
@@ -95,6 +108,7 @@ public class RecordingManager : Singleton<RecordingManager>
         // 결과 처리 / 보상 / 저장 등 필요 시 여기에 구현
         IsRecording = false;
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordingEnd);
+        EventManager.Instance.RemoveEvent(Define.EEventType.WeekAdvanced, updateRecordingperWeek);
         //TODO: 촬영 완료 후 데이터 저장(플레이어 데이터 업데이트) 및 보상 처리
     }
 
