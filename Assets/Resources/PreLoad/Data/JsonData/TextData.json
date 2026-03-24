@@ -384,6 +384,21 @@
       "TemplateID": "RECORDING_ALREADY_PROGRESSING",
       "KOR": "이미 촬영중인 영상이 있습니다!",
       "ENG": "Recording Progressing!"
+    },
+    {
+      "TemplateID": "ON_RECORDING",
+      "KOR": "촬영중",
+      "ENG": "On recording"
+    },
+    {
+      "TemplateID": "REMAIN_WEEKS",
+      "KOR": "남은 주 :",
+      "ENG": "Remain weeks :"
+    },
+    {
+      "TemplateID": "NO_RECORDING",
+      "KOR": "촬영중인 영상이 없습니다.",
+      "ENG": "No recording video"
     }
   ]
 }

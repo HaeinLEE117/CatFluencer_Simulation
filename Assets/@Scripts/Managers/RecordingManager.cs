@@ -79,6 +79,7 @@ public class RecordingManager : Singleton<RecordingManager>
         {
             IsRecording = true;
             CalculdateRecordingVideoScroe();
+            RecordingVideoData.remainRecordingWeeks = DataManager.Instance.GameConfig.VideoRecordingTime;
             EventManager.Instance.TriggerEvent(Define.EEventType.RecordingStart);
             EventManager.Instance.AddEvent(Define.EEventType.WeekAdvanced, updateRecordingperWeek);
             return true;
@@ -90,6 +91,7 @@ public class RecordingManager : Singleton<RecordingManager>
     public void updateRecordingperWeek()
     {
         RecordingVideoData.remainRecordingWeeks--;
+        Debug.Log($"Recording Week Advanced. Remaining Weeks: {RecordingVideoData.remainRecordingWeeks}");
         if (RecordingVideoData.remainRecordingWeeks <= 0)
         {
             FinishRecording();
@@ -112,7 +114,7 @@ public class RecordingManager : Singleton<RecordingManager>
         //TODO: 촬영 완료 후 데이터 저장(플레이어 데이터 업데이트) 및 보상 처리
     }
 
-    // 단일 필드 갱신
+    #region 단일 필드 갱신
     public void UpdateRecordingLocation(int locationID)
     {
         RecordingVideoData.Location = locationID;
@@ -154,6 +156,10 @@ public class RecordingManager : Singleton<RecordingManager>
         RecordingVideoData.castStat3 = stat;
         EventManager.Instance.TriggerEvent(Define.EEventType.RecordDatdChanged);
     }
+    #endregion
+
+    // 밸런스 데이터 갱신
+
 
 
     private void CalculdateRecordingVideoScroe()

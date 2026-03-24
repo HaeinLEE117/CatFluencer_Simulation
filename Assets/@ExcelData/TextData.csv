@@ -79,3 +79,6 @@ INVALID_LOCATION,촬영 장소를 선택 해주세요!,No Location Data!
 INVALID_CAST,출연진을 선택 해주세요!,No Cast Data!
 INVALID_CONTENT,촬영 콘텐츠를 선택 해주세요!,No Content Data!
 RECORDING_ALREADY_PROGRESSING,이미 촬영중인 영상이 있습니다!,Recording Progressing!
+ON_RECORDING,촬영중,On recording
+REMAIN_WEEKS,남은 주 :,Remain weeks :
+NO_RECORDING,촬영중인 영상이 없습니다.,No recording video
